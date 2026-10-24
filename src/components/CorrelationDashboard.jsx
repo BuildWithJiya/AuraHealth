@@ -28,7 +28,7 @@ function CustomTooltip({ active, payload, label }) {
 
 export default function CorrelationDashboard({ data, currentDay, correlation }) {
   return (
-    <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4">
+    <div className="bg-slate-900/80 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-4 shadow-[0_8px_30px_-12px_rgba(244,63,94,0.25)]">
       <h3 className="text-sm font-semibold text-slate-200 flex items-center gap-1.5 mb-3">
         <TrendingUp size={14} className="text-rose-400" />
         Longitudinal Correlation &amp; Pattern Recognition

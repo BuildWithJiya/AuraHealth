@@ -6,7 +6,7 @@ export default function SymptomTimeline({ symptomLog }) {
   const sorted = [...symptomLog].sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp))
 
   return (
-    <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 flex flex-col min-h-0">
+    <div className="bg-slate-900/80 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-4 flex flex-col min-h-0 shadow-[0_8px_30px_-12px_rgba(99,102,241,0.25)]">
       <h3 className="text-sm font-semibold text-slate-200 flex items-center gap-1.5 mb-3">
         <ListChecks size={14} className="text-indigo-400" />
         Symptom Log Timeline

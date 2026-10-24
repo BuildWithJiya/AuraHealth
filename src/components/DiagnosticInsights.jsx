@@ -1,6 +1,6 @@
 import { Stethoscope, FileSearch, AlertOctagon, AlertTriangle, Info, ArrowRight } from 'lucide-react'
 
-export default function DiagnosticInsights({ patient, labFlags, correlation, dossier, onOpenSoap }) {
+export default function DiagnosticInsights({ patient, labFlags, correlation, dossier, onOpenSoap, onOpenEducation }) {
   const counts = labFlags.reduce(
     (acc, f) => {
       acc[f.severity] = (acc[f.severity] || 0) + 1
@@ -11,7 +11,7 @@ export default function DiagnosticInsights({ patient, labFlags, correlation, dos
 
   return (
     <div className="space-y-4">
-      <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4">
+      <div className="bg-slate-900/80 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-4 shadow-[0_8px_30px_-12px_rgba(244,63,94,0.2)]">
         <h3 className="text-sm font-semibold text-slate-200 flex items-center gap-1.5 mb-3">
           <Stethoscope size={14} className="text-rose-400" />
           Diagnostic Insights
@@ -40,13 +40,22 @@ export default function DiagnosticInsights({ patient, labFlags, correlation, dos
 
         <button
           onClick={onOpenSoap}
-          className="w-full flex items-center justify-center gap-1.5 text-xs font-semibold bg-rose-500 hover:bg-rose-600 text-white rounded-lg py-2.5 transition-colors"
+          className="w-full flex items-center justify-center gap-1.5 text-xs font-semibold bg-rose-500 hover:bg-rose-600 text-white rounded-lg py-2.5 transition-colors shadow-sm"
         >
           Open Full SOAP Dossier <ArrowRight size={13} />
         </button>
+
+        {onOpenEducation && (
+          <button
+            onClick={onOpenEducation}
+            className="w-full mt-2 flex items-center justify-center gap-1.5 text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-indigo-300 border border-indigo-500/30 rounded-lg py-2 transition-colors"
+          >
+            Understand Your Body Guide
+          </button>
+        )}
       </div>
 
-      <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4">
+      <div className="bg-slate-900/80 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-4 shadow-[0_8px_30px_-12px_rgba(244,63,94,0.2)]">
         <h3 className="text-sm font-semibold text-slate-200 flex items-center gap-1.5 mb-3">
           <FileSearch size={14} className="text-emerald-400" />
           SOAP Dossier Preview
