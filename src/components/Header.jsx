@@ -12,6 +12,7 @@ export default function Header({
   onOpenEducation,
   isCustomized,
   onResetData,
+  onGoHome,
 }) {
   const [menuOpen, setMenuOpen] = useState(false)
   const phase = getCyclePhase(day, cycleLength)
@@ -20,9 +21,13 @@ export default function Header({
   return (
     <header className="sticky top-0 z-40 border-b border-[#E8EFE3] bg-[#F8F0E8]/90 backdrop-blur-xl no-print shadow-[0_2px_12px_-2px_rgba(106,61,85,0.06)]">
       <div className="mx-auto max-w-[1600px] px-4 py-3 flex items-center justify-between gap-4">
-        {/* Brand Logo & Tagline */}
-        <div className="flex items-center gap-2.5">
-          <div className="h-9 w-9 rounded-xl bg-[#FCE7E8] border border-[#D96B85]/30 flex items-center justify-center shadow-xs">
+        {/* Brand Logo & Tagline (Clickable to return Home) */}
+        <button
+          onClick={onGoHome}
+          className="flex items-center gap-2.5 text-left group cursor-pointer"
+          title="Return to Home Overview"
+        >
+          <div className="h-9 w-9 rounded-xl bg-[#FCE7E8] border border-[#D96B85]/30 flex items-center justify-center shadow-xs transition-transform group-hover:scale-105">
             <svg viewBox="0 0 44 44" className="w-6 h-6">
               <path
                 d="M22 36 C12 30, 6 22, 10 14 C15 14, 19 20, 22 28 C25 20, 29 14, 34 14 C38 22, 32 30, 22 36 Z"
@@ -43,7 +48,7 @@ export default function Header({
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <span className="font-serif text-xl font-bold tracking-tight text-[#6A3D55]">Aura Health</span>
+              <span className="font-serif text-xl font-bold tracking-tight text-[#6A3D55] group-hover:text-[#D96B85] transition-colors">Aura Health</span>
               <span className="text-[10px] font-semibold text-[#405A43] bg-[#E8EFE3] border border-[#405A43]/25 rounded-full px-2 py-0.5">
                 AuraDx
               </span>
@@ -52,7 +57,7 @@ export default function Header({
               HEALTH &middot; BALANCE &middot; YOU
             </p>
           </div>
-        </div>
+        </button>
 
         {/* Phase Pill Indicator */}
         <div className="hidden md:flex items-center gap-2 text-xs text-[#5E5259] bg-white/70 backdrop-blur-md border border-white/80 rounded-full px-3.5 py-1.5 shadow-xs">
@@ -68,6 +73,15 @@ export default function Header({
 
         {/* Action Controls */}
         <div className="flex items-center gap-2.5">
+          {onGoHome && (
+            <button
+              onClick={onGoHome}
+              className="flex items-center gap-1.5 text-xs font-semibold bg-white/75 backdrop-blur-md hover:bg-[#FCE7E8] text-[#5E5259] hover:text-[#D96B85] border border-white/80 rounded-full px-3.5 py-2 transition-all shadow-xs"
+            >
+              Overview
+            </button>
+          )}
+
           {/* Understand Your Body Button */}
           <button
             onClick={onOpenEducation}

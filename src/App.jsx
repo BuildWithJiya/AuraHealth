@@ -206,6 +206,7 @@ export default function App() {
           onOpenEducation={() => setEducationOpen(true)}
           isCustomized={isCustomized}
           onResetData={handleResetData}
+          onGoHome={() => setView('landing')}
         />
 
         <main className="flex-1 mx-auto max-w-[1600px] w-full px-4 py-5">
