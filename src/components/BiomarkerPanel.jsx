@@ -44,7 +44,7 @@ export default function BiomarkerPanel({ phase, day, presetKey, values, onApplyP
   }
 
   return (
-    <div className="bg-slate-900/80 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-4 shadow-[0_8px_30px_-12px_rgba(253,186,116,0.2)]">
+    <div className="ios-glass-card rounded-2xl p-4">
       <h3 className="text-sm font-semibold text-slate-200 flex items-center gap-1.5 mb-3">
         <FlaskConical size={14} className="text-amber-400" />
         Phase-Adjusted Biomarker Interpreter

@@ -6,7 +6,7 @@ export default function SymptomTimeline({ symptomLog }) {
   const sorted = [...symptomLog].sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp))
 
   return (
-    <div className="bg-slate-900/80 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-4 flex flex-col min-h-0 shadow-[0_8px_30px_-12px_rgba(99,102,241,0.25)]">
+    <div className="ios-glass-card rounded-2xl p-4 flex flex-col min-h-0">
       <h3 className="text-sm font-semibold text-slate-200 flex items-center gap-1.5 mb-3">
         <ListChecks size={14} className="text-indigo-400" />
         Symptom Log Timeline
@@ -17,7 +17,7 @@ export default function SymptomTimeline({ symptomLog }) {
         {sorted.map((entry) => {
           const tier = severityTier(entry.severity)
           return (
-            <div key={entry.id} className="border border-slate-800 bg-slate-800/40 rounded-xl p-2.5">
+            <div key={entry.id} className="border border-white/10 bg-slate-900/40 backdrop-blur-md rounded-xl p-2.5 hover:border-white/20 transition-colors">
               <div className="flex items-start justify-between gap-2">
                 <div className="flex items-center gap-1.5 text-xs text-slate-200 font-medium">
                   <MapPin size={12} className="text-slate-500 shrink-0" />

@@ -69,7 +69,7 @@ export default function UnderstandYourBodyModal({ open, onClose }) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 backdrop-blur-sm p-3 sm:p-6 overflow-hidden">
       <div
-        className="relative w-full max-w-5xl h-[90vh] bg-slate-900 border border-slate-700/80 rounded-2xl shadow-2xl flex flex-col overflow-hidden text-slate-100"
+        className="relative w-full max-w-5xl h-[90vh] bg-slate-900/85 backdrop-blur-3xl border border-white/15 rounded-2xl shadow-[0_25px_60px_-15px_rgba(0,0,0,0.8),inset_0_1px_1.5px_0_rgba(255,255,255,0.2)] flex flex-col overflow-hidden text-slate-100"
         role="dialog"
         aria-modal="true"
         aria-labelledby="education-modal-title"

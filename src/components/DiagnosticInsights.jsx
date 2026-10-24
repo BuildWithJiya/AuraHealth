@@ -11,7 +11,7 @@ export default function DiagnosticInsights({ patient, labFlags, correlation, dos
 
   return (
     <div className="space-y-4">
-      <div className="bg-slate-900/80 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-4 shadow-[0_8px_30px_-12px_rgba(244,63,94,0.2)]">
+      <div className="ios-glass-card rounded-2xl p-4">
         <h3 className="text-sm font-semibold text-slate-200 flex items-center gap-1.5 mb-3">
           <Stethoscope size={14} className="text-rose-400" />
           Diagnostic Insights
@@ -55,7 +55,7 @@ export default function DiagnosticInsights({ patient, labFlags, correlation, dos
         )}
       </div>
 
-      <div className="bg-slate-900/80 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-4 shadow-[0_8px_30px_-12px_rgba(244,63,94,0.2)]">
+      <div className="ios-glass-card rounded-2xl p-4">
         <h3 className="text-sm font-semibold text-slate-200 flex items-center gap-1.5 mb-3">
           <FileSearch size={14} className="text-emerald-400" />
           SOAP Dossier Preview

@@ -17,7 +17,7 @@ export default function CycleTimeline({ day, cycleLength, onDayChange }) {
   const markerPct = ((day - 1) / (cycleLength - 1)) * 100
 
   return (
-    <div className="bg-slate-900/80 backdrop-blur-xl border border-slate-700/50 rounded-2xl p-4 shadow-[0_8px_30px_-12px_rgba(244,63,94,0.2)]">
+    <div className="ios-glass-card rounded-2xl p-4">
       <div className="flex items-center justify-between mb-3">
         <h3 className="text-sm font-semibold text-slate-200 flex items-center gap-1.5">
           <Droplet size={14} className="text-rose-400" />

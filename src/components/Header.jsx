@@ -18,7 +18,7 @@ export default function Header({
   const phaseColor = PHASE_META[phase].color
 
   return (
-    <header className="sticky top-0 z-40 border-b border-slate-800/70 bg-slate-900/80 backdrop-blur-lg no-print">
+    <header className="sticky top-0 z-40 border-b border-white/10 bg-slate-900/65 backdrop-blur-2xl no-print shadow-[inset_0_-1px_0_0_rgba(255,255,255,0.05),0_4px_20px_-2px_rgba(0,0,0,0.3)]">
       <div className="mx-auto max-w-[1600px] px-4 py-3 flex items-center justify-between gap-4">
         <div className="flex items-center gap-2">
           <div className="h-9 w-9 rounded-xl bg-gradient-to-br from-indigo-500 to-rose-500 flex items-center justify-center shadow-lg shadow-indigo-900/40">
