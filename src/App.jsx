@@ -161,7 +161,21 @@ export default function App() {
       <div className="relative min-h-screen flex flex-col">
         <AuraBackground />
         <div className="relative z-10">
-          <LandingPage onGetStarted={handleGetStarted} onViewDemo={handleViewDemo} />
+          <LandingPage
+            onGetStarted={handleGetStarted}
+            onViewDemo={handleViewDemo}
+            patient={patient}
+            day={day}
+            onDayChange={setDay}
+            onAddSymptom={handleAddSymptom}
+            symptomLog={symptomLog}
+            chartData={chartData}
+            correlation={correlation}
+            patients={patientsForSwitcher}
+            onSwitchPatient={setActivePatientId}
+            onOpenSoap={() => setSoapOpen(true)}
+            onOpenEducation={() => setEducationOpen(true)}
+          />
         </div>
       </div>
     )
