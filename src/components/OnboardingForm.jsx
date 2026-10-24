@@ -68,7 +68,7 @@ export default function OnboardingForm({ onComplete, onSkip }) {
         </div>
 
         {/* Card Container */}
-        <div className="ios-glass-card rounded-3xl p-7 sm:p-9 relative overflow-hidden bg-white/95 border border-[#E8EFE3] shadow-md">
+        <div className="ios-glass-card rounded-3xl p-7 sm:p-9 relative overflow-hidden">
           {submitting ? (
             <div className="flex flex-col items-center justify-center py-16 animate-landing-fade-up">
               <Loader2 size={32} className="text-[#D96B85] animate-spin mb-4" />
@@ -157,8 +157,8 @@ export default function OnboardingForm({ onComplete, onSkip }) {
                       onClick={() => update('concernId', c.id)}
                       className={`w-full text-left flex items-center justify-between gap-3 rounded-2xl border px-4 py-3 transition-all ${
                         selected
-                          ? 'border-[#D96B85] bg-[#FCE7E8] shadow-sm'
-                          : 'border-[#E8EFE3] bg-white hover:border-[#D96B85]/40 hover:bg-[#FCE7E8]/30'
+                          ? 'border-[#D96B85] bg-[#FCE7E8]/85 backdrop-blur-md shadow-sm'
+                          : 'border-white/80 bg-white/60 backdrop-blur-md hover:border-[#D96B85]/40 hover:bg-[#FCE7E8]/30'
                       }`}
                     >
                       <span>

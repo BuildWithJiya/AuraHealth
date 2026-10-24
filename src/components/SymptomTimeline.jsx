@@ -22,7 +22,7 @@ export default function SymptomTimeline({ symptomLog }) {
           return (
             <div
               key={entry.id}
-              className="border border-[#E8DFD8] bg-white/90 rounded-xl p-2.5 hover:bg-white hover:border-[#D96B85]/40 transition-all shadow-2xs"
+              className="border border-white/80 bg-white/65 backdrop-blur-md rounded-xl p-2.5 hover:bg-white/85 hover:border-[#D96B85]/40 transition-all shadow-2xs"
             >
               <div className="flex items-start justify-between gap-2">
                 <div className="flex items-center gap-1.5 text-xs text-[#2E2825] font-semibold">

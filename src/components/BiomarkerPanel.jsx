@@ -84,7 +84,7 @@ export default function BiomarkerPanel({ phase, day, presetKey, values, onApplyP
           const scaleMax = Math.max(row.genericRange[1], row.secondaryRange[1], row.value) * 1.25
           const statusColor = row.status === 'normal' ? '#405A43' : row.status === 'high' ? '#D96B85' : '#D9A84E'
           return (
-            <div key={row.key} className="border border-[#E8DFD8] rounded-xl p-2.5 bg-white/80 shadow-2xs">
+            <div key={row.key} className="border border-white/80 rounded-xl p-2.5 bg-white/60 backdrop-blur-md shadow-2xs">
               <div className="flex items-center justify-between mb-1.5">
                 <MedTooltip term={`${row.label} — ${row.isPhaseVariant ? `phase-adjusted reference applied for ${phase} phase.` : 'compared against a functional/optimal threshold, not just the permissive lab-normal range.'}`}>
                   <span className="text-xs font-semibold text-[#2E2825]">{row.label}</span>
@@ -119,7 +119,7 @@ export default function BiomarkerPanel({ phase, day, presetKey, values, onApplyP
             const style = SEVERITY_STYLES[flag.severity]
             const Icon = style.icon
             return (
-              <div key={flag.id} className={`rounded-xl border ${style.border} ${style.bg} p-2.5 shadow-2xs`}>
+              <div key={flag.id} className={`rounded-xl border ${style.border} ${style.bg} backdrop-blur-sm p-2.5 shadow-2xs`}>
                 <div className={`flex items-center gap-1.5 text-xs font-bold ${style.color}`}>
                   <Icon size={13} />
                   {flag.title}

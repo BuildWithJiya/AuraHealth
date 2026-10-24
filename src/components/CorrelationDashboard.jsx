@@ -15,7 +15,7 @@ import { TrendingUp, Activity } from 'lucide-react'
 function CustomTooltip({ active, payload, label }) {
   if (!active || !payload?.length) return null
   return (
-    <div className="bg-white border border-[#E2DAD1] rounded-xl px-3 py-2 text-xs shadow-lg">
+    <div className="bg-white/85 backdrop-blur-md border border-white/80 rounded-xl px-3 py-2 text-xs shadow-lg">
       <p className="font-bold text-[#2E2825] mb-1">Day {label}</p>
       {payload.map((p) => (
         <p key={p.dataKey} style={{ color: p.color }} className="font-medium">
@@ -35,7 +35,7 @@ export default function CorrelationDashboard({ data, currentDay, correlation }) 
       </h3>
 
       {correlation && (
-        <div className="mb-3 flex items-start gap-2.5 rounded-xl border border-[#D96B85]/30 bg-[#FCE7E8]/70 px-3.5 py-2.5">
+        <div className="mb-3 flex items-start gap-2.5 rounded-xl border border-white/80 bg-[#FCE7E8]/75 backdrop-blur-md px-3.5 py-2.5 shadow-2xs">
           <Activity size={15} className="text-[#D96B85] shrink-0 mt-0.5" />
           <p className="text-xs text-[#2E2825] leading-relaxed">
             <span className="font-bold text-[#6A3D55]">

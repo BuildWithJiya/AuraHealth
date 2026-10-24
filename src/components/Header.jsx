@@ -55,12 +55,12 @@ export default function Header({
         </div>
 
         {/* Phase Pill Indicator */}
-        <div className="hidden md:flex items-center gap-2 text-xs text-[#5E5259] bg-white/80 border border-[#E8EFE3] rounded-full px-3.5 py-1.5 shadow-xs">
+        <div className="hidden md:flex items-center gap-2 text-xs text-[#5E5259] bg-white/70 backdrop-blur-md border border-white/80 rounded-full px-3.5 py-1.5 shadow-xs">
           <span className="h-2.5 w-2.5 rounded-full shadow-xs" style={{ backgroundColor: phaseColor }} />
           Day {day} of {cycleLength} &middot;{' '}
           <span className="font-semibold text-[#6A3D55]">{phase}</span>
           {isCustomized && (
-            <span className="ml-1 text-[10px] text-[#405A43] bg-[#E8EFE3] border border-[#405A43]/30 rounded-full px-2 py-0.5 font-medium">
+            <span className="ml-1 text-[10px] text-[#405A43] bg-[#E8EFE3]/80 border border-[#405A43]/30 rounded-full px-2 py-0.5 font-medium">
               Saved locally
             </span>
           )}
@@ -71,7 +71,7 @@ export default function Header({
           {/* Understand Your Body Button */}
           <button
             onClick={onOpenEducation}
-            className="flex items-center gap-1.5 text-xs font-semibold bg-white hover:bg-[#FCE7E8] text-[#D96B85] border border-[#D96B85]/30 rounded-full px-3.5 py-2 transition-all hover:border-[#D96B85] shadow-xs"
+            className="flex items-center gap-1.5 text-xs font-semibold bg-white/75 backdrop-blur-md hover:bg-[#FCE7E8] text-[#D96B85] border border-white/80 rounded-full px-3.5 py-2 transition-all hover:border-[#D96B85] shadow-xs"
           >
             <BookOpen size={14} className="text-[#D96B85]" />
             <span className="hidden sm:inline">Understand Your Body</span>
@@ -82,7 +82,7 @@ export default function Header({
           <div className="relative">
             <button
               onClick={() => setMenuOpen((v) => !v)}
-              className="flex items-center gap-2 bg-white hover:bg-[#F8F0E8] border border-[#E8EFE3] rounded-full pl-1.5 pr-3 py-1.5 transition-colors shadow-xs"
+              className="flex items-center gap-2 bg-white/75 backdrop-blur-md hover:bg-[#F8F0E8] border border-white/80 rounded-full pl-1.5 pr-3 py-1.5 transition-colors shadow-xs"
             >
               <span
                 className="h-6 w-6 rounded-full flex items-center justify-center text-[11px] font-bold text-white shadow-xs"
@@ -95,7 +95,7 @@ export default function Header({
             </button>
 
             {menuOpen && (
-              <div className="absolute right-0 mt-2 w-72 bg-white border border-[#E8EFE3] rounded-2xl shadow-xl overflow-hidden z-50">
+              <div className="absolute right-0 mt-2 w-72 bg-white/85 backdrop-blur-2xl border border-white/80 rounded-2xl shadow-xl overflow-hidden z-50">
                 <div className="p-2.5 border-b border-[#E8EFE3] text-[10px] font-bold text-[#8C8087] uppercase tracking-wider bg-[#F8F0E8]">
                   Select Clinical Case Study
                 </div>

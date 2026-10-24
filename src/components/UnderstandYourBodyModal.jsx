@@ -67,15 +67,15 @@ export default function UnderstandYourBodyModal({ open, onClose }) {
   if (!open) return null
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm p-3 sm:p-6 overflow-hidden">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-md p-3 sm:p-6 overflow-hidden">
       <div
-        className="relative w-full max-w-5xl h-[90vh] bg-[#FAF7F2] border border-[#E8DFD8] rounded-3xl shadow-[0_25px_60px_-15px_rgba(80,60,50,0.18)] flex flex-col overflow-hidden text-[#2E2825]"
+        className="relative w-full max-w-5xl h-[90vh] bg-[#FAF7F2]/90 backdrop-blur-2xl border border-white/80 rounded-3xl shadow-2xl flex flex-col overflow-hidden text-[#2E2825]"
         role="dialog"
         aria-modal="true"
         aria-labelledby="education-modal-title"
       >
         {/* Header Bar */}
-        <div className="border-b border-[#E8DFD8] bg-white/95 backdrop-blur-md px-6 py-4 flex items-center justify-between gap-4 shrink-0">
+        <div className="border-b border-[#E8DFD8]/80 bg-white/75 backdrop-blur-md px-6 py-4 flex items-center justify-between gap-4 shrink-0">
           <div className="flex items-center gap-3">
             <div className="h-10 w-10 rounded-2xl bg-gradient-to-br from-[#D96B85] to-[#405A43] flex items-center justify-center shadow-xs">
               <HeartPulse size={20} className="text-white" />
@@ -85,7 +85,7 @@ export default function UnderstandYourBodyModal({ open, onClose }) {
                 <h2 id="education-modal-title" className="font-serif font-bold text-xl text-[#2E2825]">
                   Understand Your Body
                 </h2>
-                <span className="text-[10px] font-bold tracking-wider uppercase bg-[#FCE7E8] text-[#D96B85] border border-[#D96B85]/30 rounded-full px-2.5 py-0.5">
+                <span className="text-[10px] font-bold tracking-wider uppercase bg-[#FCE7E8]/85 text-[#D96B85] border border-white/80 rounded-full px-2.5 py-0.5 shadow-2xs backdrop-blur-xs">
                   Clinical Literacy Guide
                 </span>
               </div>
@@ -97,7 +97,7 @@ export default function UnderstandYourBodyModal({ open, onClose }) {
 
           <button
             onClick={onClose}
-            className="h-8 w-8 rounded-full bg-[#F8F0E8] hover:bg-[#FCE7E8] text-[#7A726D] hover:text-[#2E2825] border border-[#E8DFD8] flex items-center justify-center transition-colors shadow-2xs"
+            className="h-8 w-8 rounded-full bg-white/75 hover:bg-[#FCE7E8] text-[#7A726D] hover:text-[#2E2825] border border-white/80 flex items-center justify-center transition-colors shadow-2xs backdrop-blur-sm"
             aria-label="Close modal"
           >
             <X size={16} />
@@ -105,7 +105,7 @@ export default function UnderstandYourBodyModal({ open, onClose }) {
         </div>
 
         {/* Filter & Search Bar */}
-        <div className="px-6 py-3 border-b border-[#E8DFD8] bg-[#FFFDF9] flex flex-wrap items-center justify-between gap-3 shrink-0">
+        <div className="px-6 py-3 border-b border-[#E8DFD8]/80 bg-white/60 backdrop-blur-md flex flex-wrap items-center justify-between gap-3 shrink-0">
           {/* Categories */}
           <div className="flex items-center gap-1.5 overflow-x-auto pb-1 sm:pb-0 scrollbar-none">
             {categories.map((cat) => (
@@ -115,7 +115,7 @@ export default function UnderstandYourBodyModal({ open, onClose }) {
                 className={`text-xs font-semibold px-3 py-1 rounded-full border transition-all whitespace-nowrap shadow-2xs ${
                   activeCategory === cat
                     ? 'bg-[#405A43] border-[#405A43] text-white shadow-xs'
-                    : 'bg-white border-[#E8DFD8] text-[#7A726D] hover:text-[#405A43] hover:bg-[#E8EFE3]'
+                    : 'bg-white/75 border-white/80 text-[#7A726D] hover:text-[#405A43] hover:bg-[#E8EFE3]'
                 }`}
               >
                 {cat}
@@ -131,7 +131,7 @@ export default function UnderstandYourBodyModal({ open, onClose }) {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search topics, symptoms, tests..."
-              className="w-full text-xs bg-white border border-[#E8DFD8] rounded-full pl-8 pr-3 py-1.5 text-[#2E2825] placeholder:text-[#938A84] focus:outline-none focus:border-[#D96B85] focus:ring-1 focus:ring-[#D96B85]/20 transition-colors shadow-2xs"
+              className="w-full text-xs bg-white/70 backdrop-blur-md border border-white/80 rounded-full pl-8 pr-3 py-1.5 text-[#2E2825] placeholder:text-[#938A84] focus:outline-none focus:border-[#D96B85] focus:ring-1 focus:ring-[#D96B85]/20 transition-colors shadow-2xs"
             />
             {searchQuery && (
               <button
@@ -147,7 +147,7 @@ export default function UnderstandYourBodyModal({ open, onClose }) {
         {/* Main Content Area: Master-Detail Layout */}
         <div className="flex-1 grid grid-cols-1 md:grid-cols-12 min-h-0 overflow-hidden">
           {/* Sidebar Navigation */}
-          <div className="md:col-span-4 border-r border-[#E8DFD8] bg-[#F8F0E8]/60 overflow-y-auto p-3.5 space-y-2">
+          <div className="md:col-span-4 border-r border-[#E8DFD8]/80 bg-[#F8F0E8]/50 backdrop-blur-md overflow-y-auto p-3.5 space-y-2">
             <p className="text-[11px] font-bold uppercase tracking-wider text-[#6A3D55] px-2 py-1">
               Topics ({filteredTopics.length})
             </p>
@@ -160,8 +160,8 @@ export default function UnderstandYourBodyModal({ open, onClose }) {
                   onClick={() => setSelectedTopicId(topic.id)}
                   className={`w-full text-left p-3 rounded-2xl border transition-all flex items-start justify-between gap-2 shadow-2xs ${
                     isSelected
-                      ? 'bg-white border-[#D96B85] text-[#2E2825] shadow-xs ring-1 ring-[#D96B85]/30'
-                      : 'bg-white/80 border-[#E8DFD8] text-[#5C5552] hover:bg-white hover:border-[#D96B85]/30'
+                      ? 'bg-white/95 backdrop-blur-md border-[#D96B85] text-[#2E2825] shadow-xs ring-1 ring-[#D96B85]/30'
+                      : 'bg-white/60 backdrop-blur-md border border-white/80 text-[#5C5552] hover:bg-white/85 hover:border-[#D96B85]/30'
                   }`}
                 >
                   <div className="min-w-0">
@@ -201,15 +201,15 @@ export default function UnderstandYourBodyModal({ open, onClose }) {
           </div>
 
           {/* Detail View */}
-          <div className="md:col-span-8 overflow-y-auto p-6 sm:p-8 space-y-6 bg-white/90">
+          <div className="md:col-span-8 overflow-y-auto p-6 sm:p-8 space-y-6 bg-white/75 backdrop-blur-xl">
             {activeTopic && (
               <>
                 {/* Topic Header */}
-                <div className="border-b border-[#E8DFD8] pb-5">
+                <div className="border-b border-[#E8DFD8]/80 pb-5">
                   <div className="flex items-center gap-2 mb-2">
                     <span className="text-xs font-semibold text-[#405A43]">{activeTopic.category}</span>
                     <span className="text-[#938A84]">&bull;</span>
-                    <span className="text-[11px] font-semibold bg-[#FCE7E8] text-[#D96B85] border border-[#D96B85]/30 rounded-full px-2.5 py-0.5">
+                    <span className="text-[11px] font-semibold bg-[#FCE7E8]/85 text-[#D96B85] border border-white/80 rounded-full px-2.5 py-0.5 shadow-2xs backdrop-blur-xs">
                       {activeTopic.badge}
                     </span>
                   </div>
@@ -218,7 +218,7 @@ export default function UnderstandYourBodyModal({ open, onClose }) {
                   </h1>
                   <p className="text-sm text-[#7A726D] mt-1 font-medium">{activeTopic.subtitle}</p>
 
-                  <div className="mt-4 p-4 bg-[#E8EFE3] border border-[#405A43]/20 rounded-2xl text-xs sm:text-sm text-[#2E2825] leading-relaxed">
+                  <div className="mt-4 p-4 bg-[#E8EFE3]/80 backdrop-blur-md border border-white/80 rounded-2xl text-xs sm:text-sm text-[#2E2825] leading-relaxed shadow-2xs">
                     {activeTopic.summary}
                   </div>
                 </div>
@@ -226,7 +226,7 @@ export default function UnderstandYourBodyModal({ open, onClose }) {
                 {/* Topic Sections */}
                 <div className="space-y-5">
                   {activeTopic.sections.map((section, idx) => (
-                    <div key={idx} className="bg-[#F8F0E8]/70 border border-[#E8DFD8] rounded-2xl p-4 sm:p-5 space-y-3 shadow-2xs">
+                    <div key={idx} className="bg-white/65 backdrop-blur-md border border-white/80 rounded-2xl p-4 sm:p-5 space-y-3 shadow-2xs">
                       <h4 className="text-sm font-bold text-[#2E2825] flex items-center gap-2">
                         <Sparkles size={14} className="text-[#D96B85] shrink-0" />
                         {section.heading}
@@ -248,7 +248,7 @@ export default function UnderstandYourBodyModal({ open, onClose }) {
                       )}
 
                       {section.clinicalTip && (
-                        <div className="mt-3 flex items-start gap-2.5 bg-[#FDF8EE] border border-[#D9A84E]/35 rounded-xl p-3 text-xs text-[#5C5552]">
+                        <div className="mt-3 flex items-start gap-2.5 bg-[#FDF8EE]/80 backdrop-blur-sm border border-white/80 rounded-xl p-3 text-xs text-[#5C5552] shadow-2xs">
                           <Stethoscope size={14} className="text-[#D9A84E] shrink-0 mt-0.5" />
                           <div>
                             <span className="font-bold text-[#D9A84E]">Clinical Tip / Patient Action:</span>{' '}
@@ -261,7 +261,7 @@ export default function UnderstandYourBodyModal({ open, onClose }) {
                 </div>
 
                 {/* Footer Insight Box */}
-                <div className="bg-[#E8EFE3] border border-[#405A43]/25 rounded-2xl p-4 flex items-center justify-between gap-4">
+                <div className="bg-[#E8EFE3]/80 backdrop-blur-md border border-white/80 rounded-2xl p-4 flex items-center justify-between gap-4 shadow-2xs">
                   <div className="flex items-center gap-3">
                     <ShieldCheck size={20} className="text-[#405A43] shrink-0" />
                     <div>

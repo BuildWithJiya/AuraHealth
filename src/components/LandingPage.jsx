@@ -441,8 +441,8 @@ export default function LandingPage({
               {/* Soft glow background */}
               <div className="absolute -inset-4 bg-gradient-to-tr from-[#FCE7E8] via-[#E8EFE3] to-[#E8DDF0] rounded-3xl -z-10 blur-xl opacity-90" />
 
-              {/* Consultation Illustration Card */}
-              <div className="relative rounded-3xl overflow-hidden border border-[#E8EFE3] shadow-lg shadow-[#6A3D55]/10 bg-gradient-to-b from-white to-[#F8F0E8] p-3">
+              {/* Consultation Illustration Card with Light Frost Blur */}
+              <div className="relative rounded-3xl overflow-hidden border border-white/80 shadow-xl shadow-[#6A3D55]/8 bg-white/65 backdrop-blur-xl p-3">
                 <svg viewBox="0 0 520 380" className="w-full h-auto rounded-2xl block bg-[#FFFDF9]">
                   <defs>
                     <linearGradient id="warmWallAura" x1="0" y1="0" x2="1" y2="1">
@@ -530,11 +530,11 @@ export default function LandingPage({
                   </g>
                 </svg>
 
-                {/* 4 Interactive Floating Badges (Track, Learn, Feel Better, Grow) */}
+                {/* 4 Interactive Floating Badges with Light Frost Blur */}
                 <div className="absolute top-6 right-6 flex flex-col gap-2">
                   <button
                     onClick={() => scrollTo('interactive-graph')}
-                    className="flex items-center gap-1.5 bg-[#FCE7E8] hover:bg-[#fad4d6] text-[#D96B85] border border-[#D96B85]/30 text-[11px] font-bold rounded-full px-3 py-1 shadow-xs transition-transform hover:scale-105"
+                    className="flex items-center gap-1.5 bg-[#FCE7E8]/80 hover:bg-[#FCE7E8] backdrop-blur-md text-[#D96B85] border border-white/70 text-[11px] font-bold rounded-full px-3 py-1 shadow-xs transition-all hover:scale-105"
                   >
                     <Heart size={12} fill="#D96B85" /> Track
                   </button>
@@ -543,19 +543,19 @@ export default function LandingPage({
                       if (onOpenEducation) onOpenEducation()
                       else setEducationModalOpen(true)
                     }}
-                    className="flex items-center gap-1.5 bg-[#E8EFE3] hover:bg-[#d8e4d1] text-[#405A43] border border-[#405A43]/30 text-[11px] font-bold rounded-full px-3 py-1 shadow-xs transition-transform hover:scale-105"
+                    className="flex items-center gap-1.5 bg-[#E8EFE3]/80 hover:bg-[#E8EFE3] backdrop-blur-md text-[#405A43] border border-white/70 text-[11px] font-bold rounded-full px-3 py-1 shadow-xs transition-all hover:scale-105"
                   >
                     <Compass size={12} /> Learn
                   </button>
                   <button
                     onClick={() => setWellnessModalOpen(true)}
-                    className="flex items-center gap-1.5 bg-[#E8DDF0] hover:bg-[#dcceea] text-[#6A3D55] border border-[#6A3D55]/30 text-[11px] font-bold rounded-full px-3 py-1 shadow-xs transition-transform hover:scale-105"
+                    className="flex items-center gap-1.5 bg-[#E8DDF0]/80 hover:bg-[#E8DDF0] backdrop-blur-md text-[#6A3D55] border border-white/70 text-[11px] font-bold rounded-full px-3 py-1 shadow-xs transition-all hover:scale-105"
                   >
                     <Sparkles size={12} /> Feel Better
                   </button>
                   <button
                     onClick={() => setAboutModalOpen(true)}
-                    className="flex items-center gap-1.5 bg-[#F8F0E8] hover:bg-[#f0dfd0] text-[#D9A84E] border border-[#D9A84E]/35 text-[11px] font-bold rounded-full px-3 py-1 shadow-xs transition-transform hover:scale-105"
+                    className="flex items-center gap-1.5 bg-[#F8F0E8]/85 hover:bg-[#F8F0E8] backdrop-blur-md text-[#D9A84E] border border-white/80 text-[11px] font-bold rounded-full px-3 py-1 shadow-xs transition-all hover:scale-105"
                   >
                     <Sun size={12} /> Grow
                   </button>
@@ -571,12 +571,12 @@ export default function LandingPage({
       {/* ------------------------------------------------------------------ */}
       <section id="interactive-graph" className="py-12 max-w-6xl mx-auto px-6 scroll-mt-20">
         <RevealBlock>
-          <div className="ios-glass-card rounded-3xl p-6 sm:p-8 bg-white/95 border border-[#E8EFE3] shadow-md space-y-6">
+          <div className="ios-glass-card rounded-3xl p-6 sm:p-8 space-y-6">
             {/* Graph Section Header */}
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-[#E8EFE3] pb-5">
               <div>
                 <div className="flex items-center gap-2 mb-1.5">
-                  <span className="text-[11px] font-bold uppercase tracking-wider bg-[#FCE7E8] text-[#D96B85] border border-[#D96B85]/30 rounded-full px-3 py-0.5 flex items-center gap-1.5">
+                  <span className="text-[11px] font-bold uppercase tracking-wider bg-[#FCE7E8]/75 backdrop-blur-xs text-[#D96B85] border border-white/70 rounded-full px-3 py-0.5 flex items-center gap-1.5 shadow-2xs">
                     <TrendingUp size={12} /> Live Cycle &amp; Hormone Trajectory
                   </span>
                   <span className="text-xs text-[#7A726D] font-medium hidden sm:inline">&middot; Interactive Decision Engine</span>
@@ -590,7 +590,7 @@ export default function LandingPage({
               </div>
 
               {/* Patient Case Study Switcher */}
-              <div className="flex flex-wrap items-center gap-1.5 bg-[#F8F0E8] p-1.5 rounded-2xl border border-[#E8DFD8]">
+              <div className="flex flex-wrap items-center gap-1.5 bg-white/60 backdrop-blur-md p-1.5 rounded-2xl border border-white/70 shadow-2xs">
                 {patientsList.slice(0, 4).map((p) => (
                   <button
                     key={p.id}
@@ -608,7 +608,7 @@ export default function LandingPage({
             </div>
 
             {/* Cycle Phase Engine Slider */}
-            <div className="bg-[#FAF7F2] rounded-2xl p-4 border border-[#E8DFD8] space-y-3">
+            <div className="bg-white/55 backdrop-blur-md rounded-2xl p-4 border border-white/75 shadow-inner space-y-3">
               <div className="flex flex-wrap items-center justify-between gap-2">
                 <div className="flex items-center gap-2">
                   <PhaseIcon size={16} style={{ color: PHASE_META[phase]?.color || '#D96B85' }} />
@@ -847,18 +847,18 @@ export default function LandingPage({
       </section>
 
       {/* ------------------------------------------------------------------ */}
-      {/* 4. FOUR PASTEL FEATURE CARDS (matching user reference image)       */}
+      {/* 4. FOUR PASTEL FEATURE CARDS (with Light Frost Blur)               */}
       {/* ------------------------------------------------------------------ */}
       <section id="feature-cards" className="py-12 max-w-6xl mx-auto px-6 scroll-mt-20">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-          {/* Card 1: Track Your Cycle (Blush) */}
+          {/* Card 1: Track Your Cycle (Blush Frost) */}
           <RevealBlock delayMs={0}>
             <div
               onClick={() => scrollTo('interactive-graph')}
-              className="group cursor-pointer h-full rounded-3xl p-6 bg-[#FCE7E8]/85 hover:bg-[#FCE7E8] border border-[#D96B85]/25 shadow-xs hover:shadow-md transition-all duration-300 relative overflow-hidden flex flex-col justify-between"
+              className="frost-card-blush group cursor-pointer h-full rounded-3xl p-6 shadow-sm hover:shadow-xl transition-all duration-300 relative overflow-hidden flex flex-col justify-between"
             >
               <div>
-                <div className="h-12 w-12 rounded-2xl bg-white/95 border border-[#D96B85]/25 flex items-center justify-center text-[#D96B85] mb-4 shadow-2xs group-hover:scale-105 transition-transform">
+                <div className="h-12 w-12 rounded-2xl bg-white/80 backdrop-blur-md border border-white/90 flex items-center justify-center text-[#D96B85] mb-4 shadow-2xs group-hover:scale-105 transition-transform">
                   <div className="relative">
                     <Calendar size={22} />
                     <Droplet size={11} className="absolute -bottom-1 -right-1 text-[#D96B85] fill-[#D96B85]" />
@@ -880,17 +880,17 @@ export default function LandingPage({
             </div>
           </RevealBlock>
 
-          {/* Card 2: Understand Your Body (Sage Light) */}
+          {/* Card 2: Understand Your Body (Sage Light Frost) */}
           <RevealBlock delayMs={80}>
             <div
               onClick={() => {
                 if (onOpenEducation) onOpenEducation()
                 else setEducationModalOpen(true)
               }}
-              className="group cursor-pointer h-full rounded-3xl p-6 bg-[#E8EFE3]/85 hover:bg-[#E8EFE3] border border-[#405A43]/20 shadow-xs hover:shadow-md transition-all duration-300 relative overflow-hidden flex flex-col justify-between"
+              className="frost-card-sage group cursor-pointer h-full rounded-3xl p-6 shadow-sm hover:shadow-xl transition-all duration-300 relative overflow-hidden flex flex-col justify-between"
             >
               <div>
-                <div className="h-12 w-12 rounded-2xl bg-white/95 border border-[#405A43]/20 flex items-center justify-center text-[#405A43] mb-4 shadow-2xs group-hover:scale-105 transition-transform">
+                <div className="h-12 w-12 rounded-2xl bg-white/80 backdrop-blur-md border border-white/90 flex items-center justify-center text-[#405A43] mb-4 shadow-2xs group-hover:scale-105 transition-transform">
                   <UserCheck size={22} />
                 </div>
                 <h3 className="font-serif text-xl font-bold text-[#405A43] mb-2">Understand Your Body</h3>
@@ -909,17 +909,17 @@ export default function LandingPage({
             </div>
           </RevealBlock>
 
-          {/* Card 3: Learn & Explore (Lavender) */}
+          {/* Card 3: Learn & Explore (Lavender Frost) */}
           <RevealBlock delayMs={160}>
             <div
               onClick={() => {
                 if (onOpenEducation) onOpenEducation()
                 else setEducationModalOpen(true)
               }}
-              className="group cursor-pointer h-full rounded-3xl p-6 bg-[#E8DDF0]/85 hover:bg-[#E8DDF0] border border-[#6A3D55]/20 shadow-xs hover:shadow-md transition-all duration-300 relative overflow-hidden flex flex-col justify-between"
+              className="frost-card-lavender group cursor-pointer h-full rounded-3xl p-6 shadow-sm hover:shadow-xl transition-all duration-300 relative overflow-hidden flex flex-col justify-between"
             >
               <div>
-                <div className="h-12 w-12 rounded-2xl bg-white/95 border border-[#6A3D55]/20 flex items-center justify-center text-[#6A3D55] mb-4 shadow-2xs group-hover:scale-105 transition-transform">
+                <div className="h-12 w-12 rounded-2xl bg-white/80 backdrop-blur-md border border-white/90 flex items-center justify-center text-[#6A3D55] mb-4 shadow-2xs group-hover:scale-105 transition-transform">
                   <BookOpen size={22} />
                 </div>
                 <h3 className="font-serif text-xl font-bold text-[#6A3D55] mb-2">Learn &amp; Explore</h3>
@@ -938,14 +938,14 @@ export default function LandingPage({
             </div>
           </RevealBlock>
 
-          {/* Card 4: Wellness Tools (Cream / Gold) */}
+          {/* Card 4: Wellness Tools (Cream / Gold Frost) */}
           <RevealBlock delayMs={240}>
             <div
               onClick={() => setWellnessModalOpen(true)}
-              className="group cursor-pointer h-full rounded-3xl p-6 bg-[#F8F0E8] hover:bg-[#F2E5D7] border border-[#D9A84E]/30 shadow-xs hover:shadow-md transition-all duration-300 relative overflow-hidden flex flex-col justify-between"
+              className="frost-card-gold group cursor-pointer h-full rounded-3xl p-6 shadow-sm hover:shadow-xl transition-all duration-300 relative overflow-hidden flex flex-col justify-between"
             >
               <div>
-                <div className="h-12 w-12 rounded-2xl bg-white/95 border border-[#D9A84E]/30 flex items-center justify-center text-[#D9A84E] mb-4 shadow-2xs group-hover:scale-105 transition-transform">
+                <div className="h-12 w-12 rounded-2xl bg-white/80 backdrop-blur-md border border-white/90 flex items-center justify-center text-[#D9A84E] mb-4 shadow-2xs group-hover:scale-105 transition-transform">
                   <Flower2 size={22} />
                 </div>
                 <h3 className="font-serif text-xl font-bold text-[#405A43] mb-2">Wellness Tools</h3>
@@ -971,10 +971,10 @@ export default function LandingPage({
       {/* ------------------------------------------------------------------ */}
       <section id="not-alone" className="py-14 max-w-6xl mx-auto px-6 scroll-mt-20">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-          {/* Left: Window desk illustration + Sticky note */}
+          {/* Left: Window desk illustration + Sticky note with Frost Blur */}
           <div className="lg:col-span-4 relative flex flex-col items-center justify-center">
             <RevealBlock className="w-full max-w-sm">
-              <div className="relative rounded-3xl overflow-hidden bg-gradient-to-b from-[#FFFDF9] to-[#FCE7E8]/40 border border-[#E8EFE3] p-4 shadow-md">
+              <div className="relative rounded-3xl overflow-hidden bg-white/65 backdrop-blur-xl border border-white/80 p-4 shadow-md">
                 <svg viewBox="0 0 320 280" className="w-full h-auto rounded-2xl bg-[#FFFDF9]">
                   <rect width="320" height="280" fill="#FFF9F5" />
                   <rect x="80" y="20" width="160" height="150" fill="#FFFDFB" stroke="#E8EFE3" strokeWidth="1.5" />
@@ -1003,7 +1003,7 @@ export default function LandingPage({
                 </svg>
 
                 {/* Floating sticky note: "Small steps lead to big changes ♡" */}
-                <div className="absolute top-6 left-5 -rotate-3 bg-[#E8EFE3] border border-[#405A43]/20 rounded-2xl p-3.5 shadow-md max-w-[170px]">
+                <div className="absolute top-6 left-5 -rotate-3 bg-[#E8EFE3]/80 backdrop-blur-md border border-white/70 rounded-2xl p-3.5 shadow-md max-w-[170px]">
                   <p className="font-script text-base text-[#405A43] leading-snug">
                     Small steps<br />lead to big<br />changes &#9825;
                   </p>
@@ -1012,10 +1012,10 @@ export default function LandingPage({
             </RevealBlock>
           </div>
 
-          {/* Right: "You're not alone" card + 4 trust pillars */}
+          {/* Right: "You're not alone" card + 4 trust pillars with Light Frost Blur */}
           <div className="lg:col-span-8">
             <RevealBlock>
-              <div className="bg-white/95 border border-[#E8EFE3] rounded-3xl p-7 sm:p-9 shadow-sm grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+              <div className="ios-glass-card rounded-3xl p-7 sm:p-9 shadow-md grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
                 {/* Left side: Caring message */}
                 <div className="md:col-span-7 space-y-4">
                   <div className="flex items-center gap-2">
@@ -1030,7 +1030,7 @@ export default function LandingPage({
                   <div>
                     <button
                       onClick={() => setAboutModalOpen(true)}
-                      className="inline-flex items-center gap-2 bg-[#FCE7E8] hover:bg-[#FAD1D3] text-[#D96B85] font-semibold text-xs sm:text-sm rounded-full px-5 py-2.5 transition-colors shadow-2xs"
+                      className="inline-flex items-center gap-2 bg-[#FCE7E8]/85 hover:bg-[#FCE7E8] backdrop-blur-xs text-[#D96B85] border border-white/70 font-semibold text-xs sm:text-sm rounded-full px-5 py-2.5 transition-colors shadow-2xs"
                     >
                       Learn More <ArrowRight size={14} />
                     </button>
@@ -1045,7 +1045,7 @@ export default function LandingPage({
                       <button
                         key={pillar.id}
                         onClick={() => setSelectedPillar(pillar)}
-                        className="w-full text-left flex items-center gap-3 p-2 rounded-2xl hover:bg-[#F8F0E8] transition-colors group cursor-pointer"
+                        className="w-full text-left flex items-center gap-3 p-2.5 rounded-2xl hover:bg-white/60 hover:backdrop-blur-xs border border-transparent hover:border-white/70 transition-all group cursor-pointer"
                       >
                         <div
                           className="h-8 w-8 rounded-xl flex items-center justify-center shrink-0 border border-current/20 shadow-2xs group-hover:scale-105 transition-transform"
@@ -1111,12 +1111,15 @@ export default function LandingPage({
       {/* ------------------------------------------------------------------ */}
       {/* MODAL 2: Interactive Wellness Tools                                */}
       {/* ------------------------------------------------------------------ */}
+      {/* ------------------------------------------------------------------ */}
+      {/* MODAL 2: Interactive Wellness Tools                                */}
+      {/* ------------------------------------------------------------------ */}
       {wellnessModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm p-4 overflow-y-auto animate-[fadeIn_0.2s]">
-          <div className="relative w-full max-w-xl bg-white border border-[#E8DFD8] rounded-3xl shadow-2xl p-6 sm:p-8 space-y-6 text-[#31232B]">
-            <div className="flex items-center justify-between border-b border-[#E8DFD8] pb-4">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-md p-4 overflow-y-auto animate-[fadeIn_0.2s]">
+          <div className="relative w-full max-w-xl bg-white/85 backdrop-blur-2xl border border-white/80 rounded-3xl shadow-2xl p-6 sm:p-8 space-y-6 text-[#31232B]">
+            <div className="flex items-center justify-between border-b border-[#E8DFD8]/80 pb-4">
               <div className="flex items-center gap-2.5">
-                <div className="h-10 w-10 rounded-2xl bg-[#F8F0E8] border border-[#D9A84E]/30 flex items-center justify-center text-[#D9A84E]">
+                <div className="h-10 w-10 rounded-2xl bg-[#F8F0E8]/85 border border-white/80 flex items-center justify-center text-[#D9A84E] shadow-2xs">
                   <Flower2 size={20} />
                 </div>
                 <div>
@@ -1126,7 +1129,7 @@ export default function LandingPage({
               </div>
               <button
                 onClick={() => setWellnessModalOpen(false)}
-                className="h-8 w-8 rounded-full bg-[#FAF7F2] hover:bg-[#FCE7E8] text-[#7A726D] hover:text-[#2E2825] flex items-center justify-center transition-colors"
+                className="h-8 w-8 rounded-full bg-white/75 hover:bg-[#FCE7E8] text-[#7A726D] hover:text-[#2E2825] border border-white/80 flex items-center justify-center transition-colors shadow-2xs"
               >
                 <X size={16} />
               </button>
@@ -1148,8 +1151,8 @@ export default function LandingPage({
                     onClick={() => setSelectedMood(m.label)}
                     className={`flex flex-col items-center justify-center p-3 rounded-2xl border text-center transition-all ${
                       selectedMood === m.label
-                        ? 'border-[#D96B85] bg-[#FCE7E8] shadow-xs scale-105'
-                        : 'border-[#E8DFD8] bg-[#FAF7F2] hover:bg-white'
+                        ? 'border-[#D96B85] bg-[#FCE7E8]/90 shadow-xs scale-105 backdrop-blur-md'
+                        : 'border-white/80 bg-white/60 hover:bg-white/90 backdrop-blur-md'
                     }`}
                   >
                     <span className="text-xl mb-1">{m.emoji}</span>
@@ -1160,7 +1163,7 @@ export default function LandingPage({
             </div>
 
             {/* Tool 2: Hydration Companion */}
-            <div className="bg-[#E8EFE3]/70 rounded-2xl p-4 border border-[#405A43]/20 flex items-center justify-between">
+            <div className="bg-[#E8EFE3]/80 backdrop-blur-md rounded-2xl p-4 border border-white/80 flex items-center justify-between shadow-2xs">
               <div>
                 <p className="text-xs font-bold text-[#405A43] flex items-center gap-1.5">
                   <Droplet size={14} className="fill-[#405A43]" /> Daily Hydration Goal
@@ -1172,7 +1175,7 @@ export default function LandingPage({
               <div className="flex items-center gap-2">
                 <button
                   onClick={() => setWaterCups((c) => Math.max(0, c - 1))}
-                  className="h-8 w-8 rounded-full bg-white text-[#405A43] border border-[#405A43]/30 font-bold flex items-center justify-center hover:bg-[#F8F0E8]"
+                  className="h-8 w-8 rounded-full bg-white/85 text-[#405A43] border border-white/80 font-bold flex items-center justify-center hover:bg-[#F8F0E8] shadow-2xs"
                 >
                   -
                 </button>
@@ -1186,7 +1189,7 @@ export default function LandingPage({
             </div>
 
             {/* Tool 3: Calming Box-Breathing Timer */}
-            <div className="bg-[#FAF7F2] rounded-2xl p-4 border border-[#E8DFD8] text-center space-y-3">
+            <div className="bg-white/65 backdrop-blur-md rounded-2xl p-4 border border-white/80 text-center space-y-3 shadow-2xs">
               <p className="text-xs font-bold text-[#6A3D55] uppercase tracking-wide">
                 2-Minute Calming Breath
               </p>
@@ -1200,7 +1203,7 @@ export default function LandingPage({
                       className={`text-[10px] font-bold px-3 py-1 rounded-full transition-all ${
                         isCurrent
                           ? 'bg-[#D96B85] text-white shadow-2xs'
-                          : 'bg-white text-[#7A726D] border border-[#E8DFD8]'
+                          : 'bg-white/75 text-[#7A726D] border border-white/80 hover:bg-white'
                       }`}
                     >
                       {p}
@@ -1227,8 +1230,8 @@ export default function LandingPage({
       {/* MODAL 3: Trust Pillar Details                                      */}
       {/* ------------------------------------------------------------------ */}
       {selectedPillar && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm p-4 overflow-y-auto animate-[fadeIn_0.2s]">
-          <div className="relative w-full max-w-lg bg-white border border-[#E8DFD8] rounded-3xl shadow-2xl p-6 sm:p-8 space-y-4 text-[#31232B]">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-md p-4 overflow-y-auto animate-[fadeIn_0.2s]">
+          <div className="relative w-full max-w-lg bg-white/85 backdrop-blur-2xl border border-white/80 rounded-3xl shadow-2xl p-6 sm:p-8 space-y-4 text-[#31232B]">
             <div className="flex items-start justify-between gap-3">
               <div className="flex items-center gap-3">
                 <div
@@ -1246,13 +1249,13 @@ export default function LandingPage({
               </div>
               <button
                 onClick={() => setSelectedPillar(null)}
-                className="h-8 w-8 rounded-full bg-[#FAF7F2] hover:bg-[#FCE7E8] text-[#7A726D] hover:text-[#2E2825] flex items-center justify-center transition-colors"
+                className="h-8 w-8 rounded-full bg-white/75 hover:bg-[#FCE7E8] text-[#7A726D] hover:text-[#2E2825] border border-white/80 flex items-center justify-center transition-colors shadow-2xs"
               >
                 <X size={16} />
               </button>
             </div>
 
-            <div className="bg-[#FAF7F2] p-4 rounded-2xl border border-[#E8DFD8] text-xs sm:text-sm text-[#5E5259] leading-relaxed">
+            <div className="bg-white/65 backdrop-blur-md p-4 rounded-2xl border border-white/80 text-xs sm:text-sm text-[#5E5259] leading-relaxed shadow-2xs">
               {selectedPillar.details}
             </div>
 
@@ -1272,11 +1275,11 @@ export default function LandingPage({
       {/* MODAL 4: About Aura Health / "You're Not Alone" Modal               */}
       {/* ------------------------------------------------------------------ */}
       {aboutModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm p-4 overflow-y-auto animate-[fadeIn_0.2s]">
-          <div className="relative w-full max-w-xl bg-white border border-[#E8DFD8] rounded-3xl shadow-2xl p-6 sm:p-8 space-y-5 text-[#31232B]">
-            <div className="flex items-center justify-between border-b border-[#E8DFD8] pb-4">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-md p-4 overflow-y-auto animate-[fadeIn_0.2s]">
+          <div className="relative w-full max-w-xl bg-white/85 backdrop-blur-2xl border border-white/80 rounded-3xl shadow-2xl p-6 sm:p-8 space-y-5 text-[#31232B]">
+            <div className="flex items-center justify-between border-b border-[#E8DFD8]/80 pb-4">
               <div className="flex items-center gap-2.5">
-                <div className="h-10 w-10 rounded-2xl bg-[#FCE7E8] border border-[#D96B85]/30 flex items-center justify-center text-[#D96B85]">
+                <div className="h-10 w-10 rounded-2xl bg-[#FCE7E8]/85 border border-white/80 flex items-center justify-center text-[#D96B85] shadow-2xs">
                   <Heart size={20} className="fill-[#D96B85]" />
                 </div>
                 <div>
@@ -1286,7 +1289,7 @@ export default function LandingPage({
               </div>
               <button
                 onClick={() => setAboutModalOpen(false)}
-                className="h-8 w-8 rounded-full bg-[#FAF7F2] hover:bg-[#FCE7E8] text-[#7A726D] hover:text-[#2E2825] flex items-center justify-center transition-colors"
+                className="h-8 w-8 rounded-full bg-white/75 hover:bg-[#FCE7E8] text-[#7A726D] hover:text-[#2E2825] border border-white/80 flex items-center justify-center transition-colors shadow-2xs"
               >
                 <X size={16} />
               </button>
@@ -1299,7 +1302,7 @@ export default function LandingPage({
               <p>
                 Aura Health bridges this gap with an evidence-based clinical decision co-pilot that correlates cyclical hormone fluctuations against patient-reported symptoms.
               </p>
-              <div className="bg-[#E8EFE3]/70 rounded-2xl p-4 border border-[#405A43]/20 space-y-2">
+              <div className="bg-[#E8EFE3]/80 backdrop-blur-md rounded-2xl p-4 border border-white/80 space-y-2 shadow-2xs">
                 <p className="font-bold text-[#405A43] flex items-center gap-1.5">
                   <CheckCircle2 size={14} /> Our 3 Commitments:
                 </p>
@@ -1336,15 +1339,15 @@ export default function LandingPage({
       {/* MODAL 5: Interactive Search Modal                                  */}
       {/* ------------------------------------------------------------------ */}
       {searchModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-start justify-center bg-black/40 backdrop-blur-sm p-4 pt-16 overflow-y-auto animate-[fadeIn_0.2s]">
-          <div className="relative w-full max-w-xl bg-white border border-[#E8DFD8] rounded-3xl shadow-2xl p-6 space-y-4 text-[#31232B]">
+        <div className="fixed inset-0 z-50 flex items-start justify-center bg-black/40 backdrop-blur-md p-4 pt-16 overflow-y-auto animate-[fadeIn_0.2s]">
+          <div className="relative w-full max-w-xl bg-white/85 backdrop-blur-2xl border border-white/80 rounded-3xl shadow-2xl p-6 space-y-4 text-[#31232B]">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#D96B85]">
                 <Search size={14} /> Clinical Knowledge Search
               </div>
               <button
                 onClick={() => setSearchModalOpen(false)}
-                className="h-7 w-7 rounded-full bg-[#FAF7F2] hover:bg-[#FCE7E8] text-[#7A726D] flex items-center justify-center transition-colors"
+                className="h-7 w-7 rounded-full bg-white/75 hover:bg-[#FCE7E8] text-[#7A726D] border border-white/80 flex items-center justify-center transition-colors shadow-2xs"
               >
                 <X size={14} />
               </button>
@@ -1358,7 +1361,7 @@ export default function LandingPage({
                 placeholder="Search cramps, PCOS, estrogen, progesterone, fatigue..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full text-sm bg-[#FAF7F2] border border-[#E8DFD8] rounded-2xl pl-10 pr-4 py-2.5 text-[#31232B] placeholder:text-[#938A84] focus:outline-none focus:border-[#D96B85] transition-colors shadow-2xs"
+                className="w-full text-sm bg-white/70 backdrop-blur-md border border-white/80 rounded-2xl pl-10 pr-4 py-2.5 text-[#31232B] placeholder:text-[#938A84] focus:outline-none focus:border-[#D96B85] transition-colors shadow-2xs"
               />
             </div>
 
@@ -1371,7 +1374,7 @@ export default function LandingPage({
                     if (onOpenEducation) onOpenEducation()
                     else setEducationModalOpen(true)
                   }}
-                  className="p-3 rounded-2xl border border-[#E8DFD8] hover:border-[#D96B85]/40 hover:bg-[#FCE7E8]/30 transition-all cursor-pointer group"
+                  className="p-3 rounded-2xl border border-white/80 bg-white/60 backdrop-blur-md hover:border-[#D96B85]/50 hover:bg-[#FCE7E8]/40 transition-all cursor-pointer group shadow-2xs"
                 >
                   <div className="flex items-center justify-between mb-1">
                     <span className="text-[10px] font-bold text-[#405A43] bg-[#E8EFE3] rounded-full px-2 py-0.5">
@@ -1397,16 +1400,16 @@ export default function LandingPage({
       {/* MODAL 6: Quick Symptom Logger Modal (Directly on Graph)            */}
       {/* ------------------------------------------------------------------ */}
       {quickLogOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm p-4 overflow-y-auto animate-[fadeIn_0.2s]">
-          <div className="relative w-full max-w-md bg-white border border-[#E8DFD8] rounded-3xl shadow-2xl p-6 space-y-4 text-[#31232B]">
-            <div className="flex items-center justify-between border-b border-[#E8DFD8] pb-3">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-md p-4 overflow-y-auto animate-[fadeIn_0.2s]">
+          <div className="relative w-full max-w-md bg-white/85 backdrop-blur-2xl border border-white/80 rounded-3xl shadow-2xl p-6 space-y-4 text-[#31232B]">
+            <div className="flex items-center justify-between border-b border-[#E8DFD8]/80 pb-3">
               <div className="flex items-center gap-2">
                 <Wand2 size={16} className="text-[#D96B85]" />
                 <h3 className="font-serif text-lg font-bold text-[#6A3D55]">Log Symptom on Day {currentDay}</h3>
               </div>
               <button
                 onClick={() => setQuickLogOpen(false)}
-                className="h-7 w-7 rounded-full bg-[#FAF7F2] hover:bg-[#FCE7E8] text-[#7A726D] flex items-center justify-center transition-colors"
+                className="h-7 w-7 rounded-full bg-white/75 hover:bg-[#FCE7E8] text-[#7A726D] border border-white/80 flex items-center justify-center transition-colors shadow-2xs"
               >
                 <X size={14} />
               </button>
@@ -1420,7 +1423,7 @@ export default function LandingPage({
                   value={quickSymptomText}
                   onChange={(e) => setQuickSymptomText(e.target.value)}
                   placeholder='e.g. "Sharp lower abdominal cramps, slight nausea after coffee, fatigue."'
-                  className="w-full text-xs bg-[#FAF7F2] border border-[#E8DFD8] rounded-xl p-3 text-[#31232B] placeholder:text-[#938A84] focus:outline-none focus:border-[#D96B85] resize-none"
+                  className="w-full text-xs bg-white/70 backdrop-blur-md border border-white/80 rounded-xl p-3 text-[#31232B] placeholder:text-[#938A84] focus:outline-none focus:border-[#D96B85] resize-none shadow-2xs"
                   autoFocus
                 />
               </div>
@@ -1444,7 +1447,7 @@ export default function LandingPage({
                 <button
                   type="button"
                   onClick={() => setQuickLogOpen(false)}
-                  className="px-4 py-2 text-xs font-semibold text-[#7A726D] hover:bg-[#FAF7F2] rounded-full transition-colors"
+                  className="px-4 py-2 text-xs font-semibold text-[#7A726D] hover:bg-white/80 rounded-full transition-colors"
                 >
                   Cancel
                 </button>

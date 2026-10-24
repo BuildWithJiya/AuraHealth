@@ -53,29 +53,29 @@ export default function DiagnosticInsights({ patient, labFlags, correlation, dos
             label="Critical"
             value={counts.critical}
             color="text-[#D96B85]"
-            bg="bg-[#FCE7E8]"
-            border="border-[#D96B85]/30"
+            bg="bg-[#FCE7E8]/75"
+            border="border-white/80"
           />
           <StatChip
             icon={AlertTriangle}
             label="Warning"
             value={counts.warning}
             color="text-[#D9A84E]"
-            bg="bg-[#FDF8EE]"
-            border="border-[#D9A84E]/30"
+            bg="bg-[#FDF8EE]/80"
+            border="border-white/80"
           />
           <StatChip
             icon={Info}
             label="Info"
             value={counts.info}
             color="text-[#405A43]"
-            bg="bg-[#E8EFE3]"
-            border="border-[#405A43]/30"
+            bg="bg-[#E8EFE3]/80"
+            border="border-white/80"
           />
         </div>
 
         {correlation && (
-          <div className="text-xs text-[#3E3834] bg-[#F8F0E8] border border-[#E8DFD8] rounded-xl p-2.5 mb-3 leading-relaxed flex items-start gap-1.5">
+          <div className="text-xs text-[#3E3834] bg-white/60 backdrop-blur-md border border-white/80 rounded-xl p-2.5 mb-3 leading-relaxed flex items-start gap-1.5 shadow-2xs">
             <Activity size={13} className="text-[#D96B85] shrink-0 mt-0.5" />
             <p>
               <span className="font-bold text-[#6A3D55]">{Math.round(Math.abs(correlation.value) * 100)}%</span>{' '}
@@ -119,7 +119,7 @@ export default function DiagnosticInsights({ patient, labFlags, correlation, dos
 
 function StatChip({ icon: Icon, label, value, color, bg, border }) {
   return (
-    <div className={`rounded-xl border ${border} ${bg} p-2 text-center shadow-2xs`}>
+    <div className={`rounded-xl border ${border} ${bg} backdrop-blur-sm p-2 text-center shadow-2xs`}>
       <Icon size={14} className={`${color} mx-auto mb-0.5`} />
       <p className={`text-sm font-bold ${color}`}>{value}</p>
       <p className="text-[10px] text-[#7A726D] font-medium">{label}</p>
