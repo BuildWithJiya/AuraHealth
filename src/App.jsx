@@ -12,8 +12,18 @@ import CorrelationDashboard from './components/CorrelationDashboard'
 import DiagnosticInsights from './components/DiagnosticInsights'
 import SoapDossier from './components/SoapDossier'
 import UnderstandYourBodyModal from './components/UnderstandYourBodyModal'
+import PrivacyModal from './components/PrivacyModal'
+import LifeStageModal from './components/LifeStageModal'
+import PanicCurtain from './components/PanicCurtain'
 import { MOCK_PATIENTS, getPatientById, registerCustomPatient } from './data/mockPatients'
 import { LAB_PRESETS } from './data/labPresets'
+import { LIFE_STAGES, getStoredLifeStage, saveLifeStage } from './data/lifeStageData'
+import {
+  loadPrivacySettings,
+  savePrivacySettings,
+  setCamouflageInBrowser,
+  getSanitizedPatient,
+} from './utils/privacyManager'
 import { getCyclePhase, generateHormoneCurve, pearsonCorrelation } from './utils/cycleEngine'
 import { evaluateLabPanel } from './utils/biomarkerEngine'
 import { buildSoapDossier } from './utils/soapGenerator'
@@ -40,10 +50,29 @@ export default function App() {
   const [activePatientId, setActivePatientId] = useState(() =>
     onboardingProfile ? onboardingProfile.id : getStoredActivePatientId()
   )
-  const patient = getPatientById(activePatientId)
-  const patientsForSwitcher = onboardingProfile ? [onboardingProfile, ...MOCK_PATIENTS] : MOCK_PATIENTS
+  const rawPatient = getPatientById(activePatientId)
 
-  // Initialize state from localStorage or mock defaults
+  // Privacy-First Architecture State
+  const [privacySettings, setPrivacySettings] = useState(() => loadPrivacySettings())
+  const [privacyModalOpen, setPrivacyModalOpen] = useState(false)
+  const [panicCurtainActive, setPanicCurtainActive] = useState(false)
+
+  // Life-Stage Adaptive State (Teen, Reproductive, Pregnancy/Postpartum, Perimenopause)
+  const [activeLifeStageId, setActiveLifeStageId] = useState(() => getStoredLifeStage())
+  const [lifeStageModalOpen, setLifeStageModalOpen] = useState(false)
+
+  // Mask patient details if Anonymous Mode is enabled
+  const patient = useMemo(() => {
+    return getSanitizedPatient(rawPatient, privacySettings.anonymousMode)
+  }, [rawPatient, privacySettings.anonymousMode])
+
+  const patientsForSwitcher = useMemo(() => {
+    const list = onboardingProfile ? [onboardingProfile, ...MOCK_PATIENTS] : MOCK_PATIENTS
+    if (!privacySettings.anonymousMode) return list
+    return list.map((p) => getSanitizedPatient(p, true))
+  }, [onboardingProfile, privacySettings.anonymousMode])
+
+  // Initialize patient state from localStorage or mock defaults
   const initialPatientData = useMemo(() => loadPatientState(activePatientId), [activePatientId])
   const [day, setDay] = useState(initialPatientData.day)
   const [symptomLog, setSymptomLog] = useState(initialPatientData.symptomLog)
@@ -82,6 +111,32 @@ export default function App() {
     })
     setIsCustomized(true)
   }, [activePatientId, day, symptomLog, labPresetKey, labValues])
+
+  // Apply browser title & favicon camouflage based on privacy settings
+  useEffect(() => {
+    setCamouflageInBrowser(privacySettings.camouflageMode)
+    savePrivacySettings(privacySettings)
+  }, [privacySettings])
+
+  // Escape key listener for Quick Screen Camouflage (Stigma Protection)
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') {
+        setPanicCurtainActive((prev) => !prev)
+      }
+    }
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [])
+
+  const handleUpdatePrivacy = (newSettings) => {
+    setPrivacySettings(newSettings)
+  }
+
+  const handleSelectLifeStage = (stageId) => {
+    setActiveLifeStageId(stageId)
+    saveLifeStage(stageId)
+  }
 
   const phase = getCyclePhase(day, patient.cycleLength)
 
@@ -156,98 +211,148 @@ export default function App() {
     setView('dashboard')
   }
 
-  if (view === 'landing') {
-    return (
-      <div className="relative min-h-screen flex flex-col">
-        <AuraBackground />
-        <div className="relative z-10">
-          <LandingPage
-            onGetStarted={handleGetStarted}
-            onViewDemo={handleViewDemo}
-            patient={patient}
-            day={day}
-            onDayChange={setDay}
-            onAddSymptom={handleAddSymptom}
-            symptomLog={symptomLog}
-            chartData={chartData}
-            correlation={correlation}
-            patients={patientsForSwitcher}
-            onSwitchPatient={setActivePatientId}
-            onOpenSoap={() => setSoapOpen(true)}
-            onOpenEducation={() => setEducationOpen(true)}
-          />
-        </div>
-      </div>
-    )
-  }
-
-  if (view === 'onboarding') {
-    return (
-      <div className="relative min-h-screen flex flex-col">
-        <AuraBackground />
-        <div className="relative z-10">
-          <OnboardingForm onComplete={handleOnboardingComplete} onSkip={handleViewDemo} />
-        </div>
-      </div>
-    )
-  }
-
   return (
-    <div className="relative min-h-screen flex flex-col">
-      <AuraBackground />
-      <div className="relative z-10 flex flex-col min-h-screen">
-        <Header
-          patients={patientsForSwitcher}
-          activePatient={patient}
-          onSwitchPatient={setActivePatientId}
-          day={day}
-          cycleLength={patient.cycleLength}
-          onOpenSoap={() => setSoapOpen(true)}
-          onOpenEducation={() => setEducationOpen(true)}
-          isCustomized={isCustomized}
-          onResetData={handleResetData}
-          onGoHome={() => setView('landing')}
-        />
+    <>
+      {/* Panic Curtain Overlay (Discreet Camouflage for shared spaces) */}
+      <PanicCurtain
+        active={panicCurtainActive}
+        onExit={() => setPanicCurtainActive(false)}
+      />
 
-        <main className="flex-1 mx-auto max-w-[1600px] w-full px-4 py-5">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
-            <div className="lg:col-span-3 space-y-4">
-              <CycleTimeline day={day} cycleLength={patient.cycleLength} onDayChange={setDay} />
-              <VoiceLogger day={day} cycleLength={patient.cycleLength} onAddSymptom={handleAddSymptom} />
-              <SymptomTimeline symptomLog={symptomLog} />
-            </div>
-
-            <div className="lg:col-span-6 space-y-4">
-              <CorrelationDashboard data={chartData} currentDay={day} correlation={correlation} />
-              <BiomarkerPanel
-                phase={phase}
-                day={day}
-                presetKey={labPresetKey}
-                values={labValues}
-                onApplyPreset={handleApplyPreset}
-                result={labResult}
-              />
-            </div>
-
-            <div className="lg:col-span-3">
-              <DiagnosticInsights
-                patient={patient}
-                symptomLog={symptomLog}
-                labFlags={labResult.flags}
-                correlation={correlation}
-                dossier={dossier}
-                onOpenSoap={() => setSoapOpen(true)}
-                onOpenEducation={() => setEducationOpen(true)}
-              />
-            </div>
+      {view === 'landing' && (
+        <div className="relative min-h-screen flex flex-col">
+          <AuraBackground />
+          <div className="relative z-10">
+            <LandingPage
+              onGetStarted={handleGetStarted}
+              onViewDemo={handleViewDemo}
+              patient={patient}
+              day={day}
+              onDayChange={setDay}
+              onAddSymptom={handleAddSymptom}
+              symptomLog={symptomLog}
+              chartData={chartData}
+              correlation={correlation}
+              patients={patientsForSwitcher}
+              onSwitchPatient={setActivePatientId}
+              onOpenSoap={() => setSoapOpen(true)}
+              onOpenEducation={() => setEducationOpen(true)}
+              activeLifeStageId={activeLifeStageId}
+              onSelectLifeStage={handleSelectLifeStage}
+              onOpenLifeStage={() => setLifeStageModalOpen(true)}
+              onOpenPrivacy={() => setPrivacyModalOpen(true)}
+              onTriggerPanic={() => setPanicCurtainActive(true)}
+              isAnonymous={privacySettings.anonymousMode}
+              privacySettings={privacySettings}
+              onUpdatePrivacy={handleUpdatePrivacy}
+              onResetAllData={handleResetData}
+            />
           </div>
-        </main>
+        </div>
+      )}
 
-        <Footer />
-      </div>
+      {view === 'onboarding' && (
+        <div className="relative min-h-screen flex flex-col">
+          <AuraBackground />
+          <div className="relative z-10">
+            <OnboardingForm onComplete={handleOnboardingComplete} onSkip={handleViewDemo} />
+          </div>
+        </div>
+      )}
 
-      <SoapDossier open={soapOpen} onClose={() => setSoapOpen(false)} dossier={dossier} phase={phase} day={day} />
+      {view === 'dashboard' && (
+        <div className="relative min-h-screen flex flex-col">
+          <AuraBackground />
+          <div className="relative z-10 flex flex-col min-h-screen">
+            <Header
+              patients={patientsForSwitcher}
+              activePatient={patient}
+              onSwitchPatient={setActivePatientId}
+              day={day}
+              cycleLength={patient.cycleLength}
+              onOpenSoap={() => setSoapOpen(true)}
+              onOpenEducation={() => setEducationOpen(true)}
+              isCustomized={isCustomized}
+              onResetData={handleResetData}
+              onGoHome={() => setView('landing')}
+              activeLifeStageId={activeLifeStageId}
+              onOpenLifeStage={() => setLifeStageModalOpen(true)}
+              onOpenPrivacy={() => setPrivacyModalOpen(true)}
+              onTriggerPanic={() => setPanicCurtainActive(true)}
+              isAnonymous={privacySettings.anonymousMode}
+            />
+
+            <main className="flex-1 mx-auto max-w-[1600px] w-full px-4 py-5">
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
+                <div className="lg:col-span-3 space-y-4">
+                  <CycleTimeline day={day} cycleLength={patient.cycleLength} onDayChange={setDay} />
+                  <VoiceLogger
+                    day={day}
+                    cycleLength={patient.cycleLength}
+                    onAddSymptom={handleAddSymptom}
+                    activeLifeStageId={activeLifeStageId}
+                  />
+                  <SymptomTimeline symptomLog={symptomLog} />
+                </div>
+
+                <div className="lg:col-span-6 space-y-4">
+                  <CorrelationDashboard data={chartData} currentDay={day} correlation={correlation} />
+                  <BiomarkerPanel
+                    phase={phase}
+                    day={day}
+                    presetKey={labPresetKey}
+                    values={labValues}
+                    onApplyPreset={handleApplyPreset}
+                    result={labResult}
+                  />
+                </div>
+
+                <div className="lg:col-span-3">
+                  <DiagnosticInsights
+                    patient={patient}
+                    symptomLog={symptomLog}
+                    labFlags={labResult.flags}
+                    correlation={correlation}
+                    dossier={dossier}
+                    onOpenSoap={() => setSoapOpen(true)}
+                    onOpenEducation={() => setEducationOpen(true)}
+                    activeLifeStageId={activeLifeStageId}
+                    onOpenLifeStage={() => setLifeStageModalOpen(true)}
+                  />
+                </div>
+              </div>
+            </main>
+
+            <Footer />
+          </div>
+        </div>
+      )}
+
+      {/* Global Modals */}
+      <SoapDossier
+        open={soapOpen}
+        onClose={() => setSoapOpen(false)}
+        dossier={dossier}
+        phase={phase}
+        day={day}
+        isAnonymous={privacySettings.anonymousMode}
+        activeLifeStageId={activeLifeStageId}
+      />
       <UnderstandYourBodyModal open={educationOpen} onClose={() => setEducationOpen(false)} />
-    </div>
+      <PrivacyModal
+        open={privacyModalOpen}
+        onClose={() => setPrivacyModalOpen(false)}
+        privacySettings={privacySettings}
+        onUpdatePrivacy={handleUpdatePrivacy}
+        onTriggerPanic={() => setPanicCurtainActive(true)}
+        onResetAllData={handleResetData}
+      />
+      <LifeStageModal
+        open={lifeStageModalOpen}
+        onClose={() => setLifeStageModalOpen(false)}
+        activeLifeStageId={activeLifeStageId}
+        onSelectLifeStage={handleSelectLifeStage}
+      />
+    </>
   )
 }

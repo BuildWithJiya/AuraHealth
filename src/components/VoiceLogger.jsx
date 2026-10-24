@@ -23,6 +23,7 @@ import {
   generateRegionalAudioSummary,
 } from '../utils/symptomParser'
 import { getCyclePhase, PHASE_META } from '../utils/cycleEngine'
+import { LIFE_STAGES } from '../data/lifeStageData'
 
 export const REGIONAL_LANGUAGES = [
   {
@@ -83,7 +84,7 @@ export const REGIONAL_LANGUAGES = [
   },
 ]
 
-export default function VoiceLogger({ day, cycleLength, onAddSymptom }) {
+export default function VoiceLogger({ day, cycleLength, onAddSymptom, activeLifeStageId = 'reproductive' }) {
   const [selectedLang, setSelectedLang] = useState(REGIONAL_LANGUAGES[0]) // Hindi by default for rural India accessibility
   const [supported, setSupported] = useState(true)
   const [isRecording, setIsRecording] = useState(false)
@@ -277,12 +278,34 @@ export default function VoiceLogger({ day, cycleLength, onAddSymptom }) {
             setTranscript(selectedLang.sample)
             runParse(selectedLang.sample)
           }}
-          className="text-[11px] font-medium bg-[#FCE7E8]/80 hover:bg-[#FCE7E8] text-[#D96B85] border border-white/80 rounded-full px-2.5 py-0.5 transition-colors shadow-2xs text-left"
+          className="text-[11px] font-medium bg-[#FCE7E8]/80 hover:bg-[#FCE7E8] text-[#D96B85] border border-white/80 rounded-full px-2.5 py-0.5 transition-colors shadow-2xs text-left cursor-pointer"
           title="Click to auto-load sample sentence"
         >
           &ldquo;{selectedLang.sample}&rdquo; &rarr;
         </button>
       </div>
+
+      {/* Life-Stage Adaptive Preset Chips */}
+      {LIFE_STAGES[activeLifeStageId]?.symptomChips && (
+        <div className="mb-2.5 flex items-center gap-1 flex-wrap">
+          <span className="text-[10px] text-[#405A43] font-semibold flex items-center gap-1">
+            <span>{LIFE_STAGES[activeLifeStageId].icon}</span> {LIFE_STAGES[activeLifeStageId].shortName} presets:
+          </span>
+          {LIFE_STAGES[activeLifeStageId].symptomChips.slice(0, 3).map((chip, idx) => (
+            <button
+              key={idx}
+              onClick={() => {
+                const sampleText = `${chip.label} reported around day ${day}, severity ${chip.severity} out of 10 with ${chip.modifiers.join(', ')}.`
+                setTranscript(sampleText)
+                runParse(sampleText)
+              }}
+              className="text-[10px] font-medium bg-[#E8EFE3]/80 hover:bg-[#E8EFE3] text-[#405A43] border border-[#405A43]/20 rounded-full px-2 py-0.5 transition-colors shadow-2xs cursor-pointer"
+            >
+              +{chip.label}
+            </button>
+          ))}
+        </div>
+      )}
 
       {/* Textarea for Voice Output or Manual Review */}
       <div className="relative">

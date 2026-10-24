@@ -49,7 +49,7 @@ export default function ExplainableRiskModal({ open, onClose, screeningReports =
                 </span>
               </div>
               <p className="text-xs text-[#7A726D]">
-                Transparent clinical rationale (&ldquo;Kyun Flag Hua&rdquo;) based on objective international consensus criteria.
+                Transparent clinical rationale (&ldquo;Why Was It Flagged?&rdquo;) based on objective international consensus criteria.
               </p>
             </div>
           </div>
@@ -119,7 +119,7 @@ export default function ExplainableRiskModal({ open, onClose, screeningReports =
             })}
           </div>
 
-          {/* Right Column: Deep Explainability ("Kyun Flag Hua") */}
+          {/* Right Column: Deep Explainability ("Why Was It Flagged") */}
           <div className="md:col-span-8 overflow-y-auto p-6 space-y-5 bg-white/70 backdrop-blur-xl">
             {/* Condition Header & Confidence Bar */}
             <div className="border-b border-[#E8DFD8]/80 pb-4">
@@ -154,12 +154,12 @@ export default function ExplainableRiskModal({ open, onClose, screeningReports =
               </div>
             </div>
 
-            {/* "KYUN FLAG HUA" — Factor by Factor Explainable Breakdown */}
+            {/* "WHY WAS IT FLAGGED" — Factor by Factor Explainable Breakdown */}
             <div className="space-y-3">
               <div className="flex items-center justify-between">
                 <h4 className="text-xs font-bold uppercase tracking-wider text-[#6A3D55] flex items-center gap-1.5">
                   <Sparkles size={13} className="text-[#D96B85]" />
-                  Kyun Flag Hua? (Transparent Factor Breakdown)
+                  Why Was It Flagged? (Transparent Factor Breakdown)
                 </h4>
                 <span className="text-[11px] text-[#7A726D] font-medium">
                   Explainable AI &middot; No black box

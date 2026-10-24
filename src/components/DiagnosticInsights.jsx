@@ -15,6 +15,7 @@ import {
   CheckCircle2,
 } from 'lucide-react'
 import { runExplainableScreening } from '../utils/explainableRiskEngine'
+import { LIFE_STAGES } from '../data/lifeStageData'
 import ExplainableRiskModal from './ExplainableRiskModal'
 
 const LETTER_THEMES = {
@@ -32,8 +33,11 @@ export default function DiagnosticInsights({
   dossier,
   onOpenSoap,
   onOpenEducation,
+  activeLifeStageId = 'reproductive',
+  onOpenLifeStage,
 }) {
   const [screeningModalOpen, setScreeningModalOpen] = useState(false)
+  const currentStage = LIFE_STAGES[activeLifeStageId] || LIFE_STAGES.reproductive
 
   const counts = labFlags.reduce(
     (acc, f) => {
@@ -59,10 +63,21 @@ export default function DiagnosticInsights({
     <div className="space-y-4">
       {/* 1. Diagnostic Overview Card */}
       <div className="ios-glass-card rounded-2xl p-4">
-        <h3 className="text-sm font-semibold text-[#6A3D55] flex items-center gap-1.5 mb-3">
-          <Stethoscope size={14} className="text-[#D96B85]" />
-          Clinical Diagnostic Insights
-        </h3>
+        <div className="flex items-center justify-between gap-2 mb-2.5">
+          <h3 className="text-sm font-semibold text-[#6A3D55] flex items-center gap-1.5">
+            <Stethoscope size={14} className="text-[#D96B85]" />
+            Clinical Diagnostic Insights
+          </h3>
+          {onOpenLifeStage && (
+            <button
+              onClick={onOpenLifeStage}
+              className="text-[10px] font-bold bg-[#FAF7F2] hover:bg-[#F8F0E8] text-[#405A43] border border-[#405A43]/20 rounded-full px-2 py-0.5 flex items-center gap-1 transition-colors cursor-pointer"
+              title="Click to change life stage"
+            >
+              <span>{currentStage.icon}</span> {currentStage.shortName}
+            </button>
+          )}
+        </div>
 
         <div className="flex flex-wrap gap-1.5 mb-3">
           {patient.suspected.map((s) => (
@@ -132,7 +147,7 @@ export default function DiagnosticInsights({
         )}
       </div>
 
-      {/* 2. Explainable Risk Screening Card ("Kyun Flag Hua?") */}
+      {/* 2. Explainable Risk Screening Card ("Why Was It Flagged?") */}
       <div className="ios-glass-card rounded-2xl p-4 space-y-3">
         <div className="flex items-center justify-between">
           <h3 className="text-sm font-semibold text-[#6A3D55] flex items-center gap-1.5">
@@ -184,7 +199,7 @@ export default function DiagnosticInsights({
               className="w-full mt-2 flex items-center justify-center gap-1.5 text-xs font-bold bg-[#405A43] hover:bg-[#344a37] text-white rounded-xl py-2.5 shadow-2xs transition-all cursor-pointer"
             >
               <HelpCircle size={13} />
-              Kyun Flag Hua? (View Full Breakdown) &rarr;
+              Why Was It Flagged? (View Factor Breakdown) &rarr;
             </button>
           </div>
         )}

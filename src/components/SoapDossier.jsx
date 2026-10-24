@@ -1,5 +1,7 @@
 import { X, Printer, Activity, ShieldCheck, User, Calendar, Stethoscope, MessageSquare, Compass, Lightbulb } from 'lucide-react'
 
+import { LIFE_STAGES } from '../data/lifeStageData'
+
 const SECTION_META = {
   S: { color: 'bg-[#D96B85]', icon: MessageSquare },
   O: { color: 'bg-[#405A43]', icon: Activity },
@@ -7,9 +9,10 @@ const SECTION_META = {
   P: { color: 'bg-[#D9A84E]', icon: Lightbulb },
 }
 
-export default function SoapDossier({ open, onClose, dossier, phase, day }) {
+export default function SoapDossier({ open, onClose, dossier, phase, day, isAnonymous = false, activeLifeStageId = 'reproductive' }) {
   if (!open || !dossier) return null
   const { patient, subjective, objective, assessment, plan, generatedAt } = dossier
+  const stageInfo = LIFE_STAGES[activeLifeStageId] || LIFE_STAGES.reproductive
 
   return (
     <div className="fixed inset-0 z-50 flex items-start justify-center bg-black/40 backdrop-blur-xs overflow-y-auto py-6 px-3 no-print-bg">
@@ -46,8 +49,12 @@ export default function SoapDossier({ open, onClose, dossier, phase, day }) {
         </div>
 
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs mb-6 bg-[#F8F0E8] rounded-xl p-3 border border-[#E8DFD8]">
-          <InfoBlock icon={User} label="Patient" value={`${patient.name}, ${patient.age}`} />
-          <InfoBlock icon={Calendar} label="Cycle Length" value={`${patient.cycleLength} days`} />
+          <InfoBlock
+            icon={User}
+            label="Patient"
+            value={isAnonymous ? 'Aura-Anonymous-User (Masked)' : `${patient.name}, ${patient.age}`}
+          />
+          <InfoBlock icon={Calendar} label="Cycle & Life Stage" value={`${patient.cycleLength}d · ${stageInfo.shortName}`} />
           <InfoBlock icon={Stethoscope} label="Suspected Conditions" value={patient.suspected.join(', ')} />
           <InfoBlock icon={Activity} label="Review Window" value="60-day symptom log" />
         </div>

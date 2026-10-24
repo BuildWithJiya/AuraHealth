@@ -1,6 +1,7 @@
-import { Activity, ChevronDown, ShieldCheck, BookOpen, RotateCcw } from 'lucide-react'
+import { Activity, ChevronDown, ShieldCheck, BookOpen, RotateCcw, Shield, EyeOff, Sparkles } from 'lucide-react'
 import { useState } from 'react'
 import { PHASE_META, getCyclePhase } from '../utils/cycleEngine'
+import { LIFE_STAGES } from '../data/lifeStageData'
 
 export default function Header({
   patients,
@@ -13,10 +14,18 @@ export default function Header({
   isCustomized,
   onResetData,
   onGoHome,
+  activeLifeStageId = 'reproductive',
+  onOpenLifeStage,
+  onOpenPrivacy,
+  onTriggerPanic,
+  isAnonymous = false,
 }) {
   const [menuOpen, setMenuOpen] = useState(false)
   const phase = getCyclePhase(day, cycleLength)
   const phaseColor = PHASE_META[phase]?.color || '#D96B85'
+
+  const currentStage = LIFE_STAGES[activeLifeStageId] || LIFE_STAGES.reproductive
+  const displayName = isAnonymous ? 'Aura-Anonymous-User' : activePatient.name
 
   return (
     <header className="sticky top-0 z-40 border-b border-[#E8EFE3] bg-[#F8F0E8]/90 backdrop-blur-xl no-print shadow-[0_2px_12px_-2px_rgba(106,61,85,0.06)]">
@@ -59,36 +68,75 @@ export default function Header({
           </div>
         </button>
 
-        {/* Phase Pill Indicator */}
-        <div className="hidden md:flex items-center gap-2 text-xs text-[#5E5259] bg-white/70 backdrop-blur-md border border-white/80 rounded-full px-3.5 py-1.5 shadow-xs">
-          <span className="h-2.5 w-2.5 rounded-full shadow-xs" style={{ backgroundColor: phaseColor }} />
-          Day {day} of {cycleLength} &middot;{' '}
-          <span className="font-semibold text-[#6A3D55]">{phase}</span>
-          {isCustomized && (
-            <span className="ml-1 text-[10px] text-[#405A43] bg-[#E8EFE3]/80 border border-[#405A43]/30 rounded-full px-2 py-0.5 font-medium">
-              Saved locally
+        {/* Center Indicators: Phase Pill + Life-Stage Pill */}
+        <div className="hidden lg:flex items-center gap-2.5">
+          {/* Phase Pill Indicator */}
+          <div className="flex items-center gap-2 text-xs text-[#5E5259] bg-white/70 backdrop-blur-md border border-white/80 rounded-full px-3.5 py-1.5 shadow-xs">
+            <span className="h-2.5 w-2.5 rounded-full shadow-xs" style={{ backgroundColor: phaseColor }} />
+            Day {day} of {cycleLength} &middot;{' '}
+            <span className="font-semibold text-[#6A3D55]">{phase}</span>
+            {isCustomized && (
+              <span className="ml-1 text-[10px] text-[#405A43] bg-[#E8EFE3]/80 border border-[#405A43]/30 rounded-full px-2 py-0.5 font-medium">
+                Saved locally
+              </span>
+            )}
+          </div>
+
+          {/* Life-Stage Pill Indicator & Switcher */}
+          <button
+            onClick={onOpenLifeStage}
+            className="flex items-center gap-1.5 text-xs text-[#31232B] hover:text-[#D96B85] bg-white/75 backdrop-blur-md border border-white/80 hover:border-[#D96B85]/40 rounded-full px-3.5 py-1.5 shadow-xs transition-all cursor-pointer"
+            title="Click to view or switch Life-Stage Adaptive Mode"
+          >
+            <span>{currentStage.icon}</span>
+            <span className="font-semibold">{currentStage.shortName}</span>
+            <span className="text-[10px] text-[#7A726D] bg-[#FAF7F2] px-1.5 py-0.2 rounded-full border border-[#E8DFD8]">
+              {currentStage.ageRange}
             </span>
-          )}
+          </button>
         </div>
 
         {/* Action Controls */}
-        <div className="flex items-center gap-2.5">
+        <div className="flex items-center gap-2">
           {onGoHome && (
             <button
               onClick={onGoHome}
-              className="flex items-center gap-1.5 text-xs font-semibold bg-white/75 backdrop-blur-md hover:bg-[#FCE7E8] text-[#5E5259] hover:text-[#D96B85] border border-white/80 rounded-full px-3.5 py-2 transition-all shadow-xs"
+              className="hidden sm:flex items-center gap-1.5 text-xs font-semibold bg-white/75 backdrop-blur-md hover:bg-[#FCE7E8] text-[#5E5259] hover:text-[#D96B85] border border-white/80 rounded-full px-3.5 py-2 transition-all shadow-xs cursor-pointer"
             >
               Overview
             </button>
           )}
 
+          {/* Privacy & Discretion Hub Button */}
+          <button
+            onClick={onOpenPrivacy}
+            className="flex items-center gap-1.5 text-xs font-semibold bg-white/75 backdrop-blur-md hover:bg-[#E8EFE3] text-[#405A43] border border-white/80 rounded-full px-3 py-2 transition-all hover:border-[#405A43] shadow-xs cursor-pointer"
+            title="Privacy-First Settings & Discretion Controls"
+          >
+            <Shield size={14} className="text-[#405A43]" />
+            <span className="hidden md:inline">Privacy</span>
+            {isAnonymous && (
+              <span className="h-2 w-2 rounded-full bg-[#D96B85]" title="Anonymous Ghost Mode Active" />
+            )}
+          </button>
+
+          {/* Quick Screen Camouflage / Panic Button */}
+          <button
+            onClick={onTriggerPanic}
+            className="flex items-center gap-1 text-xs font-semibold bg-white/75 backdrop-blur-md hover:bg-[#FAF7F2] text-[#6A3D55] border border-white/80 rounded-full px-2.5 py-2 transition-all shadow-xs cursor-pointer"
+            title="Quick Screen Camouflage / Panic Curtain (Press Esc)"
+          >
+            <EyeOff size={13} />
+            <span className="hidden xl:inline text-[11px]">Discreet</span>
+          </button>
+
           {/* Understand Your Body Button */}
           <button
             onClick={onOpenEducation}
-            className="flex items-center gap-1.5 text-xs font-semibold bg-white/75 backdrop-blur-md hover:bg-[#FCE7E8] text-[#D96B85] border border-white/80 rounded-full px-3.5 py-2 transition-all hover:border-[#D96B85] shadow-xs"
+            className="flex items-center gap-1.5 text-xs font-semibold bg-white/75 backdrop-blur-md hover:bg-[#FCE7E8] text-[#D96B85] border border-white/80 rounded-full px-3 py-2 transition-all hover:border-[#D96B85] shadow-xs cursor-pointer"
           >
             <BookOpen size={14} className="text-[#D96B85]" />
-            <span className="hidden sm:inline">Understand Your Body</span>
+            <span className="hidden sm:inline">Understand Body</span>
             <span className="sm:hidden">Guide</span>
           </button>
 
@@ -96,22 +144,25 @@ export default function Header({
           <div className="relative">
             <button
               onClick={() => setMenuOpen((v) => !v)}
-              className="flex items-center gap-2 bg-white/75 backdrop-blur-md hover:bg-[#F8F0E8] border border-white/80 rounded-full pl-1.5 pr-3 py-1.5 transition-colors shadow-xs"
+              className="flex items-center gap-2 bg-white/75 backdrop-blur-md hover:bg-[#F8F0E8] border border-white/80 rounded-full pl-1.5 pr-3 py-1.5 transition-colors shadow-xs cursor-pointer"
             >
               <span
                 className="h-6 w-6 rounded-full flex items-center justify-center text-[11px] font-bold text-white shadow-xs"
                 style={{ backgroundColor: activePatient.avatarColor || '#D96B85' }}
               >
-                {activePatient.name.charAt(0)}
+                {displayName.charAt(0)}
               </span>
-              <span className="text-sm text-[#31232B] font-medium">{activePatient.name}</span>
+              <span className="text-sm text-[#31232B] font-medium max-w-[100px] sm:max-w-[130px] truncate">
+                {displayName}
+              </span>
               <ChevronDown size={14} className="text-[#8C8087]" />
             </button>
 
             {menuOpen && (
-              <div className="absolute right-0 mt-2 w-72 bg-white/85 backdrop-blur-2xl border border-white/80 rounded-2xl shadow-xl overflow-hidden z-50">
-                <div className="p-2.5 border-b border-[#E8EFE3] text-[10px] font-bold text-[#8C8087] uppercase tracking-wider bg-[#F8F0E8]">
-                  Select Clinical Case Study
+              <div className="absolute right-0 mt-2 w-72 bg-white/95 backdrop-blur-2xl border border-white/80 rounded-2xl shadow-xl overflow-hidden z-50">
+                <div className="p-2.5 border-b border-[#E8EFE3] text-[10px] font-bold text-[#8C8087] uppercase tracking-wider bg-[#F8F0E8] flex items-center justify-between">
+                  <span>Select Clinical Profile</span>
+                  {isAnonymous && <span className="text-[9px] text-[#D96B85] font-bold">Anonymous</span>}
                 </div>
                 {patients.map((p) => (
                   <button
@@ -120,7 +171,7 @@ export default function Header({
                       onSwitchPatient(p.id)
                       setMenuOpen(false)
                     }}
-                    className={`w-full text-left px-3 py-2.5 flex items-center gap-2.5 hover:bg-[#FCE7E8] transition-colors ${
+                    className={`w-full text-left px-3 py-2.5 flex items-center gap-2.5 hover:bg-[#FCE7E8] transition-colors cursor-pointer ${
                       p.id === activePatient.id ? 'bg-[#FCE7E8]/60' : ''
                     }`}
                   >
@@ -137,6 +188,20 @@ export default function Header({
                   </button>
                 ))}
 
+                {/* Stage switcher link inside dropdown */}
+                <div className="p-2 border-t border-[#E8EFE3] bg-[#FAF7F2]">
+                  <button
+                    onClick={() => {
+                      onOpenLifeStage()
+                      setMenuOpen(false)
+                    }}
+                    className="w-full text-left px-2.5 py-1.5 text-xs text-[#6A3D55] hover:bg-[#E8DDF0]/60 rounded-lg flex items-center gap-2 transition-colors font-medium cursor-pointer"
+                  >
+                    <Sparkles size={12} className="text-[#6A3D55]" />
+                    Life Stage: {currentStage.shortName}
+                  </button>
+                </div>
+
                 {onResetData && (
                   <div className="p-2 border-t border-[#E8EFE3] bg-[#F8F0E8]">
                     <button
@@ -144,7 +209,7 @@ export default function Header({
                         onResetData()
                         setMenuOpen(false)
                       }}
-                      className="w-full text-left px-2.5 py-1.5 text-xs text-[#D96B85] hover:text-[#B8526B] hover:bg-[#FCE7E8] rounded-lg flex items-center gap-2 transition-colors font-medium"
+                      className="w-full text-left px-2.5 py-1.5 text-xs text-[#D96B85] hover:text-[#B8526B] hover:bg-[#FCE7E8] rounded-lg flex items-center gap-2 transition-colors font-medium cursor-pointer"
                     >
                       <RotateCcw size={12} />
                       Reset to Default Demo Data
@@ -158,7 +223,7 @@ export default function Header({
           {/* SOAP Dossier Button */}
           <button
             onClick={onOpenSoap}
-            className="hidden sm:flex items-center gap-1.5 text-xs font-semibold bg-[#D96B85] hover:bg-[#B8526B] text-white rounded-full px-3.5 py-2 transition-colors shadow-sm"
+            className="hidden sm:flex items-center gap-1.5 text-xs font-semibold bg-[#D96B85] hover:bg-[#B8526B] text-white rounded-full px-3.5 py-2 transition-colors shadow-sm cursor-pointer"
           >
             <ShieldCheck size={14} />
             SOAP Dossier

@@ -6,7 +6,7 @@
  * - Non-diagnostic: Evaluates user-reported longitudinal symptoms, cycle dynamics,
  *   and phase-adjusted lab flags against established clinical consensus criteria
  *   (Rotterdam 2003, ACOG #114, DSM-5 PMDD).
- * - Transparent Explainability: Explicitly answers "Kyun Flag Hua?" (Why this was flagged)
+ * - Transparent Explainability: Explicitly answers "Why Was It Flagged?"
  *   with quantified factor weights, detected patient evidence, and physician discussion guides.
  */
 

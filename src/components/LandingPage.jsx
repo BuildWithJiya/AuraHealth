@@ -10,6 +10,8 @@ import {
   Sun,
   Moon,
   ShieldCheck,
+  Shield,
+  EyeOff,
   Lock,
   HeartHandshake,
   ArrowRight,
@@ -43,8 +45,11 @@ import { getCyclePhase, getPhaseBoundaries, getPhaseSubLabel, PHASE_META, genera
 import { parseSymptomText } from '../utils/symptomParser'
 import { runExplainableScreening } from '../utils/explainableRiskEngine'
 import { MOCK_PATIENTS, getPatientById } from '../data/mockPatients'
+import { LIFE_STAGES, LIFE_STAGE_LIST } from '../data/lifeStageData'
 import UnderstandYourBodyModal from './UnderstandYourBodyModal'
 import ExplainableRiskModal from './ExplainableRiskModal'
+import PrivacyModal from './PrivacyModal'
+import LifeStageModal from './LifeStageModal'
 
 function RevealBlock({ children, className = '', delayMs = 0 }) {
   const [ref, visible] = useReveal()
@@ -118,8 +123,29 @@ export default function LandingPage({
   onSwitchPatient: parentOnSwitchPatient,
   onOpenEducation,
   onOpenSoap,
+  activeLifeStageId = 'reproductive',
+  onSelectLifeStage,
+  onOpenLifeStage,
+  onOpenPrivacy,
+  onTriggerPanic,
+  isAnonymous = false,
+  privacySettings,
+  onUpdatePrivacy,
+  onResetAllData,
 }) {
   const [activeNav, setActiveNav] = useState('Home')
+  const [localPrivacyOpen, setLocalPrivacyOpen] = useState(false)
+  const [localLifeStageOpen, setLocalLifeStageOpen] = useState(false)
+
+  const handleOpenPrivacy = () => {
+    if (onOpenPrivacy) onOpenPrivacy()
+    else setLocalPrivacyOpen(true)
+  }
+
+  const handleOpenLifeStage = () => {
+    if (onOpenLifeStage) onOpenLifeStage()
+    else setLocalLifeStageOpen(true)
+  }
 
   // Patient selection for the interactive graph
   const patientsList = parentPatients || MOCK_PATIENTS
@@ -323,8 +349,8 @@ export default function LandingPage({
             </div>
           </div>
 
-          {/* Navigation Links: Home, Track, Learn, Resources, About */}
-          <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-[#5E5259]">
+          {/* Navigation Links: Home, Track, Learn, Life Stages, Privacy, Resources, About */}
+          <nav className="hidden lg:flex items-center gap-6 text-sm font-medium text-[#5E5259]">
             {[
               {
                 name: 'Home',
@@ -341,11 +367,25 @@ export default function LandingPage({
                 },
               },
               {
+                name: 'Life Stages',
+                action: () => {
+                  setActiveNav('Life Stages')
+                  handleOpenLifeStage()
+                },
+              },
+              {
                 name: 'Learn',
                 action: () => {
                   setActiveNav('Learn')
                   if (onOpenEducation) onOpenEducation()
                   else setEducationModalOpen(true)
+                },
+              },
+              {
+                name: 'Privacy',
+                action: () => {
+                  setActiveNav('Privacy')
+                  handleOpenPrivacy()
                 },
               },
               {
@@ -367,7 +407,7 @@ export default function LandingPage({
               <button
                 key={item.name}
                 onClick={item.action}
-                className={`relative py-1 transition-colors hover:text-[#D96B85] ${
+                className={`relative py-1 transition-colors hover:text-[#D96B85] cursor-pointer ${
                   activeNav === item.name ? 'text-[#D96B85] font-semibold' : ''
                 }`}
               >
@@ -379,11 +419,43 @@ export default function LandingPage({
             ))}
           </nav>
 
-          {/* Right Actions: Search Icon + Get Started Button */}
-          <div className="flex items-center gap-3">
+          {/* Right Actions: Life Stage Pill, Privacy Shield, Panic Button, Search, Get Started */}
+          <div className="flex items-center gap-2 sm:gap-2.5">
+            {/* Life Stage Pill */}
+            <button
+              onClick={handleOpenLifeStage}
+              className="hidden sm:flex items-center gap-1.5 bg-[#FAF7F2] hover:bg-[#FCE7E8] text-[#31232B] border border-[#E8DFD8] hover:border-[#D96B85]/40 text-xs font-semibold rounded-full px-3 py-1.5 transition-all shadow-2xs cursor-pointer"
+              title="Click to view or switch Life-Stage Adaptive Mode"
+            >
+              <span>{LIFE_STAGES[activeLifeStageId]?.icon || '🌿'}</span>
+              <span className="hidden md:inline">{LIFE_STAGES[activeLifeStageId]?.shortName || 'Reproductive'}</span>
+            </button>
+
+            {/* Privacy Shield Button */}
+            <button
+              onClick={handleOpenPrivacy}
+              className="h-8 w-8 rounded-full flex items-center justify-center text-[#405A43] hover:text-[#D96B85] bg-[#E8EFE3]/80 hover:bg-[#E8EFE3] border border-[#405A43]/20 transition-colors shadow-2xs cursor-pointer"
+              aria-label="Privacy & Discretion Hub"
+              title="Privacy-First: 100% On-Device & Anonymous Mode"
+            >
+              <Shield size={15} />
+            </button>
+
+            {/* Discreet Camouflage Button */}
+            {onTriggerPanic && (
+              <button
+                onClick={onTriggerPanic}
+                className="h-8 w-8 rounded-full flex items-center justify-center text-[#6A3D55] hover:text-[#31232B] bg-[#E8DDF0]/80 hover:bg-[#E8DDF0] border border-[#6A3D55]/20 transition-colors shadow-2xs cursor-pointer"
+                aria-label="Quick Screen Camouflage"
+                title="Discreet Screen Camouflage (Press Esc to restore)"
+              >
+                <EyeOff size={14} />
+              </button>
+            )}
+
             <button
               onClick={() => setSearchModalOpen(true)}
-              className="h-8 w-8 rounded-full flex items-center justify-center text-[#5E5259] hover:text-[#D96B85] hover:bg-[#FCE7E8]/50 transition-colors"
+              className="h-8 w-8 rounded-full flex items-center justify-center text-[#5E5259] hover:text-[#D96B85] hover:bg-[#FCE7E8]/50 transition-colors cursor-pointer"
               aria-label="Search"
             >
               <Search size={18} />
@@ -391,7 +463,7 @@ export default function LandingPage({
 
             <button
               onClick={onGetStarted}
-              className="flex items-center gap-2 bg-[#D96B85] hover:bg-[#B8526B] text-white text-xs sm:text-sm font-semibold rounded-full px-5 py-2.5 shadow-sm transition-all hover:shadow-md hover:-translate-y-0.5"
+              className="flex items-center gap-2 bg-[#D96B85] hover:bg-[#B8526B] text-white text-xs sm:text-sm font-semibold rounded-full px-4 sm:px-5 py-2.5 shadow-sm transition-all hover:shadow-md hover:-translate-y-0.5 cursor-pointer"
             >
               Get Started <ArrowRight size={14} />
             </button>
@@ -723,7 +795,7 @@ export default function LandingPage({
                     onClick={() => setScreeningModalOpen(true)}
                     className="mt-1 text-[11px] font-semibold text-[#D96B85] hover:text-[#B8526B] flex items-center gap-1 cursor-pointer transition-colors text-left"
                   >
-                    Kyun Flag Hua? (Factor Breakdown) &rarr;
+                    Why Was It Flagged? (Factor Breakdown) &rarr;
                   </button>
                 </div>
               )}
@@ -866,7 +938,7 @@ export default function LandingPage({
                   onClick={() => setScreeningModalOpen(true)}
                   className="flex items-center gap-1.5 text-xs font-semibold bg-[#E8EFE3] hover:bg-[#d6e4ce] text-[#405A43] border border-[#405A43]/30 rounded-full px-3.5 py-2 transition-colors shadow-2xs cursor-pointer"
                 >
-                  <ShieldCheck size={13} /> Kyun Flag Hua? (Screening)
+                  <ShieldCheck size={13} /> Why Was It Flagged? (Screening)
                 </button>
                 <button
                   onClick={() => setQuickLogOpen(true)}
@@ -1007,6 +1079,89 @@ export default function LandingPage({
       </section>
 
       {/* ------------------------------------------------------------------ */}
+      {/* 4.5. LIFE-STAGE ADAPTIVE HEALTH ARCHITECTURE (4 Stages)            */}
+      {/* ------------------------------------------------------------------ */}
+      <section id="life-stages" className="py-12 max-w-6xl mx-auto px-6 scroll-mt-20">
+        <RevealBlock>
+          <div className="ios-glass-card rounded-3xl p-6 sm:p-9 space-y-6">
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-[#E8EFE3] pb-5">
+              <div>
+                <div className="flex items-center gap-2 mb-1.5">
+                  <span className="text-[11px] font-bold uppercase tracking-wider bg-[#E8DDF0] text-[#6A3D55] border border-[#6A3D55]/20 rounded-full px-3 py-0.5 flex items-center gap-1.5 shadow-2xs">
+                    <Sparkles size={12} /> Life-Stage Adaptive Care
+                  </span>
+                  <span className="text-xs text-[#7A726D] font-medium hidden sm:inline">&middot; Beyond Reproductive Years</span>
+                </div>
+                <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#6A3D55]">
+                  Health Support That Evolves With You
+                </h2>
+                <p className="text-xs sm:text-sm text-[#5E5259] mt-0.5 max-w-2xl">
+                  Most apps stop at simple reproductive tracking. Aura Health dynamically recalibrates diagnostic questions, hormonal curves, and physician checklists for every milestone of your life.
+                </p>
+              </div>
+
+              <button
+                onClick={handleOpenLifeStage}
+                className="self-start md:self-auto text-xs font-bold bg-[#D96B85] hover:bg-[#B8526B] text-white px-5 py-2.5 rounded-full shadow-xs flex items-center gap-1.5 transition-all cursor-pointer"
+              >
+                <span>Switch Stage &rarr;</span>
+              </button>
+            </div>
+
+            {/* 4 Stage Interactive Cards Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              {LIFE_STAGE_LIST.map((stage) => {
+                const isCurrent = stage.id === activeLifeStageId
+                return (
+                  <div
+                    key={stage.id}
+                    onClick={() => {
+                      if (onSelectLifeStage) onSelectLifeStage(stage.id)
+                      handleOpenLifeStage()
+                    }}
+                    className={`rounded-2xl p-5 border transition-all cursor-pointer flex flex-col justify-between relative group hover:shadow-md ${
+                      isCurrent
+                        ? 'bg-white shadow-md border-[#D96B85]/40 ring-2 ring-[#D96B85]/20'
+                        : 'bg-white/70 hover:bg-white border-[#E8DFD8] shadow-2xs'
+                    }`}
+                  >
+                    <div>
+                      <div className="flex items-center justify-between mb-3">
+                        <span className="text-2xl p-2 rounded-xl bg-[#FAF7F2] border border-[#E8DFD8] shadow-2xs group-hover:scale-105 transition-transform">
+                          {stage.icon}
+                        </span>
+                        {isCurrent ? (
+                          <span className="text-[10px] font-bold text-[#405A43] bg-[#E8EFE3] px-2 py-0.5 rounded-full border border-[#405A43]/20">
+                            Active
+                          </span>
+                        ) : (
+                          <span className="text-[10px] text-[#7A726D] font-medium bg-[#FAF7F2] px-2 py-0.5 rounded-full border border-[#E8DFD8]">
+                            {stage.ageRange}
+                          </span>
+                        )}
+                      </div>
+
+                      <h3 className="font-serif font-bold text-base text-[#31232B] mb-1">
+                        {stage.title}
+                      </h3>
+                      <p className="text-[11px] text-[#5E5259] leading-relaxed line-clamp-3">
+                        {stage.summary}
+                      </p>
+                    </div>
+
+                    <div className="mt-4 pt-3 border-t border-[#F8F0E8] flex items-center justify-between text-[11px] text-[#D96B85] font-semibold">
+                      <span>Explore Questions</span>
+                      <ChevronRight size={13} className="transition-transform group-hover:translate-x-1" />
+                    </div>
+                  </div>
+                )
+              })}
+            </div>
+          </div>
+        </RevealBlock>
+      </section>
+
+      {/* ------------------------------------------------------------------ */}
       {/* 5. LOWER SECTION: "Small steps" + "You're not alone"               */}
       {/* ------------------------------------------------------------------ */}
       <section id="not-alone" className="py-14 max-w-6xl mx-auto px-6 scroll-mt-20">
@@ -1118,6 +1273,95 @@ export default function LandingPage({
           <p className="font-script text-2xl text-[#6A3D55] tracking-wide">
             Health &nbsp;&#9825;&nbsp; Confidence &nbsp;&#9825;&nbsp; You
           </p>
+        </RevealBlock>
+      </section>
+
+      {/* ------------------------------------------------------------------ */}
+      {/* 5.5. PRIVACY-FIRST DESIGN & STIGMA PROTECTION                      */}
+      {/* ------------------------------------------------------------------ */}
+      <section id="privacy-section" className="py-12 max-w-6xl mx-auto px-6 scroll-mt-20">
+        <RevealBlock>
+          <div className="ios-glass-card rounded-3xl p-6 sm:p-9 space-y-6 bg-white/80">
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-[#E8EFE3] pb-5">
+              <div>
+                <div className="flex items-center gap-2 mb-1.5">
+                  <span className="text-[11px] font-bold uppercase tracking-wider bg-[#E8EFE3] text-[#405A43] border border-[#405A43]/20 rounded-full px-3 py-0.5 flex items-center gap-1.5 shadow-2xs">
+                    <ShieldCheck size={12} /> Privacy-First Architecture
+                  </span>
+                  <span className="text-xs text-[#7A726D] font-medium hidden sm:inline">&middot; Zero-Tracking &middot; Stigma Free</span>
+                </div>
+                <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#405A43]">
+                  Your Health Data Stays Yours &mdash; Completely.
+                </h2>
+                <p className="text-xs sm:text-sm text-[#5E5259] mt-0.5 max-w-2xl">
+                  Reproductive health is deeply private. Aura Health is built with strict on-device data sovereignty, optional anonymous mode, and discreet camouflage controls for shared or conservative households.
+                </p>
+              </div>
+
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={handleOpenPrivacy}
+                  className="text-xs font-bold bg-[#405A43] hover:bg-[#344a37] text-white px-5 py-2.5 rounded-full shadow-xs flex items-center gap-1.5 transition-all cursor-pointer"
+                >
+                  <Shield size={13} />
+                  <span>Privacy Settings</span>
+                </button>
+              </div>
+            </div>
+
+            {/* 3 Privacy Pillars Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="rounded-2xl p-5 bg-[#FAF7F2] border border-[#E8DFD8] space-y-3">
+                <div className="h-10 w-10 rounded-xl bg-white border border-[#405A43]/20 text-[#405A43] flex items-center justify-center shadow-2xs">
+                  <Lock size={18} />
+                </div>
+                <h3 className="font-serif font-bold text-base text-[#31232B]">
+                  100% On-Device Vault
+                </h3>
+                <p className="text-xs text-[#5E5259] leading-relaxed">
+                  Zero cloud uploads. All cycles, voice transcripts, and lab inputs reside strictly in your device&apos;s browser storage. You can purge or export encrypted JSON anytime.
+                </p>
+                <div className="text-[11px] font-semibold text-[#405A43] bg-[#E8EFE3] px-2.5 py-1 rounded-lg inline-block">
+                  ✓ HIPAA &amp; GDPR Client-Side
+                </div>
+              </div>
+
+              <div className="rounded-2xl p-5 bg-[#FAF7F2] border border-[#E8DFD8] space-y-3">
+                <div className="h-10 w-10 rounded-xl bg-[#FCE7E8] text-[#D96B85] flex items-center justify-center shadow-2xs">
+                  <UserCheck size={18} />
+                </div>
+                <h3 className="font-serif font-bold text-base text-[#31232B]">
+                  Anonymous Ghost Mode
+                </h3>
+                <p className="text-xs text-[#5E5259] leading-relaxed">
+                  Turn on Ghost Mode to strip personal names, emails, and demographic identifiers from screen views and SOAP dossier exports while retaining 100% screening accuracy.
+                </p>
+                <div className="text-[11px] font-semibold text-[#D96B85] bg-[#FCE7E8] px-2.5 py-1 rounded-lg inline-block">
+                  ✓ Aura-User-Anonymous
+                </div>
+              </div>
+
+              <div className="rounded-2xl p-5 bg-[#FAF7F2] border border-[#D9A84E]/30 space-y-3">
+                <div className="h-10 w-10 rounded-xl bg-[#F8F0E8] text-[#D9A84E] border border-[#D9A84E]/30 flex items-center justify-center shadow-2xs">
+                  <EyeOff size={18} />
+                </div>
+                <h3 className="font-serif font-bold text-base text-[#31232B]">
+                  Discreet App Camouflage
+                </h3>
+                <p className="text-xs text-[#5E5259] leading-relaxed">
+                  Shared laptop or conservative family environment? Disguise browser tab title &amp; favicon as &ldquo;Daily Calculator &amp; Study Notes&rdquo;, or press Esc to activate the instant screen disguise.
+                </p>
+                {onTriggerPanic && (
+                  <button
+                    onClick={onTriggerPanic}
+                    className="text-[11px] font-bold text-[#6A3D55] bg-[#E8DDF0] hover:bg-[#d8c5e3] px-3 py-1 rounded-lg inline-flex items-center gap-1 transition-colors cursor-pointer"
+                  >
+                    <EyeOff size={11} /> Test Panic Disguise
+                  </button>
+                )}
+              </div>
+            </div>
+          </div>
         </RevealBlock>
       </section>
 
@@ -1532,7 +1776,7 @@ export default function LandingPage({
       )}
 
       {/* ------------------------------------------------------------------ */}
-      {/* MODAL 7: Explainable Risk Screening & Referral ("Kyun Flag Hua")   */}
+      {/* MODAL 7: Explainable Risk Screening & Referral ("Why Was It Flagged") */}
       {/* ------------------------------------------------------------------ */}
       <ExplainableRiskModal
         open={screeningModalOpen}
@@ -1540,6 +1784,36 @@ export default function LandingPage({
         screeningReports={screeningReports}
         patient={activePatient}
         onOpenSoap={onOpenSoap}
+      />
+
+      {/* ------------------------------------------------------------------ */}
+      {/* MODAL 8: Privacy-First & Stigma Protection Hub                     */}
+      {/* ------------------------------------------------------------------ */}
+      <PrivacyModal
+        open={localPrivacyOpen}
+        onClose={() => setLocalPrivacyOpen(false)}
+        privacySettings={privacySettings || { anonymousMode: isAnonymous, camouflageMode: false }}
+        onUpdatePrivacy={(newSettings) => {
+          if (onUpdatePrivacy) onUpdatePrivacy(newSettings)
+        }}
+        onTriggerPanic={() => {
+          if (onTriggerPanic) onTriggerPanic()
+        }}
+        onResetAllData={() => {
+          if (onResetAllData) onResetAllData()
+        }}
+      />
+
+      {/* ------------------------------------------------------------------ */}
+      {/* MODAL 9: Life-Stage Adaptive Mode Explorer                         */}
+      {/* ------------------------------------------------------------------ */}
+      <LifeStageModal
+        open={localLifeStageOpen}
+        onClose={() => setLocalLifeStageOpen(false)}
+        activeLifeStageId={activeLifeStageId}
+        onSelectLifeStage={(stageId) => {
+          if (onSelectLifeStage) onSelectLifeStage(stageId)
+        }}
       />
     </div>
   )
