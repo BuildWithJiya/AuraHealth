@@ -28,7 +28,7 @@ export default function Header({
   const displayName = isAnonymous ? 'Aura-Anonymous-User' : activePatient.name
 
   return (
-    <header className="sticky top-0 z-40 border-b border-[#F4E8C8] bg-[#FFFDF6]/92 backdrop-blur-xl no-print shadow-[0_2px_14px_-2px_rgba(180,130,50,0.06)]">
+    <header className="sticky top-0 z-40 border-b border-[#E8EFE3] bg-[#F8F0E8]/90 backdrop-blur-xl no-print shadow-[0_2px_12px_-2px_rgba(106,61,85,0.06)]">
       <div className="mx-auto max-w-[1600px] px-4 py-3 flex items-center justify-between gap-4">
         {/* Brand Logo & Tagline (Clickable to return Home) */}
         <button

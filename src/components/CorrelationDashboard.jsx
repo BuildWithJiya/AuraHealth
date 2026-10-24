@@ -50,7 +50,7 @@ export default function CorrelationDashboard({ data, currentDay, correlation }) 
       <div className="h-[280px] w-full">
         <ResponsiveContainer width="100%" height="100%">
           <ComposedChart data={data} margin={{ top: 6, right: 8, left: -12, bottom: 0 }}>
-            <CartesianGrid strokeDasharray="3 3" stroke="#F3EAD3" />
+            <CartesianGrid strokeDasharray="3 3" stroke="#E8DFD8" />
             <XAxis
               dataKey="day"
               stroke="#7A726D"

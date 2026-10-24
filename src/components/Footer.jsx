@@ -2,7 +2,7 @@ import { ShieldCheck, Heart } from 'lucide-react'
 
 export default function Footer() {
   return (
-    <footer className="no-print border-t border-[#F4E8C8] bg-[#FFFDF6]/92 backdrop-blur-xl mt-6 py-4">
+    <footer className="no-print border-t border-[#E8DFD8] bg-[#F8F0E8]/85 backdrop-blur-xl mt-6 py-4">
       <div className="mx-auto max-w-[1600px] px-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2.5 text-[11px] text-[#7A726D]">
         <div className="flex items-center gap-2">
           <ShieldCheck size={15} className="text-[#D96B85] shrink-0" />

@@ -310,7 +310,7 @@ export default function LandingPage({
       {/* ------------------------------------------------------------------ */}
       {/* 1. TOP NAVIGATION BAR (matching user reference image)              */}
       {/* ------------------------------------------------------------------ */}
-      <header className="sticky top-0 z-40 bg-[#FFFDF6]/92 backdrop-blur-md border-b border-[#F4E8C8] shadow-[0_2px_14px_-2px_rgba(180,130,50,0.06)]">
+      <header className="sticky top-0 z-40 bg-[#F8F0E8]/90 backdrop-blur-md border-b border-[#E8EFE3] shadow-[0_2px_12px_-2px_rgba(106,61,85,0.06)]">
         <div className="max-w-6xl mx-auto px-6 py-3.5 flex items-center justify-between gap-4">
           {/* Brand Logo & Slogan */}
           <div
@@ -507,15 +507,15 @@ export default function LandingPage({
           <div className="lg:col-span-6 relative">
             <div className="relative mx-auto max-w-lg lg:max-w-none">
               {/* Soft glow background */}
-              <div className="absolute -inset-4 bg-gradient-to-tr from-[#FEF3C7] via-[#FFFBEB] to-[#FDE68A] rounded-3xl -z-10 blur-xl opacity-90" />
+              <div className="absolute -inset-4 bg-gradient-to-tr from-[#FCE7E8] via-[#F8F0E8] to-[#E8EFE3] rounded-3xl -z-10 blur-xl opacity-90" />
 
               {/* Consultation Illustration Card with Light Frost Blur */}
-              <div className="relative rounded-3xl overflow-hidden border border-[#FEF3C7]/80 shadow-xl shadow-[#D9A84E]/10 bg-white/75 backdrop-blur-xl p-3">
-                <svg viewBox="0 0 520 380" className="w-full h-auto rounded-2xl block bg-[#FFFDF7]">
+              <div className="relative rounded-3xl overflow-hidden border border-white/70 shadow-xl shadow-[#D96B85]/8 bg-white/70 backdrop-blur-xl p-3">
+                <svg viewBox="0 0 520 380" className="w-full h-auto rounded-2xl block bg-[#FFFDF9]">
                   <defs>
                     <linearGradient id="warmWallAura" x1="0" y1="0" x2="1" y2="1">
-                      <stop offset="0%" stopColor="#FFFDF7" />
-                      <stop offset="100%" stopColor="#FEF9EA" />
+                      <stop offset="0%" stopColor="#FFFDF9" />
+                      <stop offset="100%" stopColor="#FAF5EF" />
                     </linearGradient>
                     <linearGradient id="sweaterPink" x1="0" y1="0" x2="1" y2="1">
                       <stop offset="0%" stopColor="#FCE7E8" />
@@ -791,7 +791,7 @@ export default function LandingPage({
             <div className="h-[300px] sm:h-[340px] w-full pt-2">
               <ResponsiveContainer width="100%" height="100%">
                 <ComposedChart data={chartData} margin={{ top: 6, right: 10, left: -10, bottom: 0 }}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#F3EAD3" />
+                  <CartesianGrid strokeDasharray="3 3" stroke="#E8DFD8" />
                   <XAxis
                     dataKey="day"
                     stroke="#7A726D"
@@ -1067,7 +1067,7 @@ export default function LandingPage({
       {/* ------------------------------------------------------------------ */}
       {/* FOOTER                                                             */}
       {/* ------------------------------------------------------------------ */}
-      <footer className="border-t border-[#F4E8C8] py-6 bg-[#FFFDF6]/92 text-center text-[11px] text-[#8C8087]">
+      <footer className="border-t border-[#E8DFD8] py-6 bg-[#F8F0E8]/85 text-center text-[11px] text-[#8C8087]">
         <div className="max-w-4xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
           <p>
             <span className="font-semibold text-[#405A43]">Aura Health Clinical Decision Support System.</span>{' '}

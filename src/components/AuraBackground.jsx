@@ -1,12 +1,11 @@
 import { useMemo } from 'react'
 
 const PARTICLE_COLORS = [
-  { bg: '#FDE047', glow: 'rgba(253, 224, 71, 0.45)' }, // warm yellow
-  { bg: '#FEF08A', glow: 'rgba(254, 240, 138, 0.4)' },  // light yellow
-  { bg: '#D9A84E', glow: 'rgba(217, 168, 78, 0.4)' },   // aura-gold
-  { bg: '#FDE68A', glow: 'rgba(253, 230, 138, 0.4)' },  // warm butter
-  { bg: '#EBF2E6', glow: 'rgba(64, 90, 67, 0.25)' },    // soft sage
-  { bg: '#FCE7E8', glow: 'rgba(217, 107, 133, 0.25)' }, // soft blush
+  { bg: '#D96B85', glow: 'rgba(217, 107, 133, 0.4)' }, // aura-rose
+  { bg: '#E8EFE3', glow: 'rgba(64, 90, 67, 0.3)' },    // aura-sage-light
+  { bg: '#D9A84E', glow: 'rgba(217, 168, 78, 0.35)' },  // aura-gold
+  { bg: '#E8DDF0', glow: 'rgba(106, 61, 85, 0.3)' },   // aura-lavender
+  { bg: '#FCE7E8', glow: 'rgba(217, 107, 133, 0.3)' },  // aura-blush
 ]
 
 function seededRandom(seed) {
