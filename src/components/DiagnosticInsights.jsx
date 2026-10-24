@@ -1,3 +1,4 @@
+import { useState, useMemo } from 'react'
 import {
   Stethoscope,
   FileSearch,
@@ -9,7 +10,12 @@ import {
   FileText,
   Sparkles,
   Activity,
+  ShieldCheck,
+  HelpCircle,
+  CheckCircle2,
 } from 'lucide-react'
+import { runExplainableScreening } from '../utils/explainableRiskEngine'
+import ExplainableRiskModal from './ExplainableRiskModal'
 
 const LETTER_THEMES = {
   S: { bg: 'bg-[#FCE7E8]', border: 'border-[#D96B85]/35', color: 'text-[#D96B85]' },
@@ -18,7 +24,17 @@ const LETTER_THEMES = {
   P: { bg: 'bg-[#FDF8EE]', border: 'border-[#D9A84E]/40', color: 'text-[#D9A84E]' },
 }
 
-export default function DiagnosticInsights({ patient, labFlags, correlation, dossier, onOpenSoap, onOpenEducation }) {
+export default function DiagnosticInsights({
+  patient,
+  symptomLog = [],
+  labFlags = [],
+  correlation,
+  dossier,
+  onOpenSoap,
+  onOpenEducation,
+}) {
+  const [screeningModalOpen, setScreeningModalOpen] = useState(false)
+
   const counts = labFlags.reduce(
     (acc, f) => {
       acc[f.severity] = (acc[f.severity] || 0) + 1
@@ -27,12 +43,25 @@ export default function DiagnosticInsights({ patient, labFlags, correlation, dos
     { critical: 0, warning: 0, info: 0 }
   )
 
+  // Run transparent Explainable AI Screening (Rotterdam, ACOG, DSM-5)
+  const screeningReports = useMemo(() => {
+    return runExplainableScreening({
+      patient,
+      symptomLog: symptomLog.length ? symptomLog : patient.symptomLog || [],
+      labFlags,
+      correlation,
+    })
+  }, [patient, symptomLog, labFlags, correlation])
+
+  const topScreening = screeningReports[0]
+
   return (
     <div className="space-y-4">
+      {/* 1. Diagnostic Overview Card */}
       <div className="ios-glass-card rounded-2xl p-4">
         <h3 className="text-sm font-semibold text-[#6A3D55] flex items-center gap-1.5 mb-3">
           <Stethoscope size={14} className="text-[#D96B85]" />
-          Diagnostic Insights
+          Clinical Diagnostic Insights
         </h3>
 
         <div className="flex flex-wrap gap-1.5 mb-3">
@@ -86,7 +115,7 @@ export default function DiagnosticInsights({ patient, labFlags, correlation, dos
 
         <button
           onClick={onOpenSoap}
-          className="w-full flex items-center justify-center gap-1.5 text-xs font-semibold bg-[#D96B85] hover:bg-[#c45b74] text-white rounded-full py-2.5 shadow-sm transition-all hover:shadow"
+          className="w-full flex items-center justify-center gap-1.5 text-xs font-semibold bg-[#D96B85] hover:bg-[#c45b74] text-white rounded-full py-2.5 shadow-sm transition-all hover:shadow cursor-pointer"
         >
           <FileText size={13} />
           Open Full SOAP Dossier <ArrowRight size={13} />
@@ -95,7 +124,7 @@ export default function DiagnosticInsights({ patient, labFlags, correlation, dos
         {onOpenEducation && (
           <button
             onClick={onOpenEducation}
-            className="w-full mt-2 flex items-center justify-center gap-1.5 text-xs font-semibold bg-white hover:bg-[#E8EFE3] text-[#405A43] border border-[#405A43]/30 rounded-full py-2 shadow-2xs transition-colors"
+            className="w-full mt-2 flex items-center justify-center gap-1.5 text-xs font-semibold bg-white/80 hover:bg-[#E8EFE3] text-[#405A43] border border-[#405A43]/30 rounded-full py-2 shadow-2xs transition-colors cursor-pointer"
           >
             <BookOpen size={13} />
             Understand Your Body Guide
@@ -103,6 +132,65 @@ export default function DiagnosticInsights({ patient, labFlags, correlation, dos
         )}
       </div>
 
+      {/* 2. Explainable Risk Screening Card ("Kyun Flag Hua?") */}
+      <div className="ios-glass-card rounded-2xl p-4 space-y-3">
+        <div className="flex items-center justify-between">
+          <h3 className="text-sm font-semibold text-[#6A3D55] flex items-center gap-1.5">
+            <ShieldCheck size={15} className="text-[#405A43]" />
+            Explainable Risk Screening
+          </h3>
+          <span className="text-[10px] font-bold text-[#405A43] bg-[#E8EFE3] px-2 py-0.5 rounded-full border border-[#405A43]/20">
+            Referral Guide
+          </span>
+        </div>
+
+        <p className="text-[11px] text-[#7A726D] leading-tight">
+          Transparent clinical rationale based on international criteria &mdash; not a black-box AI.
+        </p>
+
+        {topScreening && (
+          <div className="bg-white/70 backdrop-blur-md rounded-2xl p-3.5 border border-white/80 space-y-2.5 shadow-2xs">
+            <div className="flex items-center justify-between">
+              <span className="text-xs font-bold text-[#31232B] truncate">{topScreening.name}</span>
+              <span className="text-[10px] font-bold text-[#D96B85] bg-[#FCE7E8] px-2.5 py-0.5 rounded-full border border-[#D96B85]/30 shrink-0">
+                {topScreening.confidenceScore}% Risk Match
+              </span>
+            </div>
+
+            <p className="text-[11px] text-[#5E5259] leading-snug">
+              {topScreening.summaryHeadline}
+            </p>
+
+            {/* Contributing Pattern Factors */}
+            <div className="space-y-1 pt-1.5 border-t border-[#F8F0E8]">
+              <div className="text-[10px] font-bold uppercase tracking-wider text-[#7A726D]">
+                Contributing Pattern Factors:
+              </div>
+              <div className="space-y-1">
+                {topScreening.whyFlagged.filter((f) => f.detected).map((f, i) => (
+                  <div key={i} className="flex items-center justify-between text-[10px] bg-white/80 rounded-lg px-2 py-1 border border-[#E8DFD8]/70">
+                    <span className="font-semibold text-[#31232B] flex items-center gap-1 truncate">
+                      <CheckCircle2 size={11} className="text-[#D96B85] shrink-0" />
+                      {f.factor}
+                    </span>
+                    <span className="font-bold text-[#405A43] shrink-0">+{f.contribution}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <button
+              onClick={() => setScreeningModalOpen(true)}
+              className="w-full mt-2 flex items-center justify-center gap-1.5 text-xs font-bold bg-[#405A43] hover:bg-[#344a37] text-white rounded-xl py-2.5 shadow-2xs transition-all cursor-pointer"
+            >
+              <HelpCircle size={13} />
+              Kyun Flag Hua? (View Full Breakdown) &rarr;
+            </button>
+          </div>
+        )}
+      </div>
+
+      {/* 3. SOAP Dossier Preview Card */}
       <div className="ios-glass-card rounded-2xl p-4">
         <h3 className="text-sm font-semibold text-[#6A3D55] flex items-center gap-1.5 mb-3">
           <FileSearch size={14} className="text-[#405A43]" />
@@ -113,6 +201,15 @@ export default function DiagnosticInsights({ patient, labFlags, correlation, dos
         <PreviewRow letter="A" text={dossier.assessment[0]} />
         <PreviewRow letter="P" text={dossier.plan[0]} />
       </div>
+
+      {/* Explainable Risk Modal */}
+      <ExplainableRiskModal
+        open={screeningModalOpen}
+        onClose={() => setScreeningModalOpen(false)}
+        screeningReports={screeningReports}
+        patient={patient}
+        onOpenSoap={onOpenSoap}
+      />
     </div>
   )
 }

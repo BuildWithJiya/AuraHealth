@@ -232,6 +232,7 @@ export default function App() {
             <div className="lg:col-span-3">
               <DiagnosticInsights
                 patient={patient}
+                symptomLog={symptomLog}
                 labFlags={labResult.flags}
                 correlation={correlation}
                 dossier={dossier}

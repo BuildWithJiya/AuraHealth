@@ -41,8 +41,10 @@ import {
 import { useReveal } from '../hooks/useReveal'
 import { getCyclePhase, getPhaseBoundaries, getPhaseSubLabel, PHASE_META, generateHormoneCurve, pearsonCorrelation } from '../utils/cycleEngine'
 import { parseSymptomText } from '../utils/symptomParser'
+import { runExplainableScreening } from '../utils/explainableRiskEngine'
 import { MOCK_PATIENTS, getPatientById } from '../data/mockPatients'
 import UnderstandYourBodyModal from './UnderstandYourBodyModal'
+import ExplainableRiskModal from './ExplainableRiskModal'
 
 function RevealBlock({ children, className = '', delayMs = 0 }) {
   const [ref, visible] = useReveal()
@@ -213,6 +215,18 @@ export default function LandingPage({
   const [quickLogOpen, setQuickLogOpen] = useState(false)
   const [quickSymptomText, setQuickSymptomText] = useState('')
   const [quickSeverity, setQuickSeverity] = useState(6)
+  const [screeningModalOpen, setScreeningModalOpen] = useState(false)
+
+  // Explainable AI Risk Screening calculation
+  const screeningReports = useMemo(() => {
+    const combined = [...localAddedSymptoms, ...(activePatient.symptomLog || [])]
+    return runExplainableScreening({
+      patient: activePatient,
+      symptomLog: combined,
+      correlation,
+    })
+  }, [activePatient, localAddedSymptoms, correlation])
+  const topScreening = screeningReports[0]
 
   // Wellness tools state inside modal
   const [selectedMood, setSelectedMood] = useState('Calm')
@@ -677,19 +691,43 @@ export default function LandingPage({
               />
             </div>
 
-            {/* Live Correlation Insight Box */}
-            {correlation && (
-              <div className="flex items-start gap-2.5 rounded-2xl border border-[#D96B85]/30 bg-[#FCE7E8]/70 px-4 py-3">
-                <Activity size={16} className="text-[#D96B85] shrink-0 mt-0.5" />
-                <p className="text-xs text-[#31232B] leading-relaxed">
-                  <span className="font-bold text-[#6A3D55]">
-                    {Math.round(Math.abs(correlation.value) * 100)}% {correlation.direction} correlation
-                  </span>{' '}
-                  detected between {correlation.hormoneLabel} trajectory and logged symptom severity.{' '}
-                  <span className="text-[#7A726D]">Clinical context: {correlation.narrative}</span>
-                </p>
-              </div>
-            )}
+            {/* Live Correlation & Explainable AI Risk Screening Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-3">
+              {correlation && (
+                <div className={`${topScreening ? 'md:col-span-7' : 'md:col-span-12'} flex items-start gap-2.5 rounded-2xl border border-[#D96B85]/30 bg-[#FCE7E8]/70 px-4 py-3 shadow-2xs`}>
+                  <Activity size={16} className="text-[#D96B85] shrink-0 mt-0.5" />
+                  <p className="text-xs text-[#31232B] leading-relaxed">
+                    <span className="font-bold text-[#6A3D55]">
+                      {Math.round(Math.abs(correlation.value) * 100)}% {correlation.direction} correlation
+                    </span>{' '}
+                    detected between {correlation.hormoneLabel} trajectory and logged symptom severity.{' '}
+                    <span className="text-[#7A726D]">Clinical context: {correlation.narrative}</span>
+                  </p>
+                </div>
+              )}
+
+              {topScreening && (
+                <div className={`${correlation ? 'md:col-span-5' : 'md:col-span-12'} flex flex-col justify-between rounded-2xl border border-white/80 bg-white/75 backdrop-blur-md px-4 py-2.5 shadow-2xs`}>
+                  <div className="flex items-center justify-between">
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-[#405A43] flex items-center gap-1">
+                      <ShieldCheck size={12} /> Explainable Screening:
+                    </span>
+                    <span className="text-[10px] font-bold text-[#D96B85] bg-[#FCE7E8] px-2 py-0.5 rounded-full border border-[#D96B85]/30">
+                      {topScreening.confidenceScore}% Risk Match
+                    </span>
+                  </div>
+                  <div className="text-xs font-bold text-[#31232B] mt-0.5 truncate">
+                    {topScreening.name}
+                  </div>
+                  <button
+                    onClick={() => setScreeningModalOpen(true)}
+                    className="mt-1 text-[11px] font-semibold text-[#D96B85] hover:text-[#B8526B] flex items-center gap-1 cursor-pointer transition-colors text-left"
+                  >
+                    Kyun Flag Hua? (Factor Breakdown) &rarr;
+                  </button>
+                </div>
+              )}
+            </div>
 
             {/* Recharts Composed Chart */}
             <div className="h-[300px] sm:h-[340px] w-full pt-2">
@@ -823,16 +861,22 @@ export default function LandingPage({
               </div>
 
               {/* Action Buttons */}
-              <div className="flex items-center gap-2">
+              <div className="flex flex-wrap items-center gap-2">
+                <button
+                  onClick={() => setScreeningModalOpen(true)}
+                  className="flex items-center gap-1.5 text-xs font-semibold bg-[#E8EFE3] hover:bg-[#d6e4ce] text-[#405A43] border border-[#405A43]/30 rounded-full px-3.5 py-2 transition-colors shadow-2xs cursor-pointer"
+                >
+                  <ShieldCheck size={13} /> Kyun Flag Hua? (Screening)
+                </button>
                 <button
                   onClick={() => setQuickLogOpen(true)}
-                  className="flex items-center gap-1.5 text-xs font-semibold bg-white hover:bg-[#FCE7E8] text-[#D96B85] border border-[#D96B85]/35 rounded-full px-4 py-2 transition-colors shadow-2xs"
+                  className="flex items-center gap-1.5 text-xs font-semibold bg-white hover:bg-[#FCE7E8] text-[#D96B85] border border-[#D96B85]/35 rounded-full px-4 py-2 transition-colors shadow-2xs cursor-pointer"
                 >
                   <Plus size={13} /> Log Today&apos;s Symptom
                 </button>
                 <button
                   onClick={onViewDemo}
-                  className="flex items-center gap-1.5 text-xs font-semibold bg-[#405A43] hover:bg-[#344a37] text-white rounded-full px-4 py-2 transition-colors shadow-sm"
+                  className="flex items-center gap-1.5 text-xs font-semibold bg-[#405A43] hover:bg-[#344a37] text-white rounded-full px-4 py-2 transition-colors shadow-sm cursor-pointer"
                 >
                   Full Clinical Dossier <ArrowRight size={13} />
                 </button>
@@ -1486,6 +1530,17 @@ export default function LandingPage({
           </div>
         </div>
       )}
+
+      {/* ------------------------------------------------------------------ */}
+      {/* MODAL 7: Explainable Risk Screening & Referral ("Kyun Flag Hua")   */}
+      {/* ------------------------------------------------------------------ */}
+      <ExplainableRiskModal
+        open={screeningModalOpen}
+        onClose={() => setScreeningModalOpen(false)}
+        screeningReports={screeningReports}
+        patient={activePatient}
+        onOpenSoap={onOpenSoap}
+      />
     </div>
   )
 }
