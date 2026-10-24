@@ -215,6 +215,16 @@ export default function DiagnosticInsights({
         <PreviewRow letter="O" text={dossier.objective.biomarkerFlags[0]} />
         <PreviewRow letter="A" text={dossier.assessment[0]} />
         <PreviewRow letter="P" text={dossier.plan[0]} />
+
+        {onOpenSoap && (
+          <button
+            onClick={onOpenSoap}
+            className="w-full mt-3 flex items-center justify-center gap-1.5 text-xs font-semibold bg-[#D96B85] hover:bg-[#B8526B] text-white rounded-xl py-2 transition-colors shadow-2xs cursor-pointer"
+          >
+            <FileText size={13} />
+            Open Full Consultation Dossier &rarr;
+          </button>
+        )}
       </div>
 
       {/* Explainable Risk Modal */}

@@ -310,7 +310,7 @@ export default function LandingPage({
       {/* ------------------------------------------------------------------ */}
       {/* 1. TOP NAVIGATION BAR (matching user reference image)              */}
       {/* ------------------------------------------------------------------ */}
-      <header className="sticky top-0 z-40 bg-[#F8F0E8]/90 backdrop-blur-md border-b border-[#E8EFE3]">
+      <header className="sticky top-0 z-40 bg-[#FFFDF6]/92 backdrop-blur-md border-b border-[#F4E8C8] shadow-[0_2px_14px_-2px_rgba(180,130,50,0.06)]">
         <div className="max-w-6xl mx-auto px-6 py-3.5 flex items-center justify-between gap-4">
           {/* Brand Logo & Slogan */}
           <div
@@ -349,8 +349,8 @@ export default function LandingPage({
             </div>
           </div>
 
-          {/* Navigation Links: Home, Track, Learn, Life Stages, Privacy, Resources, About */}
-          <nav className="hidden lg:flex items-center gap-6 text-sm font-medium text-[#5E5259]">
+          {/* Navigation Links: Home, Track, Learn, Resources, About */}
+          <nav className="hidden md:flex items-center gap-7 text-sm font-medium text-[#5E5259]">
             {[
               {
                 name: 'Home',
@@ -367,13 +367,6 @@ export default function LandingPage({
                 },
               },
               {
-                name: 'Life Stages',
-                action: () => {
-                  setActiveNav('Life Stages')
-                  handleOpenLifeStage()
-                },
-              },
-              {
                 name: 'Learn',
                 action: () => {
                   setActiveNav('Learn')
@@ -382,18 +375,11 @@ export default function LandingPage({
                 },
               },
               {
-                name: 'Privacy',
-                action: () => {
-                  setActiveNav('Privacy')
-                  handleOpenPrivacy()
-                },
-              },
-              {
                 name: 'Resources',
                 action: () => {
                   setActiveNav('Resources')
                   if (onOpenSoap) onOpenSoap()
-                  else scrollTo('not-alone')
+                  else setAboutModalOpen(true)
                 },
               },
               {
@@ -521,15 +507,15 @@ export default function LandingPage({
           <div className="lg:col-span-6 relative">
             <div className="relative mx-auto max-w-lg lg:max-w-none">
               {/* Soft glow background */}
-              <div className="absolute -inset-4 bg-gradient-to-tr from-[#FCE7E8] via-[#E8EFE3] to-[#E8DDF0] rounded-3xl -z-10 blur-xl opacity-90" />
+              <div className="absolute -inset-4 bg-gradient-to-tr from-[#FEF3C7] via-[#FFFBEB] to-[#FDE68A] rounded-3xl -z-10 blur-xl opacity-90" />
 
               {/* Consultation Illustration Card with Light Frost Blur */}
-              <div className="relative rounded-3xl overflow-hidden border border-white/80 shadow-xl shadow-[#6A3D55]/8 bg-white/65 backdrop-blur-xl p-3">
-                <svg viewBox="0 0 520 380" className="w-full h-auto rounded-2xl block bg-[#FFFDF9]">
+              <div className="relative rounded-3xl overflow-hidden border border-[#FEF3C7]/80 shadow-xl shadow-[#D9A84E]/10 bg-white/75 backdrop-blur-xl p-3">
+                <svg viewBox="0 0 520 380" className="w-full h-auto rounded-2xl block bg-[#FFFDF7]">
                   <defs>
                     <linearGradient id="warmWallAura" x1="0" y1="0" x2="1" y2="1">
-                      <stop offset="0%" stopColor="#FFF9F5" />
-                      <stop offset="100%" stopColor="#F8F0E8" />
+                      <stop offset="0%" stopColor="#FFFDF7" />
+                      <stop offset="100%" stopColor="#FEF9EA" />
                     </linearGradient>
                     <linearGradient id="sweaterPink" x1="0" y1="0" x2="1" y2="1">
                       <stop offset="0%" stopColor="#FCE7E8" />
@@ -805,7 +791,7 @@ export default function LandingPage({
             <div className="h-[300px] sm:h-[340px] w-full pt-2">
               <ResponsiveContainer width="100%" height="100%">
                 <ComposedChart data={chartData} margin={{ top: 6, right: 10, left: -10, bottom: 0 }}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#E8DFD8" />
+                  <CartesianGrid strokeDasharray="3 3" stroke="#F3EAD3" />
                   <XAxis
                     dataKey="day"
                     stroke="#7A726D"
@@ -1079,296 +1065,9 @@ export default function LandingPage({
       </section>
 
       {/* ------------------------------------------------------------------ */}
-      {/* 4.5. LIFE-STAGE ADAPTIVE HEALTH ARCHITECTURE (4 Stages)            */}
-      {/* ------------------------------------------------------------------ */}
-      <section id="life-stages" className="py-12 max-w-6xl mx-auto px-6 scroll-mt-20">
-        <RevealBlock>
-          <div className="ios-glass-card rounded-3xl p-6 sm:p-9 space-y-6">
-            <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-[#E8EFE3] pb-5">
-              <div>
-                <div className="flex items-center gap-2 mb-1.5">
-                  <span className="text-[11px] font-bold uppercase tracking-wider bg-[#E8DDF0] text-[#6A3D55] border border-[#6A3D55]/20 rounded-full px-3 py-0.5 flex items-center gap-1.5 shadow-2xs">
-                    <Sparkles size={12} /> Life-Stage Adaptive Care
-                  </span>
-                  <span className="text-xs text-[#7A726D] font-medium hidden sm:inline">&middot; Beyond Reproductive Years</span>
-                </div>
-                <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#6A3D55]">
-                  Health Support That Evolves With You
-                </h2>
-                <p className="text-xs sm:text-sm text-[#5E5259] mt-0.5 max-w-2xl">
-                  Most apps stop at simple reproductive tracking. Aura Health dynamically recalibrates diagnostic questions, hormonal curves, and physician checklists for every milestone of your life.
-                </p>
-              </div>
-
-              <button
-                onClick={handleOpenLifeStage}
-                className="self-start md:self-auto text-xs font-bold bg-[#D96B85] hover:bg-[#B8526B] text-white px-5 py-2.5 rounded-full shadow-xs flex items-center gap-1.5 transition-all cursor-pointer"
-              >
-                <span>Switch Stage &rarr;</span>
-              </button>
-            </div>
-
-            {/* 4 Stage Interactive Cards Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-              {LIFE_STAGE_LIST.map((stage) => {
-                const isCurrent = stage.id === activeLifeStageId
-                return (
-                  <div
-                    key={stage.id}
-                    onClick={() => {
-                      if (onSelectLifeStage) onSelectLifeStage(stage.id)
-                      handleOpenLifeStage()
-                    }}
-                    className={`rounded-2xl p-5 border transition-all cursor-pointer flex flex-col justify-between relative group hover:shadow-md ${
-                      isCurrent
-                        ? 'bg-white shadow-md border-[#D96B85]/40 ring-2 ring-[#D96B85]/20'
-                        : 'bg-white/70 hover:bg-white border-[#E8DFD8] shadow-2xs'
-                    }`}
-                  >
-                    <div>
-                      <div className="flex items-center justify-between mb-3">
-                        <span className="text-2xl p-2 rounded-xl bg-[#FAF7F2] border border-[#E8DFD8] shadow-2xs group-hover:scale-105 transition-transform">
-                          {stage.icon}
-                        </span>
-                        {isCurrent ? (
-                          <span className="text-[10px] font-bold text-[#405A43] bg-[#E8EFE3] px-2 py-0.5 rounded-full border border-[#405A43]/20">
-                            Active
-                          </span>
-                        ) : (
-                          <span className="text-[10px] text-[#7A726D] font-medium bg-[#FAF7F2] px-2 py-0.5 rounded-full border border-[#E8DFD8]">
-                            {stage.ageRange}
-                          </span>
-                        )}
-                      </div>
-
-                      <h3 className="font-serif font-bold text-base text-[#31232B] mb-1">
-                        {stage.title}
-                      </h3>
-                      <p className="text-[11px] text-[#5E5259] leading-relaxed line-clamp-3">
-                        {stage.summary}
-                      </p>
-                    </div>
-
-                    <div className="mt-4 pt-3 border-t border-[#F8F0E8] flex items-center justify-between text-[11px] text-[#D96B85] font-semibold">
-                      <span>Explore Questions</span>
-                      <ChevronRight size={13} className="transition-transform group-hover:translate-x-1" />
-                    </div>
-                  </div>
-                )
-              })}
-            </div>
-          </div>
-        </RevealBlock>
-      </section>
-
-      {/* ------------------------------------------------------------------ */}
-      {/* 5. LOWER SECTION: "Small steps" + "You're not alone"               */}
-      {/* ------------------------------------------------------------------ */}
-      <section id="not-alone" className="py-14 max-w-6xl mx-auto px-6 scroll-mt-20">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-          {/* Left: Window desk illustration + Sticky note with Frost Blur */}
-          <div className="lg:col-span-4 relative flex flex-col items-center justify-center">
-            <RevealBlock className="w-full max-w-sm">
-              <div className="relative rounded-3xl overflow-hidden bg-white/65 backdrop-blur-xl border border-white/80 p-4 shadow-md">
-                <svg viewBox="0 0 320 280" className="w-full h-auto rounded-2xl bg-[#FFFDF9]">
-                  <rect width="320" height="280" fill="#FFF9F5" />
-                  <rect x="80" y="20" width="160" height="150" fill="#FFFDFB" stroke="#E8EFE3" strokeWidth="1.5" />
-                  <line x1="160" y1="20" x2="160" y2="170" stroke="#E8EFE3" strokeWidth="1" />
-                  <line x1="80" y1="95" x2="240" y2="95" stroke="#E8EFE3" strokeWidth="1" />
-
-                  {/* Woman sitting at desk looking out */}
-                  <g transform="translate(100, 75)">
-                    <circle cx="60" cy="50" r="18" fill="#31232B" />
-                    <circle cx="60" cy="30" r="8" fill="#FCE7E8" />
-                    <ellipse cx="60" cy="40" rx="9" ry="5" fill="#D96B85" />
-                    <path d="M25 80 C10 110, 5 150, 0 200 L120 200 C115 150, 110 110, 95 80 Z" fill="#FCE7E8" stroke="#D96B85" strokeWidth="1" />
-                    <rect x="-10" y="165" width="140" height="35" rx="3" fill="#F8F0E8" stroke="#E8EFE3" strokeWidth="1" />
-                    <rect x="75" y="145" width="45" height="24" rx="2" fill="#31232B" />
-                    <rect x="78" y="148" width="39" height="18" rx="1" fill="#E8DDF0" />
-                    <rect x="125" y="130" width="16" height="35" rx="3" fill="#D96B85" />
-                    <rect x="128" y="125" width="10" height="6" rx="1" fill="#6A3D55" />
-                  </g>
-
-                  {/* Potted desk plant */}
-                  <g transform="translate(250, 155)">
-                    <ellipse cx="15" cy="40" rx="10" ry="14" fill="#F8F0E8" stroke="#405A43" strokeWidth="1" />
-                    <path d="M15 30 Q5 10 12 0 Q25 15 15 30 Z" fill="#405A43" />
-                    <path d="M15 30 Q30 15 22 5 Q10 20 15 30 Z" fill="#E8EFE3" stroke="#405A43" strokeWidth="1" />
-                  </g>
-                </svg>
-
-                {/* Floating sticky note: "Small steps lead to big changes ♡" */}
-                <div className="absolute top-6 left-5 -rotate-3 bg-[#E8EFE3]/80 backdrop-blur-md border border-white/70 rounded-2xl p-3.5 shadow-md max-w-[170px]">
-                  <p className="font-script text-base text-[#405A43] leading-snug">
-                    Small steps<br />lead to big<br />changes &#9825;
-                  </p>
-                </div>
-              </div>
-            </RevealBlock>
-          </div>
-
-          {/* Right: "You're not alone" card + 4 trust pillars with Light Frost Blur */}
-          <div className="lg:col-span-8">
-            <RevealBlock>
-              <div className="ios-glass-card rounded-3xl p-7 sm:p-9 shadow-md grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
-                {/* Left side: Caring message */}
-                <div className="md:col-span-7 space-y-4">
-                  <div className="flex items-center gap-2">
-                    <Heart size={18} className="text-[#D96B85] fill-[#D96B85]" />
-                    <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#405A43]">
-                      You&apos;re not alone
-                    </h2>
-                  </div>
-                  <p className="text-xs sm:text-sm text-[#5E5259] leading-relaxed">
-                    Whether it&apos;s your period, your mood, your hormones or just a bad day &mdash; Aura Health is here for you.
-                  </p>
-                  <div>
-                    <button
-                      onClick={() => setAboutModalOpen(true)}
-                      className="inline-flex items-center gap-2 bg-[#FCE7E8]/85 hover:bg-[#FCE7E8] backdrop-blur-xs text-[#D96B85] border border-white/70 font-semibold text-xs sm:text-sm rounded-full px-5 py-2.5 transition-colors shadow-2xs"
-                    >
-                      Learn More <ArrowRight size={14} />
-                    </button>
-                  </div>
-                </div>
-
-                {/* Right side: 4 Trust Pillars with Icons (Interactive on click!) */}
-                <div className="md:col-span-5 space-y-3.5 border-t md:border-t-0 md:border-l border-[#E8EFE3] pt-6 md:pt-0 md:pl-6">
-                  {TRUST_PILLARS.map((pillar) => {
-                    const Icon = pillar.icon
-                    return (
-                      <button
-                        key={pillar.id}
-                        onClick={() => setSelectedPillar(pillar)}
-                        className="w-full text-left flex items-center gap-3 p-2.5 rounded-2xl hover:bg-white/60 hover:backdrop-blur-xs border border-transparent hover:border-white/70 transition-all group cursor-pointer"
-                      >
-                        <div
-                          className="h-8 w-8 rounded-xl flex items-center justify-center shrink-0 border border-current/20 shadow-2xs group-hover:scale-105 transition-transform"
-                          style={{ color: pillar.color, backgroundColor: `${pillar.color}15` }}
-                        >
-                          <Icon size={16} />
-                        </div>
-                        <span className="text-xs font-semibold text-[#31232B] group-hover:text-[#6A3D55] leading-tight flex-1">
-                          {pillar.title}
-                        </span>
-                        <ArrowRight size={12} className="text-[#938A84] group-hover:text-[#D96B85] shrink-0 transition-transform group-hover:translate-x-0.5" />
-                      </button>
-                    )
-                  })}
-                </div>
-              </div>
-            </RevealBlock>
-          </div>
-        </div>
-
-        {/* ---------------------------------------------------------------- */}
-        {/* Bottom Signature: Health ♡ Confidence ♡ You                      */}
-        {/* ---------------------------------------------------------------- */}
-        <RevealBlock className="mt-14 text-center max-w-lg mx-auto">
-          <div className="flex items-center justify-center gap-4 text-[#D9C8BA] mb-2">
-            <span className="h-px w-16 bg-[#E8EFE3]" />
-            <Flower2 size={16} className="text-[#D96B85]" />
-            <span className="h-px w-16 bg-[#E8EFE3]" />
-          </div>
-          <p className="font-script text-2xl text-[#6A3D55] tracking-wide">
-            Health &nbsp;&#9825;&nbsp; Confidence &nbsp;&#9825;&nbsp; You
-          </p>
-        </RevealBlock>
-      </section>
-
-      {/* ------------------------------------------------------------------ */}
-      {/* 5.5. PRIVACY-FIRST DESIGN & STIGMA PROTECTION                      */}
-      {/* ------------------------------------------------------------------ */}
-      <section id="privacy-section" className="py-12 max-w-6xl mx-auto px-6 scroll-mt-20">
-        <RevealBlock>
-          <div className="ios-glass-card rounded-3xl p-6 sm:p-9 space-y-6 bg-white/80">
-            <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-[#E8EFE3] pb-5">
-              <div>
-                <div className="flex items-center gap-2 mb-1.5">
-                  <span className="text-[11px] font-bold uppercase tracking-wider bg-[#E8EFE3] text-[#405A43] border border-[#405A43]/20 rounded-full px-3 py-0.5 flex items-center gap-1.5 shadow-2xs">
-                    <ShieldCheck size={12} /> Privacy-First Architecture
-                  </span>
-                  <span className="text-xs text-[#7A726D] font-medium hidden sm:inline">&middot; Zero-Tracking &middot; Stigma Free</span>
-                </div>
-                <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#405A43]">
-                  Your Health Data Stays Yours &mdash; Completely.
-                </h2>
-                <p className="text-xs sm:text-sm text-[#5E5259] mt-0.5 max-w-2xl">
-                  Reproductive health is deeply private. Aura Health is built with strict on-device data sovereignty, optional anonymous mode, and discreet camouflage controls for shared or conservative households.
-                </p>
-              </div>
-
-              <div className="flex items-center gap-2">
-                <button
-                  onClick={handleOpenPrivacy}
-                  className="text-xs font-bold bg-[#405A43] hover:bg-[#344a37] text-white px-5 py-2.5 rounded-full shadow-xs flex items-center gap-1.5 transition-all cursor-pointer"
-                >
-                  <Shield size={13} />
-                  <span>Privacy Settings</span>
-                </button>
-              </div>
-            </div>
-
-            {/* 3 Privacy Pillars Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div className="rounded-2xl p-5 bg-[#FAF7F2] border border-[#E8DFD8] space-y-3">
-                <div className="h-10 w-10 rounded-xl bg-white border border-[#405A43]/20 text-[#405A43] flex items-center justify-center shadow-2xs">
-                  <Lock size={18} />
-                </div>
-                <h3 className="font-serif font-bold text-base text-[#31232B]">
-                  100% On-Device Vault
-                </h3>
-                <p className="text-xs text-[#5E5259] leading-relaxed">
-                  Zero cloud uploads. All cycles, voice transcripts, and lab inputs reside strictly in your device&apos;s browser storage. You can purge or export encrypted JSON anytime.
-                </p>
-                <div className="text-[11px] font-semibold text-[#405A43] bg-[#E8EFE3] px-2.5 py-1 rounded-lg inline-block">
-                  ✓ HIPAA &amp; GDPR Client-Side
-                </div>
-              </div>
-
-              <div className="rounded-2xl p-5 bg-[#FAF7F2] border border-[#E8DFD8] space-y-3">
-                <div className="h-10 w-10 rounded-xl bg-[#FCE7E8] text-[#D96B85] flex items-center justify-center shadow-2xs">
-                  <UserCheck size={18} />
-                </div>
-                <h3 className="font-serif font-bold text-base text-[#31232B]">
-                  Anonymous Ghost Mode
-                </h3>
-                <p className="text-xs text-[#5E5259] leading-relaxed">
-                  Turn on Ghost Mode to strip personal names, emails, and demographic identifiers from screen views and SOAP dossier exports while retaining 100% screening accuracy.
-                </p>
-                <div className="text-[11px] font-semibold text-[#D96B85] bg-[#FCE7E8] px-2.5 py-1 rounded-lg inline-block">
-                  ✓ Aura-User-Anonymous
-                </div>
-              </div>
-
-              <div className="rounded-2xl p-5 bg-[#FAF7F2] border border-[#D9A84E]/30 space-y-3">
-                <div className="h-10 w-10 rounded-xl bg-[#F8F0E8] text-[#D9A84E] border border-[#D9A84E]/30 flex items-center justify-center shadow-2xs">
-                  <EyeOff size={18} />
-                </div>
-                <h3 className="font-serif font-bold text-base text-[#31232B]">
-                  Discreet App Camouflage
-                </h3>
-                <p className="text-xs text-[#5E5259] leading-relaxed">
-                  Shared laptop or conservative family environment? Disguise browser tab title &amp; favicon as &ldquo;Daily Calculator &amp; Study Notes&rdquo;, or press Esc to activate the instant screen disguise.
-                </p>
-                {onTriggerPanic && (
-                  <button
-                    onClick={onTriggerPanic}
-                    className="text-[11px] font-bold text-[#6A3D55] bg-[#E8DDF0] hover:bg-[#d8c5e3] px-3 py-1 rounded-lg inline-flex items-center gap-1 transition-colors cursor-pointer"
-                  >
-                    <EyeOff size={11} /> Test Panic Disguise
-                  </button>
-                )}
-              </div>
-            </div>
-          </div>
-        </RevealBlock>
-      </section>
-
-      {/* ------------------------------------------------------------------ */}
       {/* FOOTER                                                             */}
       {/* ------------------------------------------------------------------ */}
-      <footer className="border-t border-[#E8EFE3] py-6 bg-[#F8F0E8] text-center text-[11px] text-[#8C8087]">
+      <footer className="border-t border-[#F4E8C8] py-6 bg-[#FFFDF6]/92 text-center text-[11px] text-[#8C8087]">
         <div className="max-w-4xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
           <p>
             <span className="font-semibold text-[#405A43]">Aura Health Clinical Decision Support System.</span>{' '}

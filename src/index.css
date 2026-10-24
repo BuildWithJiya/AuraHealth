@@ -5,9 +5,12 @@
 :root {
   --aura-blush: #FCE7E8;
   --aura-rose: #D96B85;
-  --aura-sage-light: #E8EFE3;
+  --aura-sage-light: #EBF2E6;
   --aura-sage-dark: #405A43;
-  --aura-cream: #F8F0E8;
+  --aura-cream: #FAF6ED;
+  --aura-warm-yellow: #FEF3C7;
+  --aura-warm-yellow-light: #FFFBEB;
+  --aura-butter: #FDE68A;
   --aura-lavender: #E8DDF0;
   --aura-gold: #D9A84E;
   --aura-plum: #6A3D55;
@@ -18,11 +21,13 @@ html, body, #root {
 }
 
 body {
-  background-color: var(--aura-cream);
+  background-color: #FAF5EB;
   background-image:
-    radial-gradient(circle at 15% 10%, rgba(252, 231, 232, 0.85) 0%, transparent 45%),
-    radial-gradient(circle at 85% 15%, rgba(232, 239, 227, 0.8) 0%, transparent 45%),
-    radial-gradient(circle at 50% 90%, rgba(232, 221, 240, 0.65) 0%, transparent 50%);
+    radial-gradient(circle at 18% 10%, rgba(254, 243, 199, 0.95) 0%, transparent 46%),
+    radial-gradient(circle at 82% 14%, rgba(253, 230, 138, 0.55) 0%, transparent 44%),
+    radial-gradient(circle at 50% 86%, rgba(254, 240, 199, 0.6) 0%, transparent 52%),
+    radial-gradient(circle at 12% 82%, rgba(252, 231, 232, 0.38) 0%, transparent 40%),
+    radial-gradient(circle at 86% 82%, rgba(235, 242, 230, 0.42) 0%, transparent 45%);
   color: #31232B;
   font-family: 'Plus Jakarta Sans', ui-sans-serif, system-ui, -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -34,27 +39,27 @@ body {
   height: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: var(--aura-cream);
+  background: #FAF6ED;
 }
 ::-webkit-scrollbar-thumb {
-  background: #D9C8BA;
+  background: #E4D5B8;
   border-radius: 8px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #C2AE9E;
+  background: #D4C3A3;
 }
 
 /* ---------------------------------------------------------------------- */
-/* Soft Porcelain Frosted Glass Texture (Light Frost Blur)                */
+/* Soft Porcelain Frosted Glass Texture (Light Yellow Warm Tone)          */
 /* ---------------------------------------------------------------------- */
 .ios-glass-card {
-  background: rgba(255, 255, 255, 0.68);
+  background: rgba(255, 254, 249, 0.78);
   backdrop-filter: blur(24px) saturate(160%);
   -webkit-backdrop-filter: blur(24px) saturate(160%);
-  border: 1px solid rgba(255, 255, 255, 0.75);
+  border: 1px solid rgba(254, 243, 199, 0.85);
   box-shadow:
-    0 12px 36px -4px rgba(106, 61, 85, 0.08),
-    0 2px 8px -2px rgba(64, 90, 67, 0.04),
+    0 12px 36px -4px rgba(180, 130, 50, 0.07),
+    0 2px 8px -2px rgba(64, 90, 67, 0.03),
     inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.95);
   transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease, background 0.25s ease;
 }
@@ -172,15 +177,15 @@ body {
   left: -4%;
   width: 48vw;
   height: 48vw;
-  background: radial-gradient(circle, rgba(252, 231, 232, 0.75) 0%, rgba(252, 231, 232, 0) 68%);
+  background: radial-gradient(circle, rgba(254, 243, 199, 0.9) 0%, rgba(253, 230, 138, 0.25) 60%, rgba(254, 243, 199, 0) 72%);
   animation: auraFloatA 32s ease-in-out infinite alternate;
 }
 .aura-blob-2 {
   top: -4%;
   right: -4%;
-  width: 42vw;
-  height: 42vw;
-  background: radial-gradient(circle, rgba(232, 239, 227, 0.75) 0%, rgba(232, 239, 227, 0) 68%);
+  width: 44vw;
+  height: 44vw;
+  background: radial-gradient(circle, rgba(254, 240, 180, 0.78) 0%, rgba(253, 224, 71, 0.15) 55%, rgba(254, 240, 180, 0) 70%);
   animation: auraFloatB 38s ease-in-out infinite alternate;
 }
 .aura-blob-3 {
@@ -188,15 +193,15 @@ body {
   left: 15%;
   width: 44vw;
   height: 44vw;
-  background: radial-gradient(circle, rgba(232, 221, 240, 0.65) 0%, rgba(232, 221, 240, 0) 68%);
+  background: radial-gradient(circle, rgba(254, 243, 199, 0.7) 0%, rgba(254, 215, 170, 0.25) 58%, rgba(254, 243, 199, 0) 70%);
   animation: auraFloatC 44s ease-in-out infinite alternate;
 }
 .aura-blob-4 {
   bottom: -6%;
   right: 6%;
-  width: 36vw;
-  height: 36vw;
-  background: radial-gradient(circle, rgba(217, 168, 78, 0.35) 0%, rgba(217, 168, 78, 0) 68%);
+  width: 38vw;
+  height: 38vw;
+  background: radial-gradient(circle, rgba(251, 191, 36, 0.35) 0%, rgba(245, 158, 11, 0.1) 50%, rgba(217, 168, 78, 0) 70%);
   animation: auraFloatD 50s ease-in-out infinite alternate;
 }
 
