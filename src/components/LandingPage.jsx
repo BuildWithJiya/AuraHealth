@@ -27,7 +27,11 @@ import {
   Wand2,
   Plus,
   TrendingUp,
+  Leaf,
+  Users,
 } from 'lucide-react'
+import heroConsultationImg from '../assets/hero-consultation.jpg'
+import deskWindowImg from '../assets/desk-window.jpg'
 import {
   ComposedChart,
   Line,
@@ -50,6 +54,185 @@ import UnderstandYourBodyModal from './UnderstandYourBodyModal'
 import ExplainableRiskModal from './ExplainableRiskModal'
 import PrivacyModal from './PrivacyModal'
 import LifeStageModal from './LifeStageModal'
+
+/* ---------------------------------------------------------------------- */
+/* Watercolor Botanical Leaves Pattern Component                          */
+/* ---------------------------------------------------------------------- */
+function CardLeafPattern({ strokeColor = '#D96B85', fillColor = '#FCE7E8', className = '' }) {
+  return (
+    <svg
+      viewBox="0 0 140 180"
+      className={`absolute bottom-0 right-0 pointer-events-none select-none ${className}`}
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M135 175 C120 140, 105 100, 95 40 C92 25, 88 12, 85 5"
+        stroke={strokeColor}
+        strokeWidth="1.6"
+        strokeLinecap="round"
+        opacity="0.4"
+      />
+      <path
+        d="M85 5 C80 -2, 70 8, 76 18 C80 24, 88 18, 85 5 Z"
+        fill={fillColor}
+        stroke={strokeColor}
+        strokeWidth="1"
+        opacity="0.55"
+      />
+      <path
+        d="M92 30 C75 22, 58 35, 72 46 C82 52, 94 40, 92 30 Z"
+        fill={fillColor}
+        stroke={strokeColor}
+        strokeWidth="1"
+        opacity="0.5"
+      />
+      <path d="M92 30 C82 36, 75 42, 72 46" stroke={strokeColor} strokeWidth="0.8" opacity="0.4" />
+      <path
+        d="M96 50 C114 42, 128 54, 115 65 C105 72, 95 60, 96 50 Z"
+        fill={fillColor}
+        stroke={strokeColor}
+        strokeWidth="1"
+        opacity="0.5"
+      />
+      <path d="M96 50 C106 56, 112 61, 115 65" stroke={strokeColor} strokeWidth="0.8" opacity="0.4" />
+      <path
+        d="M102 78 C80 68, 62 84, 78 98 C90 106, 104 90, 102 78 Z"
+        fill={fillColor}
+        stroke={strokeColor}
+        strokeWidth="1.1"
+        opacity="0.55"
+      />
+      <path d="M102 78 C90 86, 82 92, 78 98" stroke={strokeColor} strokeWidth="0.8" opacity="0.4" />
+      <path
+        d="M108 100 C130 90, 142 108, 126 122 C114 130, 105 114, 108 100 Z"
+        fill={fillColor}
+        stroke={strokeColor}
+        strokeWidth="1.1"
+        opacity="0.55"
+      />
+      <path d="M108 100 C118 108, 124 116, 126 122" stroke={strokeColor} strokeWidth="0.8" opacity="0.4" />
+      <path
+        d="M116 130 C90 120, 72 140, 90 156 C105 166, 120 146, 116 130 Z"
+        fill={fillColor}
+        stroke={strokeColor}
+        strokeWidth="1.2"
+        opacity="0.55"
+      />
+      <path d="M116 130 C102 140, 95 148, 90 156" stroke={strokeColor} strokeWidth="0.8" opacity="0.4" />
+    </svg>
+  )
+}
+
+/* ---------------------------------------------------------------------- */
+/* Botanical Leaf Spray for Hero and Section Margins                      */
+/* ---------------------------------------------------------------------- */
+function BotanicalLeafSpray({ className = '' }) {
+  return (
+    <svg viewBox="0 0 200 240" className={`pointer-events-none select-none ${className}`} fill="none">
+      <path d="M20 230 C40 180, 80 120, 140 50 C160 30, 180 15, 190 10" stroke="#405A43" strokeWidth="2.5" strokeLinecap="round" opacity="0.45" />
+      <path d="M190 10 C180 2, 160 16, 172 28 C180 34, 194 24, 190 10 Z" fill="#E8EFE3" stroke="#405A43" strokeWidth="1.2" opacity="0.75" />
+      <path d="M150 42 C120 30, 95 50, 115 68 C130 76, 154 58, 150 42 Z" fill="#E8EFE3" stroke="#405A43" strokeWidth="1.3" opacity="0.7" />
+      <path d="M150 42 C134 50, 122 58, 115 68" stroke="#405A43" strokeWidth="1" opacity="0.45" />
+      <path d="M142 66 C170 52, 190 70, 175 88 C160 98, 142 82, 142 66 Z" fill="#E8EFE3" stroke="#405A43" strokeWidth="1.3" opacity="0.7" />
+      <path d="M142 66 C156 74, 168 80, 175 88" stroke="#405A43" strokeWidth="1" opacity="0.45" />
+      <path d="M110 100 C75 85, 50 110, 75 130 C95 140, 120 118, 110 100 Z" fill="#E8EFE3" stroke="#405A43" strokeWidth="1.4" opacity="0.75" />
+      <path d="M110 100 C92 112, 80 120, 75 130" stroke="#405A43" strokeWidth="1" opacity="0.45" />
+      <path d="M95 130 C130 115, 155 138, 135 160 C118 172, 95 150, 95 130 Z" fill="#E8EFE3" stroke="#405A43" strokeWidth="1.4" opacity="0.7" />
+      <path d="M95 130 C112 142, 126 150, 135 160" stroke="#405A43" strokeWidth="1" opacity="0.45" />
+      <path d="M60 170 C25 155, 5 185, 30 208 C50 220, 75 195, 60 170 Z" fill="#E8EFE3" stroke="#405A43" strokeWidth="1.5" opacity="0.75" />
+      <path d="M60 170 C42 185, 32 195, 30 208" stroke="#405A43" strokeWidth="1" opacity="0.45" />
+    </svg>
+  )
+}
+
+/* ---------------------------------------------------------------------- */
+/* Woman Avatar Icon (for Understand Your Body card)                      */
+/* ---------------------------------------------------------------------- */
+function WomanAvatarIcon({ className = 'w-7 h-7' }) {
+  return (
+    <svg viewBox="0 0 40 40" className={className} fill="none">
+      <circle cx="20" cy="20" r="19" fill="#E8EFE3" stroke="#405A43" strokeWidth="1.2" />
+      <ellipse cx="20" cy="18" rx="10" ry="11" fill="#36221D" />
+      <circle cx="20" cy="9" r="4.5" fill="#36221D" />
+      <rect x="18" y="22" width="4" height="5" fill="#FCE7E8" />
+      <ellipse cx="20" cy="18" rx="7" ry="8" fill="#FCE7E8" />
+      <path d="M13 16 C14 12, 17 11, 20 11 C23 11, 26 12, 27 16 C25 15, 23 14, 20 14 C17 14, 15 15, 13 16 Z" fill="#36221D" />
+      <path d="M13 16 C12 20, 14 23, 14 24" stroke="#36221D" strokeWidth="1.5" strokeLinecap="round" />
+      <path d="M27 16 C28 20, 26 23, 26 24" stroke="#36221D" strokeWidth="1.5" strokeLinecap="round" />
+      <ellipse cx="18" cy="17.5" rx="0.8" ry="1" fill="#31232B" />
+      <ellipse cx="22" cy="17.5" rx="0.8" ry="1" fill="#31232B" />
+      <path d="M18.5 21.5 Q20 23 21.5 21.5" stroke="#D96B85" strokeWidth="1" strokeLinecap="round" />
+      <path d="M13 36 C13 29, 16 26, 20 26 C24 26, 27 29, 27 36 Z" fill="#D96B85" />
+    </svg>
+  )
+}
+
+/* ---------------------------------------------------------------------- */
+/* Doctor Avatar Icon (for Learn & Explore card)                          */
+/* ---------------------------------------------------------------------- */
+function DoctorAvatarIcon({ className = 'w-7 h-7' }) {
+  return (
+    <svg viewBox="0 0 40 40" className={className} fill="none">
+      <circle cx="20" cy="20" r="19" fill="#E8DDF0" stroke="#6A3D55" strokeWidth="1.2" />
+      <ellipse cx="20" cy="17" rx="10" ry="10" fill="#2E1F1A" />
+      <circle cx="20" cy="8" r="4.2" fill="#2E1F1A" />
+      <rect x="18" y="21" width="4" height="5" fill="#FCE7E8" />
+      <ellipse cx="20" cy="17" rx="7" ry="7.5" fill="#FCE7E8" />
+      <path d="M13 15 C15 11, 18 10, 20 10 C23 10, 25 11, 27 15 C25 13.5, 22 13, 20 13 C17 13, 15 13.5, 13 15 Z" fill="#2E1F1A" />
+      <ellipse cx="18" cy="16.5" rx="0.8" ry="0.9" fill="#31232B" />
+      <ellipse cx="22" cy="16.5" rx="0.8" ry="0.9" fill="#31232B" />
+      <path d="M18.8 20 Q20 21.2 21.2 20" stroke="#6A3D55" strokeWidth="0.9" strokeLinecap="round" />
+      <path d="M12 36 C12 28, 15 25, 20 25 C25 25, 28 28, 28 36 Z" fill="#FFFFFF" stroke="#E8DFD8" strokeWidth="0.8" />
+      <path d="M17 25 L20 29 L23 25 Z" fill="#6A3D55" />
+      <path d="M16 26 Q16 31 19 32 Q22 31 22 26" stroke="#405A43" strokeWidth="1.2" fill="none" strokeLinecap="round" />
+      <circle cx="19" cy="32.5" r="1.2" fill="#D9A84E" />
+    </svg>
+  )
+}
+
+/* ---------------------------------------------------------------------- */
+/* Lotus Flower Icon (for Wellness Tools card)                            */
+/* ---------------------------------------------------------------------- */
+function LotusFlowerIcon({ className = 'w-6 h-6' }) {
+  return (
+    <svg viewBox="0 0 32 32" className={className} fill="none">
+      <path
+        d="M16 6 C13 13, 13 20, 16 24 C19 20, 19 13, 16 6 Z"
+        fill="#F8F0E8"
+        stroke="#D9A84E"
+        strokeWidth="1.5"
+      />
+      <path
+        d="M16 24 C11 22, 8 16, 10 11 C13 14, 15 19, 16 24 Z"
+        fill="#FCE7E8"
+        stroke="#D96B85"
+        strokeWidth="1.3"
+      />
+      <path
+        d="M16 24 C21 22, 24 16, 22 11 C19 14, 17 19, 16 24 Z"
+        fill="#FCE7E8"
+        stroke="#D96B85"
+        strokeWidth="1.3"
+      />
+      <path
+        d="M16 24 C9 24, 4 19, 6 15 C10 17, 13 21, 16 24 Z"
+        fill="#E8EFE3"
+        stroke="#405A43"
+        strokeWidth="1.2"
+        opacity="0.8"
+      />
+      <path
+        d="M16 24 C23 24, 28 19, 26 15 C22 17, 19 21, 16 24 Z"
+        fill="#E8EFE3"
+        stroke="#405A43"
+        strokeWidth="1.2"
+        opacity="0.8"
+      />
+      <path d="M12 25 Q16 27 20 25" stroke="#D9A84E" strokeWidth="1.5" strokeLinecap="round" />
+    </svg>
+  )
+}
 
 function RevealBlock({ children, className = '', delayMs = 0 }) {
   const [ref, visible] = useReveal()
@@ -505,128 +688,71 @@ export default function LandingPage({
 
           {/* Right Column: Hero Visual Graphic + Floating Badges */}
           <div className="lg:col-span-6 relative">
-            <div className="relative mx-auto max-w-lg lg:max-w-none">
+            <BotanicalLeafSpray className="absolute -top-12 -left-12 w-48 sm:w-64 h-auto opacity-30 z-0" />
+            <BotanicalLeafSpray className="absolute -bottom-8 -right-8 w-44 sm:w-56 h-auto opacity-30 z-0 transform -scale-x-100" />
+
+            <div className="relative mx-auto max-w-lg lg:max-w-none z-10">
               {/* Soft glow background */}
               <div className="absolute -inset-4 bg-gradient-to-tr from-[#FCE7E8] via-[#F8F0E8] to-[#E8EFE3] rounded-3xl -z-10 blur-xl opacity-90" />
 
               {/* Consultation Illustration Card with Light Frost Blur */}
-              <div className="relative rounded-3xl overflow-hidden border border-white/70 shadow-xl shadow-[#D96B85]/8 bg-white/70 backdrop-blur-xl p-3">
-                <svg viewBox="0 0 520 380" className="w-full h-auto rounded-2xl block bg-[#FFFDF9]">
-                  <defs>
-                    <linearGradient id="warmWallAura" x1="0" y1="0" x2="1" y2="1">
-                      <stop offset="0%" stopColor="#FFFDF9" />
-                      <stop offset="100%" stopColor="#FAF5EF" />
-                    </linearGradient>
-                    <linearGradient id="sweaterPink" x1="0" y1="0" x2="1" y2="1">
-                      <stop offset="0%" stopColor="#FCE7E8" />
-                      <stop offset="100%" stopColor="#D96B85" />
-                    </linearGradient>
-                    <linearGradient id="scrubSage" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="0%" stopColor="#E8EFE3" />
-                      <stop offset="100%" stopColor="#405A43" />
-                    </linearGradient>
-                  </defs>
+              <div className="relative rounded-3xl overflow-hidden border border-white/80 shadow-xl shadow-[#D96B85]/10 bg-white/75 backdrop-blur-xl p-3 sm:p-4 group">
+                <div className="relative rounded-2xl overflow-hidden aspect-[4/3] bg-[#FAF5EF]">
+                  <img
+                    src={heroConsultationImg}
+                    alt="Aura Health Medical Consultation with compassionate female doctor and patient"
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-102"
+                  />
+                  {/* Gentle watercolor vignette */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#6A3D55]/10 via-transparent to-transparent pointer-events-none" />
 
-                  <rect width="520" height="380" fill="url(#warmWallAura)" />
-                  <rect x="180" y="20" width="160" height="150" rx="4" fill="#FFFFFF" stroke="#E8EFE3" strokeWidth="2" />
-                  <line x1="260" y1="20" x2="260" y2="170" stroke="#E8EFE3" strokeWidth="1.5" />
-                  <line x1="180" y1="95" x2="340" y2="95" stroke="#E8EFE3" strokeWidth="1.5" />
-
-                  {/* Framed Quote on wall */}
-                  <g transform="translate(390, 40)">
-                    <text x="35" y="15" textAnchor="middle" fill="#D96B85" fontFamily="'Caveat', cursive" fontSize="16" fontWeight="600">
+                  {/* Cursive quote watermark */}
+                  <div className="absolute top-3 left-4 sm:top-5 sm:left-6 pointer-events-none drop-shadow-sm">
+                    <span className="font-['Caveat',cursive] text-lg sm:text-xl font-bold text-[#6A3D55]/90 block leading-tight">
                       Real care.
-                    </text>
-                    <text x="35" y="32" textAnchor="middle" fill="#6A3D55" fontFamily="'Caveat', cursive" fontSize="16" fontWeight="600">
+                    </span>
+                    <span className="font-['Caveat',cursive] text-lg sm:text-xl font-bold text-[#D96B85] block leading-tight">
                       Real women.
-                    </text>
-                    <text x="35" y="50" textAnchor="middle" fill="#405A43" fontFamily="'Caveat', cursive" fontSize="16" fontWeight="600">
+                    </span>
+                    <span className="font-['Caveat',cursive] text-lg sm:text-xl font-bold text-[#405A43] block leading-tight">
                       Always. &#9825;
-                    </text>
-                  </g>
+                    </span>
+                  </div>
 
-                  {/* Stacked books on side shelf */}
-                  <g transform="translate(435, 175)">
-                    <rect x="0" y="0" width="48" height="11" rx="2" fill="#D96B85" opacity="0.8" />
-                    <text x="24" y="8" textAnchor="middle" fill="#FFFFFF" fontSize="6" fontWeight="bold">HEALTH</text>
-                    <rect x="3" y="12" width="45" height="11" rx="2" fill="#E8EFE3" stroke="#405A43" strokeWidth="0.5" />
-                    <text x="25" y="20" textAnchor="middle" fill="#405A43" fontSize="6" fontWeight="bold">WELLNESS</text>
-                    <rect x="1" y="24" width="47" height="11" rx="2" fill="#D9A84E" opacity="0.85" />
-                    <text x="24" y="32" textAnchor="middle" fill="#FFFFFF" fontSize="6" fontWeight="bold">CONFIDENCE</text>
-                    <rect x="2" y="36" width="46" height="11" rx="2" fill="#6A3D55" opacity="0.9" />
-                    <text x="25" y="44" textAnchor="middle" fill="#FFFFFF" fontSize="6" fontWeight="bold">YOU</text>
-                  </g>
-
-                  {/* Indoor eucalyptus & vase flowers */}
-                  <g transform="translate(370, 110)">
-                    <path d="M40 90 Q60 50 55 10 Q35 45 40 90 Z" fill="#D96B85" opacity="0.75" />
-                    <path d="M50 90 Q30 50 35 15 Q55 45 50 90 Z" fill="#D9A84E" opacity="0.8" />
-                    <ellipse cx="45" cy="88" rx="14" ry="24" fill="#FCE7E8" stroke="#D96B85" strokeWidth="1" />
-                  </g>
-                  <g transform="translate(140, 70)">
-                    <path d="M20 120 Q5 70 25 20 Q45 65 20 120 Z" fill="#405A43" opacity="0.7" />
-                    <path d="M30 120 Q55 80 45 35 Q25 75 30 120 Z" fill="#E8EFE3" stroke="#405A43" strokeWidth="1" />
-                  </g>
-
-                  {/* Female Patient in cozy blush sweater */}
-                  <g transform="translate(180, 85)">
-                    <path d="M30 65 C15 35, 75 25, 80 60 C85 95, 80 140, 85 165 C68 150, 20 135, 30 65 Z" fill="#36221D" />
-                    <circle cx="55" cy="35" r="15" fill="#36221D" />
-                    <ellipse cx="62" cy="80" rx="19" ry="23" fill="#FCE7E8" />
-                    <path d="M68 88 Q74 93 80 88" stroke="#D96B85" strokeWidth="1.8" fill="none" strokeLinecap="round" />
-                    <ellipse cx="73" cy="76" rx="2" ry="2" fill="#31232B" />
-                    <ellipse cx="72" cy="100" rx="6" ry="6" fill="#FCE7E8" />
-                    <path d="M30 120 C10 160, 5 210, 0 280 L115 280 C115 210, 110 160, 85 120 Z" fill="url(#sweaterPink)" />
-                    <path d="M68 135 Q75 190 72 230" stroke="url(#sweaterPink)" strokeWidth="18" strokeLinecap="round" fill="none" />
-                  </g>
-
-                  {/* Female Doctor in white coat */}
-                  <g transform="translate(295, 70)">
-                    <path d="M35 55 C20 25, 80 20, 88 50 C95 85, 90 125, 85 140 C75 110, 25 105, 35 55 Z" fill="#2E1F1A" />
-                    <ellipse cx="65" cy="72" rx="20" ry="24" fill="#FDE2D7" />
-                    <path d="M68 82 Q75 88 82 82" stroke="#405A43" strokeWidth="1.8" fill="none" strokeLinecap="round" />
-                    <ellipse cx="76" cy="68" rx="2" ry="2" fill="#31232B" />
-                    <path d="M45 105 L85 105 L80 155 L50 155 Z" fill="url(#scrubSage)" />
-                    <path d="M52 110 Q42 155 64 175 Q74 185 80 165 Q90 140 82 110" stroke="#31232B" strokeWidth="2.2" fill="none" strokeLinecap="round" />
-                    <circle cx="64" cy="176" r="5" fill="#D9A84E" />
-                    <path d="M28 110 C18 160, 18 215, 15 295 L118 295 C118 215, 118 160, 105 110 L88 110 L68 145 L46 110 Z" fill="#FFFFFF" stroke="#E8EFE3" strokeWidth="1.5" />
-                    <path d="M46 110 L68 148 L68 210" stroke="#E8EFE3" strokeWidth="1.2" fill="none" />
-                    <rect x="55" y="195" width="48" height="34" rx="3" fill="#31232B" transform="rotate(-8 55 195)" />
-                    <rect x="58" y="198" width="42" height="28" rx="2" fill="#E8DDF0" transform="rotate(-8 58 198)" />
-                    <line x1="62" y1="206" x2="88" y2="202" stroke="#D96B85" strokeWidth="2" strokeLinecap="round" />
-                    <line x1="62" y1="212" x2="94" y2="208" stroke="#405A43" strokeWidth="1.5" strokeLinecap="round" />
-                  </g>
-                </svg>
-
-                {/* 4 Interactive Floating Badges with Light Frost Blur */}
-                <div className="absolute top-6 right-6 flex flex-col gap-2">
-                  <button
-                    onClick={() => scrollTo('interactive-graph')}
-                    className="flex items-center gap-1.5 bg-[#FCE7E8]/80 hover:bg-[#FCE7E8] backdrop-blur-md text-[#D96B85] border border-white/70 text-[11px] font-bold rounded-full px-3 py-1 shadow-xs transition-all hover:scale-105"
-                  >
-                    <Heart size={12} fill="#D96B85" /> Track
-                  </button>
-                  <button
-                    onClick={() => {
-                      if (onOpenEducation) onOpenEducation()
-                      else setEducationModalOpen(true)
-                    }}
-                    className="flex items-center gap-1.5 bg-[#E8EFE3]/80 hover:bg-[#E8EFE3] backdrop-blur-md text-[#405A43] border border-white/70 text-[11px] font-bold rounded-full px-3 py-1 shadow-xs transition-all hover:scale-105"
-                  >
-                    <Compass size={12} /> Learn
-                  </button>
-                  <button
-                    onClick={() => setWellnessModalOpen(true)}
-                    className="flex items-center gap-1.5 bg-[#E8DDF0]/80 hover:bg-[#E8DDF0] backdrop-blur-md text-[#6A3D55] border border-white/70 text-[11px] font-bold rounded-full px-3 py-1 shadow-xs transition-all hover:scale-105"
-                  >
-                    <Sparkles size={12} /> Feel Better
-                  </button>
-                  <button
-                    onClick={() => setAboutModalOpen(true)}
-                    className="flex items-center gap-1.5 bg-[#F8F0E8]/85 hover:bg-[#F8F0E8] backdrop-blur-md text-[#D9A84E] border border-white/80 text-[11px] font-bold rounded-full px-3 py-1 shadow-xs transition-all hover:scale-105"
-                  >
-                    <Sun size={12} /> Grow
-                  </button>
+                  {/* 4 Interactive Floating Badges matching reference image */}
+                  <div className="absolute top-3 right-3 sm:top-4 sm:right-4 flex flex-col gap-2">
+                    <button
+                      onClick={() => scrollTo('interactive-graph')}
+                      className="flex items-center gap-2 bg-white/92 hover:bg-white text-[#D96B85] border border-white/85 text-xs font-semibold rounded-full px-3.5 py-1.5 shadow-sm backdrop-blur-md transition-all hover:scale-105 cursor-pointer"
+                    >
+                      <Heart size={13} className="text-[#D96B85]" />
+                      <span>Track</span>
+                    </button>
+                    <button
+                      onClick={() => {
+                        if (onOpenEducation) onOpenEducation()
+                        else setEducationModalOpen(true)
+                      }}
+                      className="flex items-center gap-2 bg-white/92 hover:bg-white text-[#405A43] border border-white/85 text-xs font-semibold rounded-full px-3.5 py-1.5 shadow-sm backdrop-blur-md transition-all hover:scale-105 cursor-pointer"
+                    >
+                      <Leaf size={13} className="text-[#405A43]" />
+                      <span>Learn</span>
+                    </button>
+                    <button
+                      onClick={() => setWellnessModalOpen(true)}
+                      className="flex items-center gap-2 bg-white/92 hover:bg-white text-[#6A3D55] border border-white/85 text-xs font-semibold rounded-full px-3.5 py-1.5 shadow-sm backdrop-blur-md transition-all hover:scale-105 cursor-pointer"
+                    >
+                      <Flower2 size={13} className="text-[#D96B85]" />
+                      <span>Feel Better</span>
+                    </button>
+                    <button
+                      onClick={() => setAboutModalOpen(true)}
+                      className="flex items-center gap-2 bg-white/92 hover:bg-white text-[#D9A84E] border border-white/85 text-xs font-semibold rounded-full px-3.5 py-1.5 shadow-sm backdrop-blur-md transition-all hover:scale-105 cursor-pointer"
+                    >
+                      <Sun size={13} className="text-[#D9A84E]" />
+                      <span>Grow</span>
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -945,7 +1071,7 @@ export default function LandingPage({
       </section>
 
       {/* ------------------------------------------------------------------ */}
-      {/* 4. FOUR PASTEL FEATURE CARDS (with Light Frost Blur)               */}
+      {/* 4. FOUR PASTEL FEATURE CARDS (with Light Leaves Pattern & Icons)   */}
       {/* ------------------------------------------------------------------ */}
       <section id="feature-cards" className="py-12 max-w-6xl mx-auto px-6 scroll-mt-20">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
@@ -956,9 +1082,9 @@ export default function LandingPage({
               className="frost-card-blush group cursor-pointer h-full rounded-3xl p-6 shadow-sm hover:shadow-xl transition-all duration-300 relative overflow-hidden flex flex-col justify-between"
             >
               <div>
-                <div className="h-12 w-12 rounded-2xl bg-white/80 backdrop-blur-md border border-white/90 flex items-center justify-center text-[#D96B85] mb-4 shadow-2xs group-hover:scale-105 transition-transform">
+                <div className="h-12 w-12 rounded-2xl bg-white/85 backdrop-blur-md border border-[#D96B85]/20 flex items-center justify-center text-[#D96B85] mb-4 shadow-2xs group-hover:scale-105 transition-transform">
                   <div className="relative">
-                    <Calendar size={22} />
+                    <Calendar size={22} className="text-[#D96B85]" />
                     <Droplet size={11} className="absolute -bottom-1 -right-1 text-[#D96B85] fill-[#D96B85]" />
                   </div>
                 </div>
@@ -968,13 +1094,14 @@ export default function LandingPage({
                 </p>
               </div>
 
-              <div className="mt-6 flex justify-end">
-                <span className="h-8 w-8 rounded-full bg-[#D96B85]/20 group-hover:bg-[#D96B85] text-[#D96B85] group-hover:text-white flex items-center justify-center transition-colors">
+              <div className="mt-6 flex justify-end relative z-10">
+                <span className="h-8 w-8 rounded-full bg-[#D96B85]/20 group-hover:bg-[#D96B85] text-[#D96B85] group-hover:text-white flex items-center justify-center transition-colors shadow-2xs">
                   <ArrowRight size={14} />
                 </span>
               </div>
 
-              <Flower2 size={68} className="absolute -bottom-4 -right-4 text-[#D96B85]/10 pointer-events-none" />
+              {/* Light Leaves Pattern (bottom right watermark) */}
+              <CardLeafPattern strokeColor="#D96B85" fillColor="#FCE7E8" className="w-28 h-36" />
             </div>
           </RevealBlock>
 
@@ -988,8 +1115,8 @@ export default function LandingPage({
               className="frost-card-sage group cursor-pointer h-full rounded-3xl p-6 shadow-sm hover:shadow-xl transition-all duration-300 relative overflow-hidden flex flex-col justify-between"
             >
               <div>
-                <div className="h-12 w-12 rounded-2xl bg-white/80 backdrop-blur-md border border-white/90 flex items-center justify-center text-[#405A43] mb-4 shadow-2xs group-hover:scale-105 transition-transform">
-                  <UserCheck size={22} />
+                <div className="h-12 w-12 rounded-full bg-white/85 backdrop-blur-md border border-[#405A43]/20 flex items-center justify-center mb-4 shadow-2xs group-hover:scale-105 transition-transform overflow-hidden">
+                  <WomanAvatarIcon className="w-9 h-9" />
                 </div>
                 <h3 className="font-serif text-xl font-bold text-[#405A43] mb-2">Understand Your Body</h3>
                 <p className="text-xs text-[#5E5259] leading-relaxed">
@@ -997,13 +1124,14 @@ export default function LandingPage({
                 </p>
               </div>
 
-              <div className="mt-6 flex justify-end">
-                <span className="h-8 w-8 rounded-full bg-[#405A43]/20 group-hover:bg-[#405A43] text-[#405A43] group-hover:text-white flex items-center justify-center transition-colors">
+              <div className="mt-6 flex justify-end relative z-10">
+                <span className="h-8 w-8 rounded-full bg-[#405A43]/20 group-hover:bg-[#405A43] text-[#405A43] group-hover:text-white flex items-center justify-center transition-colors shadow-2xs">
                   <ArrowRight size={14} />
                 </span>
               </div>
 
-              <Activity size={68} className="absolute -bottom-4 -right-4 text-[#405A43]/10 pointer-events-none" />
+              {/* Light Leaves Pattern (bottom right watermark) */}
+              <CardLeafPattern strokeColor="#405A43" fillColor="#E8EFE3" className="w-28 h-36" />
             </div>
           </RevealBlock>
 
@@ -1017,8 +1145,8 @@ export default function LandingPage({
               className="frost-card-lavender group cursor-pointer h-full rounded-3xl p-6 shadow-sm hover:shadow-xl transition-all duration-300 relative overflow-hidden flex flex-col justify-between"
             >
               <div>
-                <div className="h-12 w-12 rounded-2xl bg-white/80 backdrop-blur-md border border-white/90 flex items-center justify-center text-[#6A3D55] mb-4 shadow-2xs group-hover:scale-105 transition-transform">
-                  <BookOpen size={22} />
+                <div className="h-12 w-12 rounded-full bg-white/85 backdrop-blur-md border border-[#6A3D55]/20 flex items-center justify-center mb-4 shadow-2xs group-hover:scale-105 transition-transform overflow-hidden">
+                  <DoctorAvatarIcon className="w-9 h-9" />
                 </div>
                 <h3 className="font-serif text-xl font-bold text-[#6A3D55] mb-2">Learn &amp; Explore</h3>
                 <p className="text-xs text-[#5E5259] leading-relaxed">
@@ -1026,13 +1154,14 @@ export default function LandingPage({
                 </p>
               </div>
 
-              <div className="mt-6 flex justify-end">
-                <span className="h-8 w-8 rounded-full bg-[#6A3D55]/20 group-hover:bg-[#6A3D55] text-[#6A3D55] group-hover:text-white flex items-center justify-center transition-colors">
+              <div className="mt-6 flex justify-end relative z-10">
+                <span className="h-8 w-8 rounded-full bg-[#6A3D55]/20 group-hover:bg-[#6A3D55] text-[#6A3D55] group-hover:text-white flex items-center justify-center transition-colors shadow-2xs">
                   <ArrowRight size={14} />
                 </span>
               </div>
 
-              <Sparkles size={68} className="absolute -bottom-4 -right-4 text-[#6A3D55]/10 pointer-events-none" />
+              {/* Light Leaves Pattern (bottom right watermark) */}
+              <CardLeafPattern strokeColor="#6A3D55" fillColor="#E8DDF0" className="w-28 h-36" />
             </div>
           </RevealBlock>
 
@@ -1043,8 +1172,8 @@ export default function LandingPage({
               className="frost-card-gold group cursor-pointer h-full rounded-3xl p-6 shadow-sm hover:shadow-xl transition-all duration-300 relative overflow-hidden flex flex-col justify-between"
             >
               <div>
-                <div className="h-12 w-12 rounded-2xl bg-white/80 backdrop-blur-md border border-white/90 flex items-center justify-center text-[#D9A84E] mb-4 shadow-2xs group-hover:scale-105 transition-transform">
-                  <Flower2 size={22} />
+                <div className="h-12 w-12 rounded-2xl bg-white/85 backdrop-blur-md border border-[#D9A84E]/25 flex items-center justify-center text-[#D9A84E] mb-4 shadow-2xs group-hover:scale-105 transition-transform">
+                  <LotusFlowerIcon className="w-7 h-7" />
                 </div>
                 <h3 className="font-serif text-xl font-bold text-[#405A43] mb-2">Wellness Tools</h3>
                 <p className="text-xs text-[#5E5259] leading-relaxed">
@@ -1052,16 +1181,109 @@ export default function LandingPage({
                 </p>
               </div>
 
-              <div className="mt-6 flex justify-end">
-                <span className="h-8 w-8 rounded-full bg-[#D9A84E]/25 group-hover:bg-[#D9A84E] text-[#D9A84E] group-hover:text-white flex items-center justify-center transition-colors">
+              <div className="mt-6 flex justify-end relative z-10">
+                <span className="h-8 w-8 rounded-full bg-[#D9A84E]/25 group-hover:bg-[#D9A84E] text-[#D9A84E] group-hover:text-white flex items-center justify-center transition-colors shadow-2xs">
                   <ArrowRight size={14} />
                 </span>
               </div>
 
-              <Sun size={68} className="absolute -bottom-4 -right-4 text-[#D9A84E]/10 pointer-events-none" />
+              {/* Light Leaves Pattern (bottom right watermark) */}
+              <CardLeafPattern strokeColor="#D9A84E" fillColor="#F8F0E8" className="w-28 h-36" />
             </div>
           </RevealBlock>
         </div>
+      </section>
+
+      {/* ------------------------------------------------------------------ */}
+      {/* 5. "SMALL STEPS LEAD TO BIG CHANGES" & "YOU'RE NOT ALONE" BANNER   */}
+      {/* ------------------------------------------------------------------ */}
+      <section id="support-banner" className="py-10 max-w-6xl mx-auto px-6 scroll-mt-20">
+        <RevealBlock>
+          <div className="relative rounded-3xl p-6 sm:p-8 bg-gradient-to-r from-[#F0F5EC]/75 via-[#FAF6F0]/85 to-[#F5ECE8]/75 border border-[#E8EFE3] shadow-sm overflow-hidden">
+            {/* Lush botanical leaf spray on left margin */}
+            <BotanicalLeafSpray className="absolute -bottom-6 -left-6 w-44 sm:w-56 h-auto opacity-70 z-0" />
+            <BotanicalLeafSpray className="absolute -top-6 -right-6 w-36 sm:w-44 h-auto opacity-45 z-0 transform -scale-x-100" />
+
+            <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-center">
+              {/* Left Sub-column: Tilted Note Card */}
+              <div className="lg:col-span-3 flex justify-center lg:justify-start pl-0 sm:pl-4">
+                <div className="transform -rotate-6 hover:rotate-0 transition-transform duration-300 bg-white/95 backdrop-blur-md border border-[#E8DFD8] rounded-2xl p-5 sm:p-6 shadow-[0_8px_24px_-4px_rgba(64,90,67,0.12)] cursor-pointer group">
+                  <p className="font-['Caveat',cursive] text-2xl sm:text-3xl text-[#405A43] font-bold leading-tight select-none">
+                    Small steps<br />
+                    lead to big<br />
+                    changes &#9825;
+                  </p>
+                </div>
+              </div>
+
+              {/* Center Sub-column: Girl at desk by window illustration */}
+              <div className="lg:col-span-4 flex justify-center">
+                <div className="relative rounded-2xl overflow-hidden border border-white/80 shadow-md bg-white/80 backdrop-blur-md max-w-[280px] sm:max-w-[320px] w-full aspect-[4/3] group">
+                  <img
+                    src={deskWindowImg}
+                    alt="Young woman with messy bun and scrunchie at sunlit desk with Aura Health laptop"
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#6A3D55]/15 via-transparent to-transparent pointer-events-none" />
+                </div>
+              </div>
+
+              {/* Right Sub-column: "You're not alone" Frosted Card + Trust Badges */}
+              <div className="lg:col-span-5 space-y-4">
+                <div className="ios-glass-card rounded-2xl p-5 sm:p-6 space-y-3">
+                  <div className="flex items-center gap-2">
+                    <span className="text-[#D96B85] text-lg font-serif">&#9825;</span>
+                    <h3 className="font-serif text-xl sm:text-2xl font-bold text-[#405A43]">
+                      You&apos;re not alone
+                    </h3>
+                  </div>
+                  <p className="text-xs sm:text-sm text-[#5E5259] leading-relaxed">
+                    Whether it&apos;s your period, your mood, your hormones or just a bad day &mdash; Aura Health is here for you.
+                  </p>
+                  <div>
+                    <button
+                      onClick={() => setAboutModalOpen(true)}
+                      className="inline-flex items-center gap-1.5 bg-[#D96B85]/15 hover:bg-[#D96B85] text-[#D96B85] hover:text-white border border-[#D96B85]/30 text-xs font-semibold rounded-full px-4 py-2 transition-all cursor-pointer shadow-2xs"
+                    >
+                      Learn More <ArrowRight size={13} />
+                    </button>
+                  </div>
+                </div>
+
+                {/* 4 Trust Verification Badges matching reference image */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-1">
+                  <div className="flex items-center gap-2 text-[11px] font-medium text-[#5E5259] bg-white/65 backdrop-blur-xs rounded-xl px-3 py-2 border border-white/80 shadow-2xs">
+                    <ShieldCheck size={15} className="text-[#405A43] shrink-0" />
+                    <span>Trusted &amp; Verified Information</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-[11px] font-medium text-[#5E5259] bg-white/65 backdrop-blur-xs rounded-xl px-3 py-2 border border-white/80 shadow-2xs">
+                    <Users size={15} className="text-[#405A43] shrink-0" />
+                    <span>Designed for Women</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-[11px] font-medium text-[#5E5259] bg-white/65 backdrop-blur-xs rounded-xl px-3 py-2 border border-white/80 shadow-2xs">
+                    <Lock size={15} className="text-[#405A43] shrink-0" />
+                    <span>Secure &amp; Private</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-[11px] font-medium text-[#5E5259] bg-white/65 backdrop-blur-xs rounded-xl px-3 py-2 border border-white/80 shadow-2xs">
+                    <HeartHandshake size={15} className="text-[#405A43] shrink-0" />
+                    <span>Always Here For You</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Bottom Center Divider */}
+            <div className="mt-8 pt-5 border-t border-[#E8DFD8]/70 flex items-center justify-center gap-3 text-xs tracking-wider text-[#7A726D] font-serif">
+              <div className="h-px bg-gradient-to-r from-transparent to-[#D9C8BA] w-16 sm:w-28" />
+              <span>Health</span>
+              <span className="text-[#D96B85] text-sm">&#9825;</span>
+              <span>Confidence</span>
+              <span className="text-[#D96B85] text-sm">&#9825;</span>
+              <span>You</span>
+              <div className="h-px bg-gradient-to-l from-transparent to-[#D9C8BA] w-16 sm:w-28" />
+            </div>
+          </div>
+        </RevealBlock>
       </section>
 
       {/* ------------------------------------------------------------------ */}
