@@ -7,13 +7,15 @@ html, body, #root {
 }
 
 body {
-  background-color: #0F172A;
+  background-color: #FAF7F2;
   background-image:
-    radial-gradient(circle at 15% 8%, rgba(99, 102, 241, 0.10) 0%, transparent 45%),
-    radial-gradient(circle at 85% 12%, rgba(244, 63, 94, 0.08) 0%, transparent 45%),
-    radial-gradient(circle at 50% 100%, rgba(16, 185, 129, 0.06) 0%, transparent 50%);
-  color: #E2E8F0;
-  font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
+    radial-gradient(circle at 15% 10%, rgba(253, 238, 235, 0.75) 0%, transparent 45%),
+    radial-gradient(circle at 85% 15%, rgba(238, 244, 236, 0.7) 0%, transparent 45%),
+    radial-gradient(circle at 50% 90%, rgba(254, 245, 235, 0.6) 0%, transparent 50%);
+  color: #2E2825;
+  font-family: 'Plus Jakarta Sans', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 ::-webkit-scrollbar {
@@ -21,53 +23,49 @@ body {
   height: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #1E293B;
+  background: #F4EFEB;
 }
 ::-webkit-scrollbar-thumb {
-  background: #475569;
+  background: #D4C7BE;
   border-radius: 8px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #64748b;
+  background: #C4B4A8;
 }
 
 /* ---------------------------------------------------------------------- */
-/* iOS Liquid Crystal Frosted Glass Standard                              */
+/* Soft Porcelain Frosted Glass Texture (Warm & Gentle)                    */
 /* ---------------------------------------------------------------------- */
 .ios-glass-card {
-  background: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0.06) 0%,
-    rgba(255, 255, 255, 0.015) 100%
-  ), rgba(15, 23, 42, 0.65);
-  backdrop-filter: blur(28px) saturate(190%);
-  -webkit-backdrop-filter: blur(28px) saturate(190%);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.84);
+  backdrop-filter: blur(20px) saturate(140%);
+  -webkit-backdrop-filter: blur(20px) saturate(140%);
+  border: 1px solid rgba(226, 214, 206, 0.65);
   box-shadow:
-    inset 0 1px 1px 0 rgba(255, 255, 255, 0.16),
-    0 12px 32px -4px rgba(0, 0, 0, 0.35),
-    0 4px 12px -2px rgba(0, 0, 0, 0.2);
+    0 10px 30px -4px rgba(180, 150, 140, 0.08),
+    0 2px 8px -2px rgba(100, 80, 70, 0.04),
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.95);
   transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease;
 }
 
 .ios-glass-card:hover {
-  border-color: rgba(255, 255, 255, 0.2);
+  border-color: rgba(201, 122, 114, 0.4);
   box-shadow:
-    inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.24),
-    0 16px 40px -6px rgba(0, 0, 0, 0.42),
-    0 6px 16px -3px rgba(0, 0, 0, 0.25);
+    0 16px 36px -6px rgba(180, 150, 140, 0.14),
+    0 4px 12px -2px rgba(100, 80, 70, 0.06),
+    inset 0 1px 1.5px 0 rgba(255, 255, 255, 1);
 }
 
 .ios-glass-inner {
-  background: rgba(15, 23, 42, 0.48);
-  backdrop-filter: blur(16px) saturate(180%);
-  -webkit-backdrop-filter: blur(16px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(250, 246, 242, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(226, 214, 206, 0.55);
 }
 
 .med-tooltip {
   position: relative;
-  border-bottom: 1px dashed rgba(99, 102, 241, 0.6);
+  border-bottom: 1px dashed rgba(201, 122, 114, 0.6);
   cursor: help;
 }
 .med-tooltip .tip {
@@ -77,9 +75,9 @@ body {
   bottom: 125%;
   left: 50%;
   transform: translateX(-50%);
-  background: #1E293B;
-  color: #E2E8F0;
-  border: 1px solid #334155;
+  background: #2E2825;
+  color: #FAF7F2;
+  border: 1px solid rgba(201, 122, 114, 0.3);
   padding: 8px 10px;
   border-radius: 8px;
   font-size: 12px;
@@ -87,7 +85,7 @@ body {
   width: 230px;
   z-index: 50;
   transition: opacity 0.15s ease;
-  box-shadow: 0 10px 25px -5px rgba(0,0,0,0.5);
+  box-shadow: 0 10px 25px -5px rgba(46, 40, 37, 0.3);
 }
 .med-tooltip:hover .tip {
   visibility: visible;
@@ -95,9 +93,7 @@ body {
 }
 
 /* ---------------------------------------------------------------------- */
-/* Ambient "AuraDx" calm background — soft drifting gradient blobs plus   */
-/* gently floating glow particles. Purely decorative (aria-hidden),       */
-/* self-contained in CSS so there is no external image dependency.       */
+/* Ambient Soft Watercolor Canvas Background                              */
 /* ---------------------------------------------------------------------- */
 #aura-bg {
   background: transparent;
@@ -106,8 +102,8 @@ body {
 .aura-blob {
   position: absolute;
   border-radius: 50%;
-  filter: blur(70px);
-  mix-blend-mode: screen;
+  filter: blur(80px);
+  opacity: 0.65;
   will-change: transform;
 }
 
@@ -116,7 +112,7 @@ body {
   left: -4%;
   width: 48vw;
   height: 48vw;
-  background: radial-gradient(circle, rgba(244, 63, 94, 0.48) 0%, rgba(244, 63, 94, 0) 68%);
+  background: radial-gradient(circle, rgba(253, 222, 218, 0.7) 0%, rgba(253, 222, 218, 0) 68%);
   animation: auraFloatA 32s ease-in-out infinite alternate;
 }
 .aura-blob-2 {
@@ -124,51 +120,51 @@ body {
   right: -4%;
   width: 42vw;
   height: 42vw;
-  background: radial-gradient(circle, rgba(99, 102, 241, 0.46) 0%, rgba(99, 102, 241, 0) 68%);
+  background: radial-gradient(circle, rgba(220, 235, 218, 0.65) 0%, rgba(220, 235, 218, 0) 68%);
   animation: auraFloatB 38s ease-in-out infinite alternate;
 }
 .aura-blob-3 {
   bottom: -8%;
-  left: 20%;
+  left: 15%;
   width: 44vw;
   height: 44vw;
-  background: radial-gradient(circle, rgba(16, 185, 129, 0.34) 0%, rgba(16, 185, 129, 0) 68%);
+  background: radial-gradient(circle, rgba(254, 240, 218, 0.6) 0%, rgba(254, 240, 218, 0) 68%);
   animation: auraFloatC 44s ease-in-out infinite alternate;
 }
 .aura-blob-4 {
   bottom: -6%;
   right: 6%;
-  width: 34vw;
-  height: 34vw;
-  background: radial-gradient(circle, rgba(253, 186, 116, 0.32) 0%, rgba(253, 186, 116, 0) 68%);
+  width: 36vw;
+  height: 36vw;
+  background: radial-gradient(circle, rgba(247, 216, 210, 0.55) 0%, rgba(247, 216, 210, 0) 68%);
   animation: auraFloatD 50s ease-in-out infinite alternate;
 }
 
 @keyframes auraFloatA {
   0%   { transform: translate(0, 0) scale(1); }
-  50%  { transform: translate(6vw, 5vh) scale(1.15); }
-  100% { transform: translate(-3vw, 8vh) scale(1); }
+  50%  { transform: translate(5vw, 4vh) scale(1.12); }
+  100% { transform: translate(-2vw, 6vh) scale(1); }
 }
 @keyframes auraFloatB {
   0%   { transform: translate(0, 0) scale(1); }
-  50%  { transform: translate(-7vw, 6vh) scale(1.1); }
-  100% { transform: translate(-2vw, -4vh) scale(1.2); }
+  50%  { transform: translate(-6vw, 5vh) scale(1.08); }
+  100% { transform: translate(-2vw, -3vh) scale(1.15); }
 }
 @keyframes auraFloatC {
   0%   { transform: translate(0, 0) scale(1); }
-  50%  { transform: translate(5vw, -6vh) scale(1.12); }
-  100% { transform: translate(8vw, 2vh) scale(1); }
+  50%  { transform: translate(4vw, -5vh) scale(1.1); }
+  100% { transform: translate(6vw, 2vh) scale(1); }
 }
 @keyframes auraFloatD {
   0%   { transform: translate(0, 0) scale(1); }
-  50%  { transform: translate(-4vw, -5vh) scale(1.08); }
-  100% { transform: translate(3vw, -8vh) scale(1.15); }
+  50%  { transform: translate(-3vw, -4vh) scale(1.06); }
+  100% { transform: translate(3vw, -6vh) scale(1.12); }
 }
 
 .aura-vignette {
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse at 50% 35%, transparent 35%, rgba(15, 23, 42, 0.55) 100%);
+  background: radial-gradient(ellipse at 50% 35%, transparent 45%, rgba(250, 247, 242, 0.4) 100%);
 }
 
 .aura-particle {
@@ -183,9 +179,9 @@ body {
 
 @keyframes auraParticleFloat {
   0%   { transform: translate(0, 0) scale(0.6); opacity: 0; }
-  10%  { opacity: 0.85; }
-  50%  { transform: translate(var(--drift, 12px), -52vh) scale(1); opacity: 0.55; }
-  90%  { opacity: 0.2; }
+  15%  { opacity: 0.6; }
+  50%  { transform: translate(var(--drift, 12px), -52vh) scale(1); opacity: 0.45; }
+  85%  { opacity: 0.2; }
   100% { transform: translate(calc(var(--drift, 12px) * -1), -104vh) scale(0.6); opacity: 0; }
 }
 
@@ -220,12 +216,11 @@ body {
 }
 
 /* ---------------------------------------------------------------------- */
-/* Landing / onboarding motion — warm, soft entrances. Kept separate from  */
-/* the dashboard's utility styling above so it's easy to find & isolated.  */
+/* Landing / Motion & Typography Flourishes                                */
 /* ---------------------------------------------------------------------- */
 .reveal {
   opacity: 0;
-  transform: translateY(26px);
+  transform: translateY(24px);
   transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .reveal-visible {
@@ -234,60 +229,53 @@ body {
 }
 
 @keyframes landingFadeUp {
-  from { opacity: 0; transform: translateY(22px); }
+  from { opacity: 0; transform: translateY(20px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 .animate-landing-fade-up {
-  animation: landingFadeUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: landingFadeUp 0.85s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
-@keyframes breatheGlow {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(244, 63, 94, 0.45), 0 8px 30px -8px rgba(244, 63, 94, 0.5); }
-  50%      { box-shadow: 0 0 0 14px rgba(244, 63, 94, 0), 0 8px 40px -4px rgba(244, 63, 94, 0.65); }
+@keyframes breatheGlowWarm {
+  0%, 100% { box-shadow: 0 4px 18px -2px rgba(82, 110, 91, 0.35); }
+  50%      { box-shadow: 0 8px 28px 2px rgba(82, 110, 91, 0.55); }
 }
 .animate-breathe-glow {
-  animation: breatheGlow 3.2s ease-in-out infinite;
+  animation: breatheGlowWarm 3.5s ease-in-out infinite;
 }
 
-@keyframes gradientShift {
-  0%   { background-position: 0% 50%; }
-  50%  { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
 .text-gradient-warm {
-  background: linear-gradient(90deg, #FDA4AF, #FCA5F1, #A5B4FC, #FDA4AF);
-  background-size: 300% auto;
+  background: linear-gradient(120deg, #C97A72 0%, #D4A373 50%, #8FA98F 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  animation: gradientShift 8s ease-in-out infinite;
 }
 
 @keyframes softBob {
   0%, 100% { transform: translateY(0); }
-  50%      { transform: translateY(-8px); }
+  50%      { transform: translateY(-6px); }
 }
 .animate-soft-bob {
-  animation: softBob 5s ease-in-out infinite;
+  animation: softBob 4.5s ease-in-out infinite;
 }
 
 .onboarding-input {
   width: 100%;
-  background: rgba(15, 23, 42, 0.55);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 0.75rem;
-  padding: 0.6rem 0.9rem;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(226, 214, 206, 0.8);
+  border-radius: 0.85rem;
+  padding: 0.65rem 0.95rem;
   font-size: 0.875rem;
-  color: #F1F5F9;
+  color: #2E2825;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 .onboarding-input::placeholder {
-  color: #64748b;
+  color: #938A84;
 }
 .onboarding-input:focus {
   outline: none;
-  border-color: rgba(244, 63, 94, 0.6);
-  box-shadow: 0 0 0 3px rgba(244, 63, 94, 0.15);
+  border-color: #C97A72;
+  box-shadow: 0 0 0 3px rgba(201, 122, 114, 0.18);
 }
 
 @media (prefers-reduced-motion: reduce) {

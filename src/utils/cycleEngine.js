@@ -36,19 +36,19 @@ export function getPhaseBoundaries(cycleLength) {
 
 export const PHASE_META = {
   Menstrual: {
-    color: '#F43F5E',
+    color: '#D9777F',
     description: 'Uterine lining shedding. Estrogen and progesterone at cycle low.',
   },
   Follicular: {
-    color: '#6366F1',
+    color: '#526E5B',
     description: 'Follicle maturation. Estrogen rising steadily toward ovulatory peak.',
   },
   Ovulatory: {
-    color: '#10B981',
+    color: '#C88D58',
     description: 'LH surge triggers ovulation. Peak estrogen, fertile window.',
   },
   Luteal: {
-    color: '#F59E0B',
+    color: '#B86B77',
     description: 'Corpus luteum secretes progesterone. Estrogen dips then has a smaller secondary rise.',
   },
 }

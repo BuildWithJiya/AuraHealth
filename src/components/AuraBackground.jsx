@@ -1,10 +1,10 @@
 import { useMemo } from 'react'
 
 const PARTICLE_COLORS = [
-  { bg: '#FDA4AF', glow: 'rgba(244, 63, 94, 0.55)' }, // blush rose
-  { bg: '#A5B4FC', glow: 'rgba(99, 102, 241, 0.55)' }, // soft lavender
-  { bg: '#6EE7B7', glow: 'rgba(16, 185, 129, 0.5)' }, // gentle mint
-  { bg: '#FCD9A6', glow: 'rgba(253, 186, 116, 0.5)' }, // warm peach
+  { bg: '#E8A59E', glow: 'rgba(201, 122, 114, 0.35)' }, // dusty rose
+  { bg: '#8FA98F', glow: 'rgba(143, 169, 143, 0.3)' }, // soft sage
+  { bg: '#E5C590', glow: 'rgba(212, 163, 115, 0.3)' }, // warm honey
+  { bg: '#F2C4CE', glow: 'rgba(242, 196, 206, 0.35)' }, // petal pink
 ]
 
 function seededRandom(seed) {
