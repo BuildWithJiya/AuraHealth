@@ -2,17 +2,28 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --aura-blush: #FCE7E8;
+  --aura-rose: #D96B85;
+  --aura-sage-light: #E8EFE3;
+  --aura-sage-dark: #405A43;
+  --aura-cream: #F8F0E8;
+  --aura-lavender: #E8DDF0;
+  --aura-gold: #D9A84E;
+  --aura-plum: #6A3D55;
+}
+
 html, body, #root {
   height: 100%;
 }
 
 body {
-  background-color: #FAF7F2;
+  background-color: var(--aura-cream);
   background-image:
-    radial-gradient(circle at 15% 10%, rgba(253, 238, 235, 0.75) 0%, transparent 45%),
-    radial-gradient(circle at 85% 15%, rgba(238, 244, 236, 0.7) 0%, transparent 45%),
-    radial-gradient(circle at 50% 90%, rgba(254, 245, 235, 0.6) 0%, transparent 50%);
-  color: #2E2825;
+    radial-gradient(circle at 15% 10%, rgba(252, 231, 232, 0.85) 0%, transparent 45%),
+    radial-gradient(circle at 85% 15%, rgba(232, 239, 227, 0.8) 0%, transparent 45%),
+    radial-gradient(circle at 50% 90%, rgba(232, 221, 240, 0.65) 0%, transparent 50%);
+  color: #31232B;
   font-family: 'Plus Jakarta Sans', ui-sans-serif, system-ui, -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -23,49 +34,49 @@ body {
   height: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #F4EFEB;
+  background: var(--aura-cream);
 }
 ::-webkit-scrollbar-thumb {
-  background: #D4C7BE;
+  background: #D9C8BA;
   border-radius: 8px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #C4B4A8;
+  background: #C2AE9E;
 }
 
 /* ---------------------------------------------------------------------- */
 /* Soft Porcelain Frosted Glass Texture (Warm & Gentle)                    */
 /* ---------------------------------------------------------------------- */
 .ios-glass-card {
-  background: rgba(255, 255, 255, 0.84);
+  background: rgba(255, 255, 255, 0.88);
   backdrop-filter: blur(20px) saturate(140%);
   -webkit-backdrop-filter: blur(20px) saturate(140%);
-  border: 1px solid rgba(226, 214, 206, 0.65);
+  border: 1px solid rgba(232, 221, 213, 0.8);
   box-shadow:
-    0 10px 30px -4px rgba(180, 150, 140, 0.08),
-    0 2px 8px -2px rgba(100, 80, 70, 0.04),
+    0 10px 30px -4px rgba(106, 61, 85, 0.06),
+    0 2px 8px -2px rgba(64, 90, 67, 0.04),
     inset 0 1px 1px 0 rgba(255, 255, 255, 0.95);
   transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease;
 }
 
 .ios-glass-card:hover {
-  border-color: rgba(201, 122, 114, 0.4);
+  border-color: rgba(217, 107, 133, 0.45);
   box-shadow:
-    0 16px 36px -6px rgba(180, 150, 140, 0.14),
-    0 4px 12px -2px rgba(100, 80, 70, 0.06),
+    0 16px 36px -6px rgba(106, 61, 85, 0.12),
+    0 4px 12px -2px rgba(64, 90, 67, 0.06),
     inset 0 1px 1.5px 0 rgba(255, 255, 255, 1);
 }
 
 .ios-glass-inner {
-  background: rgba(250, 246, 242, 0.7);
+  background: rgba(248, 240, 232, 0.75);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(226, 214, 206, 0.55);
+  border: 1px solid rgba(232, 221, 213, 0.65);
 }
 
 .med-tooltip {
   position: relative;
-  border-bottom: 1px dashed rgba(201, 122, 114, 0.6);
+  border-bottom: 1px dashed rgba(217, 107, 133, 0.6);
   cursor: help;
 }
 .med-tooltip .tip {
@@ -75,17 +86,17 @@ body {
   bottom: 125%;
   left: 50%;
   transform: translateX(-50%);
-  background: #2E2825;
-  color: #FAF7F2;
-  border: 1px solid rgba(201, 122, 114, 0.3);
+  background: var(--aura-plum);
+  color: #FFFDF9;
+  border: 1px solid rgba(217, 107, 133, 0.35);
   padding: 8px 10px;
-  border-radius: 8px;
+  border-radius: 10px;
   font-size: 12px;
   line-height: 1.4;
   width: 230px;
   z-index: 50;
   transition: opacity 0.15s ease;
-  box-shadow: 0 10px 25px -5px rgba(46, 40, 37, 0.3);
+  box-shadow: 0 10px 25px -5px rgba(106, 61, 85, 0.35);
 }
 .med-tooltip:hover .tip {
   visibility: visible;
@@ -112,7 +123,7 @@ body {
   left: -4%;
   width: 48vw;
   height: 48vw;
-  background: radial-gradient(circle, rgba(253, 222, 218, 0.7) 0%, rgba(253, 222, 218, 0) 68%);
+  background: radial-gradient(circle, rgba(252, 231, 232, 0.75) 0%, rgba(252, 231, 232, 0) 68%);
   animation: auraFloatA 32s ease-in-out infinite alternate;
 }
 .aura-blob-2 {
@@ -120,7 +131,7 @@ body {
   right: -4%;
   width: 42vw;
   height: 42vw;
-  background: radial-gradient(circle, rgba(220, 235, 218, 0.65) 0%, rgba(220, 235, 218, 0) 68%);
+  background: radial-gradient(circle, rgba(232, 239, 227, 0.75) 0%, rgba(232, 239, 227, 0) 68%);
   animation: auraFloatB 38s ease-in-out infinite alternate;
 }
 .aura-blob-3 {
@@ -128,7 +139,7 @@ body {
   left: 15%;
   width: 44vw;
   height: 44vw;
-  background: radial-gradient(circle, rgba(254, 240, 218, 0.6) 0%, rgba(254, 240, 218, 0) 68%);
+  background: radial-gradient(circle, rgba(232, 221, 240, 0.65) 0%, rgba(232, 221, 240, 0) 68%);
   animation: auraFloatC 44s ease-in-out infinite alternate;
 }
 .aura-blob-4 {
@@ -136,7 +147,7 @@ body {
   right: 6%;
   width: 36vw;
   height: 36vw;
-  background: radial-gradient(circle, rgba(247, 216, 210, 0.55) 0%, rgba(247, 216, 210, 0) 68%);
+  background: radial-gradient(circle, rgba(217, 168, 78, 0.35) 0%, rgba(217, 168, 78, 0) 68%);
   animation: auraFloatD 50s ease-in-out infinite alternate;
 }
 
@@ -164,7 +175,7 @@ body {
 .aura-vignette {
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse at 50% 35%, transparent 45%, rgba(250, 247, 242, 0.4) 100%);
+  background: radial-gradient(ellipse at 50% 35%, transparent 45%, rgba(248, 240, 232, 0.35) 100%);
 }
 
 .aura-particle {
@@ -237,15 +248,15 @@ body {
 }
 
 @keyframes breatheGlowWarm {
-  0%, 100% { box-shadow: 0 4px 18px -2px rgba(82, 110, 91, 0.35); }
-  50%      { box-shadow: 0 8px 28px 2px rgba(82, 110, 91, 0.55); }
+  0%, 100% { box-shadow: 0 4px 18px -2px rgba(217, 107, 133, 0.35); }
+  50%      { box-shadow: 0 8px 28px 2px rgba(217, 107, 133, 0.55); }
 }
 .animate-breathe-glow {
   animation: breatheGlowWarm 3.5s ease-in-out infinite;
 }
 
 .text-gradient-warm {
-  background: linear-gradient(120deg, #C97A72 0%, #D4A373 50%, #8FA98F 100%);
+  background: linear-gradient(120deg, var(--aura-rose) 0%, var(--aura-gold) 50%, var(--aura-sage-dark) 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -262,20 +273,20 @@ body {
 .onboarding-input {
   width: 100%;
   background: rgba(255, 255, 255, 0.9);
-  border: 1px solid rgba(226, 214, 206, 0.8);
+  border: 1px solid rgba(232, 221, 213, 0.85);
   border-radius: 0.85rem;
   padding: 0.65rem 0.95rem;
   font-size: 0.875rem;
-  color: #2E2825;
+  color: #31232B;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 .onboarding-input::placeholder {
-  color: #938A84;
+  color: #8C8087;
 }
 .onboarding-input:focus {
   outline: none;
-  border-color: #C97A72;
-  box-shadow: 0 0 0 3px rgba(201, 122, 114, 0.18);
+  border-color: var(--aura-rose);
+  box-shadow: 0 0 0 3px rgba(217, 107, 133, 0.18);
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -1,10 +1,11 @@
 import { useMemo } from 'react'
 
 const PARTICLE_COLORS = [
-  { bg: '#E8A59E', glow: 'rgba(201, 122, 114, 0.35)' }, // dusty rose
-  { bg: '#8FA98F', glow: 'rgba(143, 169, 143, 0.3)' }, // soft sage
-  { bg: '#E5C590', glow: 'rgba(212, 163, 115, 0.3)' }, // warm honey
-  { bg: '#F2C4CE', glow: 'rgba(242, 196, 206, 0.35)' }, // petal pink
+  { bg: '#D96B85', glow: 'rgba(217, 107, 133, 0.4)' }, // aura-rose
+  { bg: '#E8EFE3', glow: 'rgba(64, 90, 67, 0.3)' },    // aura-sage-light
+  { bg: '#D9A84E', glow: 'rgba(217, 168, 78, 0.35)' },  // aura-gold
+  { bg: '#E8DDF0', glow: 'rgba(106, 61, 85, 0.3)' },   // aura-lavender
+  { bg: '#FCE7E8', glow: 'rgba(217, 107, 133, 0.3)' },  // aura-blush
 ]
 
 function seededRandom(seed) {
@@ -32,11 +33,6 @@ function buildParticles(count) {
   })
 }
 
-/**
- * Purely decorative, self-contained ambient background: slow drifting
- * colour-matched gradient "aura" blobs plus gently floating glow particles.
- * Fixed behind all content (z-0) and hidden from print/assistive tech.
- */
 export default function AuraBackground() {
   const particles = useMemo(() => buildParticles(28), [])
 

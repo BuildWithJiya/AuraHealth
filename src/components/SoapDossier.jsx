@@ -1,4 +1,11 @@
-import { X, Printer, Activity } from 'lucide-react'
+import { X, Printer, Activity, ShieldCheck, User, Calendar, Stethoscope, MessageSquare, Compass, Lightbulb } from 'lucide-react'
+
+const SECTION_META = {
+  S: { color: 'bg-[#D96B85]', icon: MessageSquare },
+  O: { color: 'bg-[#405A43]', icon: Activity },
+  A: { color: 'bg-[#6A3D55]', icon: Compass },
+  P: { color: 'bg-[#D9A84E]', icon: Lightbulb },
+}
 
 export default function SoapDossier({ open, onClose, dossier, phase, day }) {
   if (!open || !dossier) return null
@@ -9,22 +16,22 @@ export default function SoapDossier({ open, onClose, dossier, phase, day }) {
       <div className="no-print sticky top-0 z-10 flex items-center justify-end gap-2 w-full max-w-3xl mb-[-48px] pr-2 pt-2">
         <button
           onClick={() => window.print()}
-          className="flex items-center gap-1.5 text-xs font-semibold bg-[#526E5B] hover:bg-[#435B4A] text-white rounded-full px-4 py-2 shadow-md transition-all hover:shadow-lg"
+          className="flex items-center gap-1.5 text-xs font-semibold bg-[#405A43] hover:bg-[#344a37] text-white rounded-full px-4 py-2 shadow-md transition-all hover:shadow-lg"
         >
           <Printer size={14} /> Print / Download PDF
         </button>
         <button
           onClick={onClose}
-          className="flex items-center justify-center h-8 w-8 rounded-full bg-white hover:bg-[#FDF2F0] text-[#2E2825] border border-[#E2DAD1] shadow-md transition-colors"
+          className="flex items-center justify-center h-8 w-8 rounded-full bg-white hover:bg-[#FCE7E8] text-[#2E2825] border border-[#E8DFD8] shadow-md transition-colors"
         >
           <X size={16} />
         </button>
       </div>
 
       <div id="print-dossier" className="relative w-full max-w-3xl bg-white text-[#2E2825] rounded-2xl shadow-xl mt-12 p-8 sm:p-10 border border-[#E8DFD8]">
-        <div className="flex items-center justify-between border-b-2 border-[#526E5B] pb-4 mb-5">
+        <div className="flex items-center justify-between border-b-2 border-[#D96B85] pb-4 mb-5">
           <div className="flex items-center gap-2.5">
-            <div className="h-9 w-9 rounded-xl bg-[#526E5B] flex items-center justify-center shadow-xs">
+            <div className="h-9 w-9 rounded-xl bg-[#D96B85] flex items-center justify-center shadow-xs">
               <Activity size={18} className="text-white" />
             </div>
             <div>
@@ -34,15 +41,15 @@ export default function SoapDossier({ open, onClose, dossier, phase, day }) {
           </div>
           <div className="text-right text-[11px] text-[#7A726D]">
             <p>Generated: {new Date(generatedAt).toLocaleString()}</p>
-            <p>Cycle Day {day} &middot; {phase} Phase</p>
+            <p className="font-semibold text-[#405A43]">Cycle Day {day} &middot; {phase} Phase</p>
           </div>
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs mb-6 bg-[#FAF7F2] rounded-xl p-3 border border-[#E8DFD8]">
-          <InfoBlock label="Patient" value={`${patient.name}, ${patient.age}`} />
-          <InfoBlock label="Cycle Length" value={`${patient.cycleLength} days`} />
-          <InfoBlock label="Suspected Conditions" value={patient.suspected.join(', ')} />
-          <InfoBlock label="Review Window" value="60-day symptom log" />
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs mb-6 bg-[#F8F0E8] rounded-xl p-3 border border-[#E8DFD8]">
+          <InfoBlock icon={User} label="Patient" value={`${patient.name}, ${patient.age}`} />
+          <InfoBlock icon={Calendar} label="Cycle Length" value={`${patient.cycleLength} days`} />
+          <InfoBlock icon={Stethoscope} label="Suspected Conditions" value={patient.suspected.join(', ')} />
+          <InfoBlock icon={Activity} label="Review Window" value="60-day symptom log" />
         </div>
 
         <Section letter="S" title="Subjective">
@@ -63,7 +70,7 @@ export default function SoapDossier({ open, onClose, dossier, phase, day }) {
               <li key={i}>{f}</li>
             ))}
           </ul>
-          <p className="text-sm bg-[#FAF7F2] border border-[#E8DFD8] rounded-xl p-2.5 text-[#3E3834]">{objective.correlationInsight}</p>
+          <p className="text-sm bg-[#F8F0E8] border border-[#E8DFD8] rounded-xl p-2.5 text-[#3E3834]">{objective.correlationInsight}</p>
         </Section>
 
         <Section letter="A" title="Assessment — Differential Diagnostic Leads">
@@ -83,31 +90,44 @@ export default function SoapDossier({ open, onClose, dossier, phase, day }) {
           </ol>
         </Section>
 
-        <div className="mt-6 pt-4 border-t border-[#E8DFD8] text-[10px] text-[#7A726D] leading-relaxed">
-          AuraHealth Clinical Decision Support System. Grounded in ACOG &amp; Rotterdam Consensus criteria. This
-          dossier structures patient-reported data and lab values to support &mdash; not replace &mdash; a licensed clinician&apos;s
-          diagnosis. Not a substitute for primary medical diagnosis.
+        <div className="mt-6 pt-4 border-t border-[#E8DFD8] text-[10px] text-[#7A726D] leading-relaxed flex items-center gap-2">
+          <ShieldCheck size={16} className="text-[#D96B85] shrink-0" />
+          <p>
+            AuraHealth Clinical Decision Support System. Grounded in ACOG &amp; Rotterdam Consensus criteria. This
+            dossier structures patient-reported data and lab values to support &mdash; not replace &mdash; a licensed clinician&apos;s
+            diagnosis. Not a substitute for primary medical diagnosis.
+          </p>
         </div>
       </div>
     </div>
   )
 }
 
-function InfoBlock({ label, value }) {
+function InfoBlock({ icon: Icon, label, value }) {
   return (
     <div>
-      <div className="text-[10px] uppercase tracking-wide text-[#7A726D] font-medium">{label}</div>
-      <div className="font-semibold text-[#2E2825]">{value}</div>
+      <div className="text-[10px] uppercase tracking-wide text-[#7A726D] font-medium flex items-center gap-1">
+        {Icon && <Icon size={10} className="text-[#D96B85]" />}
+        {label}
+      </div>
+      <div className="font-semibold text-[#2E2825] mt-0.5">{value}</div>
     </div>
   )
 }
 
 function Section({ letter, title, children }) {
+  const meta = SECTION_META[letter] || { color: 'bg-[#405A43]', icon: Activity }
+  const Icon = meta.icon
   return (
     <div className="mb-5">
       <div className="flex items-center gap-2 mb-2">
-        <span className="h-6 w-6 rounded-lg bg-[#526E5B] text-white text-xs font-bold flex items-center justify-center shadow-2xs">{letter}</span>
-        <h4 className="font-bold text-sm uppercase tracking-wide text-[#2E2825]">{title}</h4>
+        <span className={`h-6 w-6 rounded-lg ${meta.color} text-white text-xs font-bold flex items-center justify-center shadow-2xs`}>
+          {letter}
+        </span>
+        <h4 className="font-bold text-sm uppercase tracking-wide text-[#2E2825] flex items-center gap-1.5">
+          <Icon size={13} className="text-[#7A726D]" />
+          {title}
+        </h4>
       </div>
       <div className="pl-1">{children}</div>
     </div>

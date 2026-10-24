@@ -100,9 +100,9 @@ export function extractSeverity(text) {
 }
 
 export function severityTier(score) {
-  if (score >= 7) return { label: 'High', color: 'bg-rose-500/20 text-rose-300 border-rose-500/40' }
-  if (score >= 4) return { label: 'Moderate', color: 'bg-amber-500/20 text-amber-300 border-amber-500/40' }
-  return { label: 'Low', color: 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40' }
+  if (score >= 7) return { label: 'High', color: 'bg-[#FCE7E8] text-[#D96B85] border-[#D96B85]/40' }
+  if (score >= 4) return { label: 'Moderate', color: 'bg-[#FDF8EE] text-[#D9A84E] border-[#D9A84E]/40' }
+  return { label: 'Low', color: 'bg-[#E8EFE3] text-[#405A43] border-[#405A43]/30' }
 }
 
 export function parseSymptomText(rawText, currentDay, cycleLength) {

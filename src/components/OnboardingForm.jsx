@@ -58,31 +58,31 @@ export default function OnboardingForm({ onComplete, onSkip }) {
               key={n}
               className={`h-2 rounded-full transition-all duration-500 ${
                 n === step
-                  ? 'w-10 bg-[#C97A72]'
+                  ? 'w-10 bg-[#D96B85]'
                   : n < step
-                  ? 'w-6 bg-[#526E5B]'
-                  : 'w-6 bg-[#E2DAD1]'
+                  ? 'w-6 bg-[#405A43]'
+                  : 'w-6 bg-[#E8EFE3]'
               }`}
             />
           ))}
         </div>
 
         {/* Card Container */}
-        <div className="ios-glass-card rounded-3xl p-7 sm:p-9 relative overflow-hidden bg-white/90 border border-[#E8DFD8] shadow-md">
+        <div className="ios-glass-card rounded-3xl p-7 sm:p-9 relative overflow-hidden bg-white/95 border border-[#E8EFE3] shadow-md">
           {submitting ? (
             <div className="flex flex-col items-center justify-center py-16 animate-landing-fade-up">
-              <Loader2 size={32} className="text-[#C97A72] animate-spin mb-4" />
-              <p className="text-base font-semibold text-[#2E2825]">Creating your dashboard&hellip;</p>
-              <p className="text-xs text-[#7A726D] mt-1">Just a moment while we set up your calm, personal space.</p>
+              <Loader2 size={32} className="text-[#D96B85] animate-spin mb-4" />
+              <p className="text-base font-semibold text-[#6A3D55]">Creating your dashboard&hellip;</p>
+              <p className="text-xs text-[#5E5259] mt-1">Just a moment while we set up your calm, personal space.</p>
             </div>
           ) : step === 1 ? (
             <div key="step1" className="animate-landing-fade-up">
               <div className="flex items-center gap-2 mb-1.5">
-                <Sparkles size={15} className="text-[#C97A72]" />
-                <span className="text-xs font-semibold text-[#C97A72] uppercase tracking-wide">Step 1 of 2</span>
+                <Sparkles size={15} className="text-[#D96B85]" />
+                <span className="text-xs font-semibold text-[#D96B85] uppercase tracking-wide">Step 1 of 2</span>
               </div>
-              <h2 className="font-serif text-2xl font-bold text-[#2E2825] mb-1">Let&apos;s personalize this for you</h2>
-              <p className="text-sm text-[#7A726D] mb-6">Just the essentials &mdash; this stays completely private to your browser.</p>
+              <h2 className="font-serif text-2xl font-bold text-[#6A3D55] mb-1">Let&apos;s personalize this for you</h2>
+              <p className="text-sm text-[#5E5259] mb-6">Just the essentials &mdash; this stays completely private to your browser.</p>
 
               <div className="space-y-4">
                 <Field label="What should we call you?" error={touched && !form.name.trim() ? 'Please share your name.' : null}>
@@ -128,12 +128,12 @@ export default function OnboardingForm({ onComplete, onSkip }) {
               </div>
 
               <div className="flex items-center justify-between mt-7">
-                <button onClick={onSkip} className="text-xs text-[#7A726D] hover:text-[#2E2825] transition-colors font-medium">
+                <button onClick={onSkip} className="text-xs text-[#5E5259] hover:text-[#31232B] transition-colors font-medium">
                   Skip &mdash; view a demo case instead
                 </button>
                 <button
                   onClick={handleNext}
-                  className="flex items-center gap-1.5 text-sm font-semibold bg-[#526E5B] hover:bg-[#435B4A] text-white rounded-full px-5 py-2.5 shadow-sm transition-all hover:shadow"
+                  className="flex items-center gap-1.5 text-sm font-semibold bg-[#D96B85] hover:bg-[#B8526B] text-white rounded-full px-5 py-2.5 shadow-sm transition-all hover:shadow"
                 >
                   Continue <ArrowRight size={14} />
                 </button>
@@ -142,11 +142,11 @@ export default function OnboardingForm({ onComplete, onSkip }) {
           ) : (
             <div key="step2" className="animate-landing-fade-up">
               <div className="flex items-center gap-2 mb-1.5">
-                <Sparkles size={15} className="text-[#C97A72]" />
-                <span className="text-xs font-semibold text-[#C97A72] uppercase tracking-wide">Step 2 of 2</span>
+                <Sparkles size={15} className="text-[#D96B85]" />
+                <span className="text-xs font-semibold text-[#D96B85] uppercase tracking-wide">Step 2 of 2</span>
               </div>
-              <h2 className="font-serif text-2xl font-bold text-[#2E2825] mb-1">What brings you here today?</h2>
-              <p className="text-sm text-[#7A726D] mb-6">Pick whatever feels closest &mdash; you can always explore the rest later.</p>
+              <h2 className="font-serif text-2xl font-bold text-[#6A3D55] mb-1">What brings you here today?</h2>
+              <p className="text-sm text-[#5E5259] mb-6">Pick whatever feels closest &mdash; you can always explore the rest later.</p>
 
               <div className="space-y-2.5">
                 {CONCERN_OPTIONS.map((c) => {
@@ -157,16 +157,16 @@ export default function OnboardingForm({ onComplete, onSkip }) {
                       onClick={() => update('concernId', c.id)}
                       className={`w-full text-left flex items-center justify-between gap-3 rounded-2xl border px-4 py-3 transition-all ${
                         selected
-                          ? 'border-[#C97A72] bg-[#FDF2F0] shadow-sm'
-                          : 'border-[#E8DFD8] bg-white/70 hover:border-[#D4C7BE] hover:bg-white'
+                          ? 'border-[#D96B85] bg-[#FCE7E8] shadow-sm'
+                          : 'border-[#E8EFE3] bg-white hover:border-[#D96B85]/40 hover:bg-[#FCE7E8]/30'
                       }`}
                     >
                       <span>
-                        <div className="text-sm font-semibold text-[#2E2825]">{c.label}</div>
-                        <div className="text-[11px] text-[#7A726D] mt-0.5">{c.hint}</div>
+                        <div className="text-sm font-semibold text-[#31232B]">{c.label}</div>
+                        <div className="text-[11px] text-[#5E5259] mt-0.5">{c.hint}</div>
                       </span>
                       {selected && (
-                        <span className="h-5 w-5 rounded-full bg-[#C97A72] flex items-center justify-center shrink-0 shadow-xs">
+                        <span className="h-5 w-5 rounded-full bg-[#D96B85] flex items-center justify-center shrink-0 shadow-xs">
                           <Check size={12} className="text-white" />
                         </span>
                       )}
@@ -174,18 +174,18 @@ export default function OnboardingForm({ onComplete, onSkip }) {
                   )
                 })}
               </div>
-              {touched && !step2Valid && <p className="text-[11px] text-[#C97A72] mt-2">Please choose one option to continue.</p>}
+              {touched && !step2Valid && <p className="text-[11px] text-[#D96B85] mt-2">Please choose one option to continue.</p>}
 
               <div className="flex items-center justify-between mt-7">
                 <button
                   onClick={() => setStep(1)}
-                  className="flex items-center gap-1.5 text-xs text-[#7A726D] hover:text-[#2E2825] transition-colors font-medium"
+                  className="flex items-center gap-1.5 text-xs text-[#5E5259] hover:text-[#31232B] transition-colors font-medium"
                 >
                   <ArrowLeft size={13} /> Back
                 </button>
                 <button
                   onClick={handleSubmit}
-                  className="flex items-center gap-1.5 text-sm font-semibold bg-[#526E5B] hover:bg-[#435B4A] text-white rounded-full px-5 py-2.5 shadow-sm transition-all hover:shadow"
+                  className="flex items-center gap-1.5 text-sm font-semibold bg-[#D96B85] hover:bg-[#B8526B] text-white rounded-full px-5 py-2.5 shadow-sm transition-all hover:shadow"
                 >
                   Create My Dashboard <ArrowRight size={14} />
                 </button>
@@ -201,9 +201,9 @@ export default function OnboardingForm({ onComplete, onSkip }) {
 function Field({ label, error, children }) {
   return (
     <label className="block">
-      <span className="block text-xs font-semibold text-[#5C5552] mb-1.5">{label}</span>
+      <span className="block text-xs font-semibold text-[#5E5259] mb-1.5">{label}</span>
       {children}
-      {error && <span className="block text-[11px] text-[#C97A72] mt-1">{error}</span>}
+      {error && <span className="block text-[11px] text-[#D96B85] mt-1">{error}</span>}
     </label>
   )
 }
