@@ -40,6 +40,7 @@ import {
 } from 'recharts'
 import { useReveal } from '../hooks/useReveal'
 import { getCyclePhase, getPhaseBoundaries, getPhaseSubLabel, PHASE_META, generateHormoneCurve, pearsonCorrelation } from '../utils/cycleEngine'
+import { parseSymptomText } from '../utils/symptomParser'
 import { MOCK_PATIENTS, getPatientById } from '../data/mockPatients'
 import UnderstandYourBodyModal from './UnderstandYourBodyModal'
 
@@ -224,19 +225,14 @@ export default function LandingPage({
     if (el) el.scrollIntoView({ behavior: 'smooth' })
   }
 
-  // Handle adding quick symptom
+  // Handle adding quick symptom with multi-lingual parser
   const handleQuickLogSubmit = (e) => {
     e.preventDefault()
     if (!quickSymptomText.trim()) return
+    const parsed = parseSymptomText(quickSymptomText, currentDay, cycleLength)
     const newEntry = {
-      id: `local-${Date.now()}`,
-      day: currentDay,
-      severity: quickSeverity,
-      rawText: quickSymptomText,
-      phase,
-      location: 'Pelvic / General',
-      modifiers: ['Quick Entry'],
-      timestamp: new Date().toISOString(),
+      ...parsed,
+      severity: quickSeverity || parsed.severity,
     }
     setLocalAddedSymptoms((prev) => [newEntry, ...prev])
     if (parentOnAddSymptom) parentOnAddSymptom(newEntry)
@@ -1422,10 +1418,37 @@ export default function LandingPage({
                   rows={3}
                   value={quickSymptomText}
                   onChange={(e) => setQuickSymptomText(e.target.value)}
-                  placeholder='e.g. "Sharp lower abdominal cramps, slight nausea after coffee, fatigue."'
+                  placeholder='e.g. "आज पेट में बहुत दर्द है, कल से ज्यादा" or "Sharp lower pelvic cramps, 8/10"'
                   className="w-full text-xs bg-white/70 backdrop-blur-md border border-white/80 rounded-xl p-3 text-[#31232B] placeholder:text-[#938A84] focus:outline-none focus:border-[#D96B85] resize-none shadow-2xs"
                   autoFocus
                 />
+
+                {/* Regional Language Quick Voice Chips */}
+                <div className="mt-2 space-y-1">
+                  <span className="text-[10px] font-semibold text-[#6A3D55] uppercase tracking-wide flex items-center gap-1">
+                    🇮🇳 Voice-First Regional Presets (Hindi, Hinglish, Bengali, Tamil):
+                  </span>
+                  <div className="flex flex-wrap gap-1.5">
+                    {[
+                      { label: 'Hindi', text: 'आज पेट में बहुत दर्द है, कल से ज्यादा', severity: 8 },
+                      { label: 'Hinglish', text: 'Aaj pet me bahut dard hai, kal se zyada', severity: 8 },
+                      { label: 'Bengali', text: 'আজ পেটে খুব তীব্র যন্ত্রণা ও বমি ভাব', severity: 8 },
+                      { label: 'Tamil', text: 'இன்று அடிவயிற்றில் கடுமையான வலி', severity: 8 },
+                    ].map((p) => (
+                      <button
+                        key={p.label}
+                        type="button"
+                        onClick={() => {
+                          setQuickSymptomText(p.text)
+                          setQuickSeverity(p.severity)
+                        }}
+                        className="text-[10px] font-medium px-2.5 py-0.5 rounded-full border border-white/80 bg-white/75 hover:bg-[#FCE7E8] text-[#405A43] hover:text-[#D96B85] transition-all shadow-2xs cursor-pointer"
+                      >
+                        {p.label}: &ldquo;{p.text}&rdquo;
+                      </button>
+                    ))}
+                  </div>
+                </div>
               </div>
 
               <div>
