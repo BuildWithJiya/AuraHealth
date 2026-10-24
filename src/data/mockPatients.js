@@ -128,6 +128,21 @@ export const MOCK_PATIENTS = [
   },
 ]
 
+// In-memory registry for a self-onboarded user profile (persisted separately
+// via utils/storage.js's onboarding-profile helpers and re-registered on load).
+let customPatients = []
+
+export function registerCustomPatient(patient) {
+  customPatients = customPatients.filter((p) => p.id !== patient.id)
+  customPatients.push(patient)
+}
+
+export function unregisterCustomPatient(id) {
+  customPatients = customPatients.filter((p) => p.id !== id)
+}
+
 export function getPatientById(id) {
+  const custom = customPatients.find((p) => p.id === id)
+  if (custom) return custom
   return MOCK_PATIENTS.find((p) => p.id === id) || MOCK_PATIENTS[0]
 }

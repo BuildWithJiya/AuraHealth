@@ -218,3 +218,88 @@ body {
     display: none !important;
   }
 }
+
+/* ---------------------------------------------------------------------- */
+/* Landing / onboarding motion — warm, soft entrances. Kept separate from  */
+/* the dashboard's utility styling above so it's easy to find & isolated.  */
+/* ---------------------------------------------------------------------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(26px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@keyframes landingFadeUp {
+  from { opacity: 0; transform: translateY(22px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.animate-landing-fade-up {
+  animation: landingFadeUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes breatheGlow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(244, 63, 94, 0.45), 0 8px 30px -8px rgba(244, 63, 94, 0.5); }
+  50%      { box-shadow: 0 0 0 14px rgba(244, 63, 94, 0), 0 8px 40px -4px rgba(244, 63, 94, 0.65); }
+}
+.animate-breathe-glow {
+  animation: breatheGlow 3.2s ease-in-out infinite;
+}
+
+@keyframes gradientShift {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+.text-gradient-warm {
+  background: linear-gradient(90deg, #FDA4AF, #FCA5F1, #A5B4FC, #FDA4AF);
+  background-size: 300% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: gradientShift 8s ease-in-out infinite;
+}
+
+@keyframes softBob {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-8px); }
+}
+.animate-soft-bob {
+  animation: softBob 5s ease-in-out infinite;
+}
+
+.onboarding-input {
+  width: 100%;
+  background: rgba(15, 23, 42, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 0.75rem;
+  padding: 0.6rem 0.9rem;
+  font-size: 0.875rem;
+  color: #F1F5F9;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.onboarding-input::placeholder {
+  color: #64748b;
+}
+.onboarding-input:focus {
+  outline: none;
+  border-color: rgba(244, 63, 94, 0.6);
+  box-shadow: 0 0 0 3px rgba(244, 63, 94, 0.15);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .animate-landing-fade-up,
+  .animate-breathe-glow,
+  .text-gradient-warm,
+  .animate-soft-bob {
+    animation: none !important;
+  }
+}

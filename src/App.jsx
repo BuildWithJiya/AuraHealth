@@ -2,6 +2,8 @@ import { useEffect, useMemo, useState, useRef } from 'react'
 import AuraBackground from './components/AuraBackground'
 import Header from './components/Header'
 import Footer from './components/Footer'
+import LandingPage from './components/LandingPage'
+import OnboardingForm from './components/OnboardingForm'
 import CycleTimeline from './components/CycleTimeline'
 import VoiceLogger from './components/VoiceLogger'
 import SymptomTimeline from './components/SymptomTimeline'
@@ -10,7 +12,7 @@ import CorrelationDashboard from './components/CorrelationDashboard'
 import DiagnosticInsights from './components/DiagnosticInsights'
 import SoapDossier from './components/SoapDossier'
 import UnderstandYourBodyModal from './components/UnderstandYourBodyModal'
-import { MOCK_PATIENTS, getPatientById } from './data/mockPatients'
+import { MOCK_PATIENTS, getPatientById, registerCustomPatient } from './data/mockPatients'
 import { LAB_PRESETS } from './data/labPresets'
 import { getCyclePhase, generateHormoneCurve, pearsonCorrelation } from './utils/cycleEngine'
 import { evaluateLabPanel } from './utils/biomarkerEngine'
@@ -22,11 +24,24 @@ import {
   savePatientState,
   resetAllStorage,
   checkHasCustomStorage,
+  loadOnboardingProfile,
+  saveOnboardingProfile,
 } from './utils/storage'
 
 export default function App() {
-  const [activePatientId, setActivePatientId] = useState(() => getStoredActivePatientId())
+  // A self-onboarded user profile (if one exists in this browser) — kept
+  // registered with mockPatients' lookup so getPatientById('you') resolves
+  // everywhere else in the app exactly like the built-in demo patients do.
+  const [onboardingProfile, setOnboardingProfile] = useState(() => loadOnboardingProfile())
+  if (onboardingProfile) registerCustomPatient(onboardingProfile)
+
+  const [view, setView] = useState(() => (onboardingProfile ? 'dashboard' : 'landing'))
+
+  const [activePatientId, setActivePatientId] = useState(() =>
+    onboardingProfile ? onboardingProfile.id : getStoredActivePatientId()
+  )
   const patient = getPatientById(activePatientId)
+  const patientsForSwitcher = onboardingProfile ? [onboardingProfile, ...MOCK_PATIENTS] : MOCK_PATIENTS
 
   // Initialize state from localStorage or mock defaults
   const initialPatientData = useMemo(() => loadPatientState(activePatientId), [activePatientId])
@@ -131,12 +146,44 @@ export default function App() {
     setIsCustomized(false)
   }
 
+  const handleGetStarted = () => setView('onboarding')
+  const handleViewDemo = () => setView('dashboard')
+  const handleOnboardingComplete = (newPatient) => {
+    registerCustomPatient(newPatient)
+    saveOnboardingProfile(newPatient)
+    setOnboardingProfile(newPatient)
+    setActivePatientId(newPatient.id)
+    setView('dashboard')
+  }
+
+  if (view === 'landing') {
+    return (
+      <div className="relative min-h-screen flex flex-col">
+        <AuraBackground />
+        <div className="relative z-10">
+          <LandingPage onGetStarted={handleGetStarted} onViewDemo={handleViewDemo} />
+        </div>
+      </div>
+    )
+  }
+
+  if (view === 'onboarding') {
+    return (
+      <div className="relative min-h-screen flex flex-col">
+        <AuraBackground />
+        <div className="relative z-10">
+          <OnboardingForm onComplete={handleOnboardingComplete} onSkip={handleViewDemo} />
+        </div>
+      </div>
+    )
+  }
+
   return (
     <div className="relative min-h-screen flex flex-col">
       <AuraBackground />
       <div className="relative z-10 flex flex-col min-h-screen">
         <Header
-          patients={MOCK_PATIENTS}
+          patients={patientsForSwitcher}
           activePatient={patient}
           onSwitchPatient={setActivePatientId}
           day={day}

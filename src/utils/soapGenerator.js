@@ -19,6 +19,11 @@ const CONDITION_QUESTIONS = {
     'Should we investigate why my iron stores are low — specifically, could my menstrual blood loss or an absorption issue be the underlying cause?',
     'What ferritin target should we repeat labs against, and should I take oral iron with a cofactor like vitamin C, or consider IV iron given how low my stores are?',
   ],
+  'General Wellness Tracking': [
+    'Based on what I\'ve been logging, is there anything about my cycle or symptom pattern that looks worth investigating further?',
+    'What baseline labs would you recommend for someone my age to establish a healthy reference point?',
+    'Are there specific symptoms I should flag to you right away versus continue monitoring on my own?',
+  ],
 }
 
 function frequencyTable(log, pickKey) {
@@ -93,6 +98,10 @@ export function buildSoapDossier({ patient, symptomLog, labFlags, correlation, p
       const latentFlag = labFlags.find((f) => f.id === 'latent-iron')
       assessmentLines.push(
         `${latentFlag ? 'Confirm' : 'Evaluate'} Latent Iron Deficiency — ferritin below the 30 ng/mL functional threshold${latentFlag && latentFlag.severity === 'warning' ? ' despite grossly normal hemoglobin, masking early depletion' : ''}; correlates with persistent non-cyclical fatigue reported independent of cycle phase.`
+      )
+    } else if (condition.includes('General Wellness')) {
+      assessmentLines.push(
+        `No specific condition flagged yet — establishing a baseline of cycle phase, symptom pattern, and lab markers for ongoing wellness tracking. Continue logging to surface patterns worth discussing.`
       )
     } else {
       assessmentLines.push(`Further evaluate: ${condition}.`)

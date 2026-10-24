@@ -84,6 +84,34 @@ export function resetAllStorage() {
   }
 }
 
+const ONBOARDING_PROFILE_KEY = `${STORAGE_PREFIX}onboarding_profile`
+
+export function saveOnboardingProfile(patient) {
+  try {
+    localStorage.setItem(ONBOARDING_PROFILE_KEY, JSON.stringify(patient))
+  } catch (err) {
+    console.warn('Failed to save onboarding profile:', err)
+  }
+}
+
+export function loadOnboardingProfile() {
+  try {
+    const raw = localStorage.getItem(ONBOARDING_PROFILE_KEY)
+    if (raw) return JSON.parse(raw)
+  } catch (err) {
+    console.warn('Failed to parse stored onboarding profile:', err)
+  }
+  return null
+}
+
+export function clearOnboardingProfile() {
+  try {
+    localStorage.removeItem(ONBOARDING_PROFILE_KEY)
+  } catch (err) {
+    console.warn('Failed to clear onboarding profile:', err)
+  }
+}
+
 export function checkHasCustomStorage() {
   try {
     for (let i = 0; i < localStorage.length; i++) {
