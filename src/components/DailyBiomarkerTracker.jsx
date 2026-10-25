@@ -55,6 +55,7 @@ export default function DailyBiomarkerTracker({
   onDayChange,
   onAddSymptom,
   activeLifeStageId = 'reproductive',
+  onOpenFullTracker,
 }) {
   const [selectedDate, setSelectedDate] = useState(() => new Date())
   const [weekOffset, setWeekOffset] = useState(0)
@@ -501,7 +502,7 @@ export default function DailyBiomarkerTracker({
                         setSleepMinutes(0)
                         setJustSaved(false)
                       }}
-                      className="px-3 py-1 rounded-lg bg-[#E8EFE3] hover:bg-[#405A43] hover:text-white border border-[#405A43]/20 text-xs font-bold text-[#405A43] transition-colors"
+                      className="px-3 py-1 rounded-lg bg-[#E8EFE3] hover:bg-[#457B5A] hover:text-white border border-[#457B5A]/20 text-xs font-bold text-[#457B5A] transition-colors"
                     >
                       Reset 8h
                     </button>
@@ -580,7 +581,7 @@ export default function DailyBiomarkerTracker({
       <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-[#FAF7F2] via-[#FAF7F2]/95 to-transparent flex items-center justify-between border-t border-[#E8DFD8]/60">
         <div className="text-xs font-semibold text-[#6A3D55]">
           {justSaved ? (
-            <span className="text-[#405A43] flex items-center gap-1.5 font-bold">
+            <span className="text-[#457B5A] flex items-center gap-1.5 font-bold">
               <CheckCircle2 size={14} />
               <span>{saveMessage}</span>
             </span>
@@ -596,7 +597,7 @@ export default function DailyBiomarkerTracker({
           onClick={handleSave}
           className={`inline-flex items-center gap-2 px-7 py-2.5 rounded-full text-xs sm:text-sm font-semibold shadow-sm transition-all cursor-pointer active:scale-95 ${
             justSaved
-              ? 'bg-[#405A43] text-white'
+              ? 'bg-[#457B5A] text-white'
               : 'bg-[#D96B85] hover:bg-[#B8526B] text-white'
           }`}
         >
@@ -699,7 +700,7 @@ export default function DailyBiomarkerTracker({
   // If in Modal Mode: Render with soft translucent backdrop
   if (isModal) {
     return (
-      <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-5 bg-black/50 backdrop-blur-sm">
+      <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-5 bg-black/45 backdrop-blur-sm">
         <div className="w-full max-w-xl h-[90vh] max-h-[820px] shadow-2xl">
           {trackerContent}
         </div>
@@ -707,10 +708,161 @@ export default function DailyBiomarkerTracker({
     )
   }
 
-  // Embedded Dashboard card mode
+  // Embedded Dashboard Card Mode (Compact & Clean, perfectly balanced with dashboard)
   return (
-    <div className="h-[620px] w-full">
-      {trackerContent}
+    <div className="ios-glass-card rounded-2xl p-3.5 space-y-3">
+      {/* Header with Date, Cycle Day & Phase */}
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-2.5">
+          <div className="h-8 w-8 rounded-full bg-[#FCE7E8] text-[#D96B85] flex items-center justify-center shrink-0 shadow-2xs">
+            <CalendarIcon size={15} />
+          </div>
+          <div>
+            <div className="flex items-center gap-1.5">
+              <span className="text-xs sm:text-sm font-bold text-[#3A1F2D] leading-tight">
+                {dateMeta.full}
+              </span>
+              {dateMeta.isToday && (
+                <span className="text-[9px] font-bold text-[#457B5A] bg-[#E8EFE3] px-1.5 py-0.5 rounded-full border border-[#457B5A]/20">
+                  Today
+                </span>
+              )}
+            </div>
+            <p className="text-[11px] text-[#6A3D55] font-medium">
+              Cycle Day {currentPredictedDay} &middot;{' '}
+              <span style={{ color: PHASE_META[currentPhase]?.color }}>{currentPhase} Phase</span>
+            </p>
+          </div>
+        </div>
+
+        <button
+          type="button"
+          onClick={onOpenFullTracker}
+          className="flex items-center gap-1 px-2.5 py-1 rounded-full bg-white hover:bg-[#FCE7E8] text-[11px] font-semibold text-[#D96B85] border border-[#D96B85]/30 shadow-2xs transition-colors cursor-pointer"
+          title="Open Full 11-Category Log"
+        >
+          <span>Full Log</span>
+          <Maximize2 size={11} />
+        </button>
+      </div>
+
+      {/* 7-Day Mini Calendar Strip */}
+      <div className="flex items-center justify-between bg-white/70 rounded-xl p-1.5 border border-[#E8DFD8]">
+        <button
+          type="button"
+          onClick={() => setWeekOffset((w) => w - 1)}
+          className="h-6 w-6 rounded-full flex items-center justify-center text-[#5E5259] hover:bg-[#FCE7E8] hover:text-[#D96B85] transition-colors cursor-pointer"
+          title="Previous Week"
+        >
+          <ChevronLeft size={13} />
+        </button>
+
+        <div className="grid grid-cols-7 gap-1 flex-1 px-1">
+          {dateStrip.map((item) => (
+            <button
+              key={item.dateKey}
+              type="button"
+              onClick={() => {
+                setSelectedDate(item.date)
+                if (onDayChange && item.predictedCycleDay) {
+                  onDayChange(item.predictedCycleDay)
+                }
+              }}
+              className={`py-1 rounded-lg text-center transition-all cursor-pointer ${
+                item.isSelected
+                  ? 'bg-[#FCE7E8] text-[#3A1F2D] font-bold border border-[#D96B85]/60 shadow-2xs'
+                  : 'hover:bg-[#FAF7F2] text-[#6A3D55]'
+              }`}
+            >
+              <span className="block text-[9px] uppercase text-[#8C8087] font-medium leading-tight">
+                {item.dayName.slice(0, 2)}
+              </span>
+              <span className="block text-xs font-bold leading-tight">{item.dayNumber}</span>
+              <span
+                className="block mx-auto h-1.5 w-1.5 rounded-full mt-0.5"
+                style={{ backgroundColor: PHASE_META[item.phase]?.color || '#D96B85' }}
+              />
+            </button>
+          ))}
+        </div>
+
+        <button
+          type="button"
+          onClick={() => setWeekOffset((w) => w + 1)}
+          className="h-6 w-6 rounded-full flex items-center justify-center text-[#5E5259] hover:bg-[#FCE7E8] hover:text-[#D96B85] transition-colors cursor-pointer"
+          title="Next Week"
+        >
+          <ChevronRight size={13} />
+        </button>
+      </div>
+
+      {/* Quick Logged Summary or Quick-Pill Adders */}
+      <div className="bg-white/75 rounded-xl p-2.5 border border-[#E8DFD8] text-xs">
+        <div className="flex items-center justify-between mb-1.5">
+          <span className="text-[10px] font-bold uppercase tracking-wider text-[#7A726D]">
+            Day {currentPredictedDay} Logged Biomarkers ({activePills.length})
+          </span>
+          <button
+            type="button"
+            onClick={onOpenFullTracker}
+            className="text-[10px] font-bold text-[#D96B85] hover:underline cursor-pointer"
+          >
+            + Add / Edit
+          </button>
+        </div>
+
+        {activePills.length > 0 ? (
+          <div className="flex flex-wrap gap-1">
+            {activePills.slice(0, 4).map((pid) => (
+              <span
+                key={pid}
+                className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-[#FCE7E8] text-[#6A3D55] border border-[#D96B85]/30"
+              >
+                <Check size={9} className="text-[#D96B85] stroke-[3]" />
+                {pid.replace(/_/g, ' ')}
+              </span>
+            ))}
+            {activePills.length > 4 && (
+              <span className="text-[10px] font-bold text-[#8C8087] px-1 py-0.5">
+                +{activePills.length - 4} more
+              </span>
+            )}
+          </div>
+        ) : (
+          <div className="space-y-1.5">
+            <p className="text-[11px] text-[#7A726D] italic">
+              No manual markers recorded for this date.
+            </p>
+            <div className="flex flex-wrap gap-1">
+              {[
+                { id: 'flow_medium', label: 'Medium Flow' },
+                { id: 'cramp_mild', label: 'Mild Cramps' },
+                { id: 'energy_fatigue', label: 'Fatigue' },
+                { id: 'mood_calm', label: 'Calm' },
+              ].map((qp) => (
+                <button
+                  key={qp.id}
+                  type="button"
+                  onClick={() => togglePill(qp.id)}
+                  className="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-[#FAF7F2] hover:bg-[#FCE7E8] text-[#6A3D55] hover:text-[#3A1F2D] border border-[#E8DFD8] transition-colors cursor-pointer"
+                >
+                  + {qp.label}
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* Button to open full tracker with all 11 categories */}
+      <button
+        type="button"
+        onClick={onOpenFullTracker}
+        className="w-full flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl bg-gradient-to-r from-[#FCE7E8] to-[#FFF0F3] hover:from-[#fbd7dc] hover:to-[#ffe0e6] text-[#6A3D55] hover:text-[#3A1F2D] font-semibold text-xs border border-[#D96B85]/35 shadow-2xs transition-all cursor-pointer"
+      >
+        <Sparkles size={13} className="text-[#D96B85]" />
+        <span>Open Full Daily Tracker (11 Categories)</span>
+      </button>
     </div>
   )
 }

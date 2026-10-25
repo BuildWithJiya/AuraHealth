@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState, useRef } from 'react'
-import { Calendar, Maximize2 } from 'lucide-react'
+import { Calendar, Maximize2, Sparkles, FlaskConical, ShieldCheck, FileText, ArrowRight } from 'lucide-react'
 import AuraBackground from './components/AuraBackground'
 import Header from './components/Header'
 import Footer from './components/Footer'
@@ -412,6 +412,7 @@ export default function App() {
                       onDayChange={setDay}
                       onAddSymptom={handleAddSymptom}
                       activeLifeStageId={activeLifeStageId}
+                      onOpenFullTracker={() => setDailyTrackerModalOpen(true)}
                     />
                   </div>
 
@@ -443,6 +444,129 @@ export default function App() {
                     activeLifeStageId={activeLifeStageId}
                     onOpenLifeStage={() => setLifeStageModalOpen(true)}
                   />
+                </div>
+              </div>
+
+              {/* Clinical Care & Evidence-Based Guidance Strip (Balanced horizontal baseline) */}
+              <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                {/* 1. Phase Metabolic Protocol */}
+                <div className="ios-glass-card rounded-2xl p-4 flex flex-col justify-between">
+                  <div className="space-y-1.5">
+                    <div className="flex items-center justify-between">
+                      <span className="text-[10px] font-bold uppercase tracking-wider text-[#6A3D55] flex items-center gap-1">
+                        <Sparkles size={11} className="text-[#D96B85]" />
+                        Phase Guidance
+                      </span>
+                      <span className="text-[10px] font-semibold text-[#457B5A] bg-[#E8EFE3] px-2 py-0.5 rounded-full border border-[#457B5A]/20">
+                        Day {day} &middot; {phase}
+                      </span>
+                    </div>
+                    <h4 className="text-xs font-bold text-[#3A1F2D]">Nutritional & Circadian Support</h4>
+                    <p className="text-[11px] text-[#7A726D] leading-relaxed">
+                      Luteal metabolic shifts warrant magnesium-rich greens, steady complex carbohydrates, and consistent sleep rhythm to mitigate progesterone dips.
+                    </p>
+                  </div>
+                  <div className="mt-3 pt-2.5 border-t border-[#E8DFD8] flex items-center justify-between text-[11px]">
+                    <span className="text-[#6A3D55] font-semibold">Evidence Grade A</span>
+                    <button
+                      type="button"
+                      onClick={() => setEducationOpen(true)}
+                      className="text-[#D96B85] font-semibold hover:text-[#B8526B] hover:underline cursor-pointer flex items-center gap-1"
+                    >
+                      <span>Read Guide</span>
+                      <ArrowRight size={11} />
+                    </button>
+                  </div>
+                </div>
+
+                {/* 2. Rotterdam Consensus Screening */}
+                <div className="ios-glass-card rounded-2xl p-4 flex flex-col justify-between">
+                  <div className="space-y-1.5">
+                    <div className="flex items-center justify-between">
+                      <span className="text-[10px] font-bold uppercase tracking-wider text-[#6A3D55] flex items-center gap-1">
+                        <FlaskConical size={11} className="text-[#D96B85]" />
+                        Rotterdam Consensus
+                      </span>
+                      <span className="text-[10px] font-semibold text-[#D96B85] bg-[#FCE7E8] px-2 py-0.5 rounded-full border border-[#D96B85]/20">
+                        Screening Flag
+                      </span>
+                    </div>
+                    <h4 className="text-xs font-bold text-[#3A1F2D]">Endocrine Concordance Check</h4>
+                    <p className="text-[11px] text-[#7A726D] leading-relaxed">
+                      Elevated LH:FSH ratio (2.45:1) paired with cycle length variation fulfills 2 of 3 diagnostic factors according to international ACOG/ESHRE criteria.
+                    </p>
+                  </div>
+                  <div className="mt-3 pt-2.5 border-t border-[#E8DFD8] flex items-center justify-between text-[11px]">
+                    <span className="text-[#6A3D55] font-semibold">ACOG / ESHRE 2003</span>
+                    <button
+                      type="button"
+                      onClick={() => setSoapOpen(true)}
+                      className="text-[#D96B85] font-semibold hover:text-[#B8526B] hover:underline cursor-pointer flex items-center gap-1"
+                    >
+                      <span>Review Criteria</span>
+                      <ArrowRight size={11} />
+                    </button>
+                  </div>
+                </div>
+
+                {/* 3. Zero-Telemetry Privacy Shield */}
+                <div className="ios-glass-card rounded-2xl p-4 flex flex-col justify-between">
+                  <div className="space-y-1.5">
+                    <div className="flex items-center justify-between">
+                      <span className="text-[10px] font-bold uppercase tracking-wider text-[#457B5A] flex items-center gap-1">
+                        <ShieldCheck size={11} className="text-[#457B5A]" />
+                        Data Sovereignty
+                      </span>
+                      <span className="text-[10px] font-semibold text-[#457B5A] bg-[#E8EFE3] px-2 py-0.5 rounded-full border border-[#457B5A]/20">
+                        Local Vault
+                      </span>
+                    </div>
+                    <h4 className="text-xs font-bold text-[#3A1F2D]">Zero-Knowledge Storage</h4>
+                    <p className="text-[11px] text-[#7A726D] leading-relaxed">
+                      All voice notes, menstrual cycles, and lab biomarker interpretations remain encrypted in your local browser sandbox with zero external ad tracking.
+                    </p>
+                  </div>
+                  <div className="mt-3 pt-2.5 border-t border-[#E8DFD8] flex items-center justify-between text-[11px]">
+                    <span className="text-[#7A726D]">Panic cloak enabled</span>
+                    <button
+                      type="button"
+                      onClick={() => setPrivacyModalOpen(true)}
+                      className="text-[#457B5A] font-semibold hover:underline cursor-pointer flex items-center gap-1"
+                    >
+                      <span>Privacy Controls</span>
+                      <ArrowRight size={11} />
+                    </button>
+                  </div>
+                </div>
+
+                {/* 4. Clinician SOAP Note Prep */}
+                <div className="ios-glass-card rounded-2xl p-4 flex flex-col justify-between">
+                  <div className="space-y-1.5">
+                    <div className="flex items-center justify-between">
+                      <span className="text-[10px] font-bold uppercase tracking-wider text-[#6A3D55] flex items-center gap-1">
+                        <FileText size={11} className="text-[#D96B85]" />
+                        Clinical Consultation
+                      </span>
+                      <span className="text-[10px] font-semibold text-[#6A3D55] bg-[#FCE7E8] px-2 py-0.5 rounded-full border border-[#D96B85]/20">
+                        SOAP Dossier
+                      </span>
+                    </div>
+                    <h4 className="text-xs font-bold text-[#3A1F2D]">Physician-Ready SOAP Summary</h4>
+                    <p className="text-[11px] text-[#7A726D] leading-relaxed">
+                      Synthesizes all self-reported symptoms, cycle curves, and hormone markers into a medical dossier formatted for your OB/GYN or endocrinologist visit.
+                    </p>
+                  </div>
+                  <div className="mt-3 pt-2.5 border-t border-[#E8DFD8] flex items-center justify-between text-[11px]">
+                    <span className="text-[#7A726D]">Export / Print Ready</span>
+                    <button
+                      type="button"
+                      onClick={() => setSoapOpen(true)}
+                      className="text-[#D96B85] font-semibold hover:text-[#B8526B] hover:underline cursor-pointer flex items-center gap-1"
+                    >
+                      <span>Open Dossier</span>
+                      <ArrowRight size={11} />
+                    </button>
+                  </div>
                 </div>
               </div>
             </main>

@@ -139,9 +139,9 @@ export default function DiagnosticInsights({
         {onOpenEducation && (
           <button
             onClick={onOpenEducation}
-            className="w-full mt-2 flex items-center justify-center gap-1.5 text-xs font-semibold bg-white/80 hover:bg-[#E8EFE3] text-[#405A43] border border-[#405A43]/30 rounded-full py-2 shadow-2xs transition-colors cursor-pointer"
+            className="w-full mt-2 flex items-center justify-center gap-1.5 text-xs font-semibold bg-white/80 hover:bg-[#FCE7E8] text-[#6A3D55] border border-[#D96B85]/30 rounded-full py-2 shadow-2xs transition-colors cursor-pointer"
           >
-            <BookOpen size={13} />
+            <BookOpen size={13} className="text-[#D96B85]" />
             Understand Your Body Guide
           </button>
         )}
@@ -196,9 +196,9 @@ export default function DiagnosticInsights({
 
             <button
               onClick={() => setScreeningModalOpen(true)}
-              className="w-full mt-2 flex items-center justify-center gap-1.5 text-xs font-bold bg-[#405A43] hover:bg-[#344a37] text-white rounded-xl py-2.5 shadow-2xs transition-all cursor-pointer"
+              className="w-full mt-2 flex items-center justify-center gap-1.5 text-xs font-bold bg-[#FCE7E8] hover:bg-[#F8D7DC] text-[#6A3D55] border border-[#D96B85]/40 rounded-xl py-2.5 shadow-2xs hover:shadow-xs transition-all cursor-pointer"
             >
-              <HelpCircle size={13} />
+              <HelpCircle size={13} className="text-[#D96B85]" />
               Why Was It Flagged? (View Factor Breakdown) &rarr;
             </button>
           </div>

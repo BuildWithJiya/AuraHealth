@@ -16,7 +16,7 @@ export default function SymptomTimeline({ symptomLog }) {
         </span>
       </h3>
 
-      <div className="space-y-2 overflow-y-auto pr-1 max-h-[420px]">
+      <div className="space-y-2 overflow-y-auto pr-1 max-h-[250px]">
         {sorted.map((entry) => {
           const tier = severityTier(entry.severity)
           return (

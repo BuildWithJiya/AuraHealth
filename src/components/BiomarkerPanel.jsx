@@ -57,8 +57,8 @@ export default function BiomarkerPanel({ phase, day, presetKey, values, onApplyP
             onClick={() => onApplyPreset(preset.id)}
             className={`text-xs font-semibold rounded-full px-3 py-1.5 border transition-all shadow-2xs ${
               presetKey === preset.id
-                ? 'bg-[#405A43] border-[#405A43] text-white shadow-xs'
-                : 'bg-white border-[#E8DFD8] text-[#5C5552] hover:bg-[#FCE7E8]/50 hover:text-[#6A3D55]'
+                ? 'bg-[#6A3D55] border-[#6A3D55] text-white shadow-xs'
+                : 'bg-white/80 border-[#E8DFD8] text-[#5C5552] hover:bg-[#FCE7E8]/50 hover:text-[#6A3D55]'
             }`}
           >
             {preset.name}
