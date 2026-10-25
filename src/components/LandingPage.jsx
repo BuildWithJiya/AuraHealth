@@ -51,7 +51,6 @@ import ExplainableRiskModal from './ExplainableRiskModal'
 import PrivacyModal from './PrivacyModal'
 import LifeStageModal from './LifeStageModal'
 import heroBgImg from '../assets/hero-bg.png'
-import girlDeskImg from '../assets/girl-desk.jpg'
 
 function RevealBlock({ children, className = '', delayMs = 0 }) {
   const [ref, visible] = useReveal()
@@ -1006,81 +1005,15 @@ export default function LandingPage({
         </section>
 
       {/* ------------------------------------------------------------------ */}
-      {/* 5. INSPIRATION BANNER & TRUST PILLARS (Matching Mockup)            */}
+      {/* FOOTER                                                             */}
       {/* ------------------------------------------------------------------ */}
-      <section className="py-4 sm:py-5 max-w-7xl mx-auto px-4 sm:px-6">
-        <div className="rounded-2xl sm:rounded-3xl bg-gradient-to-r from-[#F4EFE6] via-[#FAF7F2] to-[#EBF2E8] border border-white/80 p-4 sm:p-5 shadow-[0_8px_30px_-6px_rgba(106,61,85,0.06)] flex flex-col lg:flex-row items-center gap-5 overflow-hidden">
-          {/* Left Botanical Slogan */}
-          <div className="w-full lg:w-1/4 flex flex-col justify-center items-start pl-2">
-            <span className="font-serif italic text-2xl sm:text-3xl text-[#405A43] leading-snug">
-              Small steps<br />lead to big<br />changes &hearts;
-            </span>
-          </div>
-
-          {/* Center Cozy Desk Image */}
-          <div className="w-full lg:w-1/3 flex justify-center">
-            <div className="relative rounded-2xl overflow-hidden shadow-md border-2 border-white/90 max-h-[180px]">
-              <img
-                src={girlDeskImg}
-                alt="Aura Health companion at study desk"
-                className="w-full h-full object-cover select-none"
-              />
-            </div>
-          </div>
-
-          {/* Right Trust & Compassion Card */}
-          <div className="w-full lg:w-5/12 bg-white/75 backdrop-blur-md rounded-2xl p-4 border border-white/80 shadow-2xs space-y-3">
-            <div>
-              <div className="flex items-center gap-2 mb-1">
-                <span className="text-[#D96B85] text-sm">&hearts;</span>
-                <h4 className="font-serif text-base sm:text-lg font-bold text-[#6A3D55]">You&apos;re not alone</h4>
-              </div>
-              <p className="text-xs text-[#5E5259] leading-relaxed">
-                Whether it&apos;s your period, your mood, your hormones or just a bad day &mdash; Aura Health is here for you.
-              </p>
-            </div>
-
-            <div className="grid grid-cols-2 gap-2 pt-1 border-t border-[#E8DFD8]">
-              {TRUST_PILLARS.map((item) => {
-                const IconComponent = item.icon
-                return (
-                  <button
-                    key={item.id}
-                    onClick={() => setSelectedPillar(item)}
-                    className="flex items-center gap-1.5 text-[11px] font-semibold text-[#405A43] hover:text-[#D96B85] transition-colors text-left p-1 rounded-lg hover:bg-white/80 cursor-pointer"
-                  >
-                    <IconComponent size={13} style={{ color: item.color }} className="shrink-0" />
-                    <span className="truncate">{item.title}</span>
-                  </button>
-                )
-              })}
-            </div>
-
-            <div className="pt-1 flex items-center justify-between">
-              <button
-                onClick={() => setAboutModalOpen(true)}
-                className="inline-flex items-center gap-1.5 text-xs font-semibold bg-[#FCE7E8] hover:bg-[#f6d0d2] text-[#D96B85] rounded-full px-3.5 py-1.5 transition-colors cursor-pointer"
-              >
-                Learn More <ArrowRight size={12} />
-              </button>
-              <span className="font-serif italic text-xs text-[#6A3D55]/60">Real care &middot; Real women</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ------------------------------------------------------------------ */}
-      {/* 6. FOOTER                                                          */}
-      {/* ------------------------------------------------------------------ */}
-      <footer className="border-t border-[#E8DFD8] py-4 bg-[#F8F0E8]/85 text-center text-[11px] text-[#8C8087]">
-        <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2">
+      <footer className="border-t border-[#E8DFD8] py-6 bg-[#F8F0E8]/85 text-center text-[11px] text-[#8C8087]">
+        <div className="max-w-4xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
           <p>
             <span className="font-semibold text-[#405A43]">Aura Health Clinical Decision Support System.</span>{' '}
             Grounded in ACOG &amp; Rotterdam Consensus criteria.
           </p>
           <div className="flex items-center gap-4 text-[#5E5259]">
-            <span className="font-serif italic text-xs text-[#D96B85]">Health &hearts; Confidence &hearts; You</span>
-            <span>&middot;</span>
             <button onClick={onViewDemo} className="hover:text-[#D96B85] transition-colors cursor-pointer">Case Studies</button>
             <span>&middot;</span>
             <button onClick={onGetStarted} className="hover:text-[#D96B85] transition-colors cursor-pointer">Get Started</button>
