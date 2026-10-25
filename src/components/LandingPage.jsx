@@ -502,9 +502,9 @@ export default function LandingPage({
               <div className="flex flex-wrap items-center gap-2 sm:gap-3 pt-1 sm:pt-2">
                 <button
                   type="button"
-                  onClick={() => scrollTo('interactive-graph')}
+                  onClick={onGetStarted}
                   className="inline-flex items-center gap-1.5 bg-[#D96B85] hover:bg-[#b8526b] active:scale-95 text-white text-[11px] sm:text-xs md:text-sm font-semibold rounded-full px-3.5 sm:px-5 py-1.5 sm:py-2.5 shadow-sm hover:shadow-md transition-all cursor-pointer"
-                  title="Start Tracking — Jump to Live Interactive Cycle Graph"
+                  title="Start Tracking — Continue to Login & Onboarding"
                 >
                   <span>Start Tracking</span>
                   <ArrowRight size={14} />
@@ -1002,8 +1002,8 @@ export default function LandingPage({
                   <Plus size={13} /> Log Today&apos;s Symptom
                 </button>
                 <button
-                  onClick={onViewDemo}
-                  className="flex items-center gap-1.5 text-xs font-semibold bg-[#405A43] hover:bg-[#344a37] text-white rounded-full px-4 py-2 transition-colors shadow-sm cursor-pointer"
+                  onClick={onGetStarted}
+                  className="flex items-center gap-1.5 text-xs font-semibold bg-[#6A3D55] hover:bg-[#583246] text-white rounded-full px-4 py-2 transition-colors shadow-sm cursor-pointer"
                 >
                   Full Clinical Dossier <ArrowRight size={13} />
                 </button>
@@ -1101,7 +1101,7 @@ export default function LandingPage({
             Grounded in ACOG &amp; Rotterdam Consensus criteria.
           </p>
           <div className="flex items-center gap-4 text-[#5E5259]">
-            <button onClick={onViewDemo} className="hover:text-[#D96B85] transition-colors cursor-pointer">Case Studies</button>
+            <button onClick={onGetStarted} className="hover:text-[#D96B85] transition-colors cursor-pointer">Case Studies</button>
             <span>&middot;</span>
             <button onClick={onGetStarted} className="hover:text-[#D96B85] transition-colors cursor-pointer">Get Started</button>
             <span>&middot;</span>

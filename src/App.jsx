@@ -47,18 +47,8 @@ export default function App() {
   const [onboardingProfile, setOnboardingProfile] = useState(() => loadOnboardingProfile())
   if (onboardingProfile) registerCustomPatient(onboardingProfile)
 
-  // Resolve initial view from URL hash if present (e.g. #landing, #login, #dashboard)
-  const resolveInitialView = () => {
-    if (typeof window !== 'undefined') {
-      const hash = window.location.hash.replace('#', '').split('?')[0].toLowerCase()
-      if (hash === 'landing' || hash === 'home') return 'landing'
-      if (hash === 'login' || hash === 'onboarding') return 'onboarding'
-      if (hash === 'dashboard' || hash === 'demo') return 'dashboard'
-    }
-    return onboardingProfile ? 'dashboard' : 'landing'
-  }
-
-  const [view, setView] = useState(resolveInitialView)
+  // The website must always start from the landing page followed by login page then dashboard
+  const [view, setView] = useState('landing')
 
   const [activePatientId, setActivePatientId] = useState(() =>
     onboardingProfile ? onboardingProfile.id : getStoredActivePatientId()
@@ -247,11 +237,8 @@ export default function App() {
       demo: 'dashboard',
     }
 
-    const rawHash = window.location.hash.replace('#', '')
-    const baseHash = rawHash.split('?')[0].toLowerCase()
-    const activeV = validViews[baseHash] || view
-    const queryPart = rawHash.includes('?') ? '?' + rawHash.split('?')[1] : ''
-    window.history.replaceState({ view: activeV }, '', '#' + (activeV === 'onboarding' ? 'login' : activeV) + queryPart)
+    // Always start at landing page when the website opens or reloads
+    window.history.replaceState({ view: 'landing' }, '', '#landing')
 
     const handlePopState = (event) => {
       if (event.state && event.state.view) {
@@ -284,7 +271,7 @@ export default function App() {
   }
 
   const handleGetStarted = () => navigateTo('onboarding')
-  const handleViewDemo = () => navigateTo('dashboard')
+  const handleViewDemo = () => navigateTo('dashboard') // Used by login page skip to reach dashboard
   const handleGoHome = () => navigateTo('landing')
   const handleGoOnboarding = () => navigateTo('onboarding')
   const handleOnboardingComplete = (newPatient) => {
@@ -312,7 +299,7 @@ export default function App() {
           <div className="relative z-10">
             <LandingPage
               onGetStarted={handleGetStarted}
-              onViewDemo={handleViewDemo}
+              onViewDemo={handleGetStarted}
               patient={patient}
               day={day}
               onDayChange={setDay}
