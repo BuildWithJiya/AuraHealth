@@ -50,7 +50,7 @@ import UnderstandYourBodyModal from './UnderstandYourBodyModal'
 import ExplainableRiskModal from './ExplainableRiskModal'
 import PrivacyModal from './PrivacyModal'
 import LifeStageModal from './LifeStageModal'
-import heroBannerImg from '../assets/hero-banner.png'
+import heroBgImg from '../assets/hero-bg.png'
 import girlDeskImg from '../assets/girl-desk.jpg'
 
 function RevealBlock({ children, className = '', delayMs = 0 }) {
@@ -460,131 +460,128 @@ export default function LandingPage({
       </header>
 
       {/* ------------------------------------------------------------------ */}
-      {/* 2. HERO SECTION                                                    */}
-      {/* ------------------------------------------------------------------ */}
-      {/* 2. HERO SECTION (Exact User Provided Banner with Workable Hotspots) */}
+      {/* 2. HERO SECTION (High Quality, Crystal Clear Text & Working Buttons) */}
       {/* ------------------------------------------------------------------ */}
       <section className="relative pt-2 sm:pt-3 pb-3 sm:pb-4 max-w-7xl mx-auto px-4 sm:px-6">
-        <div className="relative w-full rounded-2xl sm:rounded-3xl overflow-hidden shadow-[0_8px_30px_-6px_rgba(106,61,85,0.08)] border border-white/80 bg-[#FAF5EF] group">
-          {/* Exact Banner Image provided by user — completely unaltered */}
+        <div className="relative w-full rounded-2xl sm:rounded-3xl overflow-hidden shadow-[0_8px_30px_-6px_rgba(106,61,85,0.08)] border border-white/80 bg-[#FAF5EF]">
+          {/* Base Clean Illustration */}
           <img
-            src={heroBannerImg}
-            alt="Aura Health — Your health, your journey, our support"
-            className="w-full h-auto block select-none"
+            src={heroBgImg}
+            alt="Aura Health Doctor Consultation"
+            className="w-full h-auto block select-none pointer-events-none"
             draggable="false"
           />
 
-          {/* Workable Hotspots positioned precisely over clickable elements */}
-          {/* 1. Start Tracking Button Hotspot */}
-          <button
-            type="button"
-            onClick={() => scrollTo('interactive-graph')}
-            className="absolute rounded-full transition-all cursor-pointer hover:ring-2 hover:ring-[#D96B85] hover:bg-[#D96B85]/15 active:scale-95"
-            style={{
-              left: '6.6%',
-              top: '80.0%',
-              width: '12.8%',
-              height: '13.0%',
-            }}
-            title="Start Tracking — Jump to Live Interactive Cycle Graph"
-            aria-label="Start Tracking"
-          />
+          {/* Overlay UI: Crisp Vector Text & 100% Clickable Interactive Buttons */}
+          <div className="absolute inset-0 flex items-stretch justify-between p-3.5 sm:p-6 md:p-8 lg:p-10 z-10 pointer-events-none">
+            {/* Left Content Column */}
+            <div className="flex flex-col justify-between max-w-[55%] sm:max-w-[44%] md:max-w-[40%] pointer-events-auto">
+              <div>
+                <div className="flex items-center gap-1.5 text-[#D96B85] font-serif italic text-xs sm:text-sm md:text-base font-semibold mb-0.5 sm:mb-1">
+                  <span>Because your health matters</span>
+                  <span className="text-xs">&mdash; &hearts;</span>
+                </div>
+                <h1 className="font-serif text-lg sm:text-2xl md:text-3xl lg:text-[38px] font-bold text-[#6A3D55] leading-[1.12] tracking-tight mb-1 sm:mb-2 md:mb-3">
+                  Your health,<br />
+                  your journey,<br />
+                  our support.
+                </h1>
+                <p className="text-[10px] sm:text-xs md:text-sm text-[#5E5259] leading-relaxed hidden sm:block max-w-md">
+                  Aura Health is your safe space for menstrual care, wellness tracking, and trusted guidance &mdash; designed for every stage of your journey.
+                </p>
+              </div>
 
-          {/* 2. Explore Our Features Button Hotspot */}
-          <button
-            type="button"
-            onClick={() => scrollTo('feature-cards')}
-            className="absolute rounded-full transition-all cursor-pointer hover:ring-2 hover:ring-[#6A3D55] hover:bg-[#6A3D55]/15 active:scale-95"
-            style={{
-              left: '19.9%',
-              top: '80.0%',
-              width: '13.6%',
-              height: '13.0%',
-            }}
-            title="Explore Our Features — Jump to Feature Cards"
-            aria-label="Explore Our Features"
-          />
+              {/* Action Buttons: Crisp, Real & Working */}
+              <div className="flex flex-wrap items-center gap-2 sm:gap-3 pt-1 sm:pt-2">
+                <button
+                  type="button"
+                  onClick={() => scrollTo('interactive-graph')}
+                  className="inline-flex items-center gap-1.5 bg-[#D96B85] hover:bg-[#b8526b] active:scale-95 text-white text-[11px] sm:text-xs md:text-sm font-semibold rounded-full px-3.5 sm:px-5 py-1.5 sm:py-2.5 shadow-sm hover:shadow-md transition-all cursor-pointer"
+                  title="Start Tracking — Jump to Live Interactive Cycle Graph"
+                >
+                  <span>Start Tracking</span>
+                  <ArrowRight size={14} />
+                </button>
+                <button
+                  type="button"
+                  onClick={() => scrollTo('feature-cards')}
+                  className="inline-flex items-center gap-1 bg-white/80 hover:bg-white active:scale-95 text-[#6A3D55] hover:text-[#31232B] border border-[#6A3D55]/30 hover:border-[#6A3D55] text-[11px] sm:text-xs md:text-sm font-semibold rounded-full px-3 sm:px-4 py-1.5 sm:py-2.5 transition-all cursor-pointer shadow-2xs"
+                  title="Explore Our Features — Jump to Feature Cards"
+                >
+                  Explore Our Features
+                </button>
+              </div>
+            </div>
 
-          {/* 3. Floating Badge: Track */}
-          <button
-            type="button"
-            onClick={() => scrollTo('interactive-graph')}
-            className="absolute rounded-full transition-all cursor-pointer hover:ring-2 hover:ring-[#D96B85] hover:bg-white/50 active:scale-95"
-            style={{
-              left: '89.2%',
-              top: '14.0%',
-              width: '9.4%',
-              height: '14.5%',
-            }}
-            title="Track Your Cycle & Symptoms"
-            aria-label="Track Your Cycle"
-          />
+            {/* Right Column: Slogan, 4 Badges & Clinical Books */}
+            <div className="hidden sm:flex flex-col items-end justify-between pointer-events-auto">
+              {/* Slogan */}
+              <div className="text-right font-serif italic text-xs md:text-sm text-[#8C7A70] leading-tight select-none">
+                Real care.<br />Real women.<br />Always. &hearts;
+              </div>
 
-          {/* 4. Floating Badge: Learn */}
-          <button
-            type="button"
-            onClick={() => {
-              if (onOpenEducation) onOpenEducation()
-              else setEducationModalOpen(true)
-            }}
-            className="absolute rounded-full transition-all cursor-pointer hover:ring-2 hover:ring-[#405A43] hover:bg-white/50 active:scale-95"
-            style={{
-              left: '89.2%',
-              top: '32.5%',
-              width: '9.4%',
-              height: '14.5%',
-            }}
-            title="Learn & Explore Health Insights"
-            aria-label="Learn & Explore"
-          />
+              {/* 4 Crisp Floating Pill Badges */}
+              <div className="flex flex-col gap-1 sm:gap-1.5 w-[105px] md:w-[125px]">
+                <button
+                  type="button"
+                  onClick={() => scrollTo('interactive-graph')}
+                  className="flex items-center gap-2 bg-white/95 hover:bg-white active:scale-95 border border-white rounded-full px-3 py-1 sm:py-1.5 text-xs font-semibold text-[#31232B] shadow-2xs hover:shadow-sm hover:scale-105 transition-all cursor-pointer text-left"
+                  title="Track your cycle & symptoms"
+                >
+                  <Heart size={13} className="text-[#D96B85] fill-[#D96B85] shrink-0" />
+                  <span>Track</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    if (onOpenEducation) onOpenEducation()
+                    else setEducationModalOpen(true)
+                  }}
+                  className="flex items-center gap-2 bg-white/95 hover:bg-white active:scale-95 border border-white rounded-full px-3 py-1 sm:py-1.5 text-xs font-semibold text-[#31232B] shadow-2xs hover:shadow-sm hover:scale-105 transition-all cursor-pointer text-left"
+                  title="Learn & explore evidence-based guides"
+                >
+                  <Sparkles size={13} className="text-[#405A43] shrink-0" />
+                  <span>Learn</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setWellnessModalOpen(true)}
+                  className="flex items-center gap-2 bg-white/95 hover:bg-white active:scale-95 border border-white rounded-full px-3 py-1 sm:py-1.5 text-xs font-semibold text-[#31232B] shadow-2xs hover:shadow-sm hover:scale-105 transition-all cursor-pointer text-left"
+                  title="Feel Better — Daily wellness tools"
+                >
+                  <Flower2 size={13} className="text-[#6A3D55] shrink-0" />
+                  <span>Feel Better</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setAboutModalOpen(true)}
+                  className="flex items-center gap-2 bg-white/95 hover:bg-white active:scale-95 border border-white rounded-full px-3 py-1 sm:py-1.5 text-xs font-semibold text-[#31232B] shadow-2xs hover:shadow-sm hover:scale-105 transition-all cursor-pointer text-left"
+                  title="Grow with Aura Health"
+                >
+                  <Sun size={13} className="text-[#D9A84E] shrink-0" />
+                  <span>Grow</span>
+                </button>
+              </div>
 
-          {/* 5. Floating Badge: Feel Better */}
-          <button
-            type="button"
-            onClick={() => setWellnessModalOpen(true)}
-            className="absolute rounded-full transition-all cursor-pointer hover:ring-2 hover:ring-[#D96B85] hover:bg-white/50 active:scale-95"
-            style={{
-              left: '87.4%',
-              top: '51.0%',
-              width: '11.2%',
-              height: '14.5%',
-            }}
-            title="Feel Better — Interactive Wellness Tools"
-            aria-label="Feel Better — Wellness Tools"
-          />
-
-          {/* 6. Floating Badge: Grow */}
-          <button
-            type="button"
-            onClick={() => setAboutModalOpen(true)}
-            className="absolute rounded-full transition-all cursor-pointer hover:ring-2 hover:ring-[#D9A84E] hover:bg-white/50 active:scale-95"
-            style={{
-              left: '89.2%',
-              top: '69.5%',
-              width: '9.4%',
-              height: '14.5%',
-            }}
-            title="Grow with Aura Health — Learn About Our Mission"
-            aria-label="Grow — About Aura Health"
-          />
-
-          {/* 7. Stack of Books: HEALTH, WELLNESS, CONIDENCE, YOU */}
-          <button
-            type="button"
-            onClick={() => {
-              if (onOpenSoap) onOpenSoap()
-              else setAboutModalOpen(true)
-            }}
-            className="absolute rounded-lg transition-all cursor-pointer hover:ring-2 hover:ring-[#D9A84E]/60 hover:bg-white/30 active:scale-95"
-            style={{
-              left: '83.5%',
-              top: '60.0%',
-              width: '12.5%',
-              height: '29.0%',
-            }}
-            title="Clinical Reference Books — Open Consultation Dossier & Evidence"
-            aria-label="Health & Wellness Books"
-          />
+              {/* Stack of Books: HEALTH, WELLNESS, CONFIDENCE, YOU */}
+              <button
+                type="button"
+                onClick={() => {
+                  if (onOpenSoap) onOpenSoap()
+                  else setAboutModalOpen(true)
+                }}
+                className="group cursor-pointer text-left flex flex-col items-center active:scale-95 transition-transform"
+                title="Clinical Reference Books — Open Consultation Dossier & Evidence"
+              >
+                <div className="w-[95px] md:w-[110px] flex flex-col gap-[2px] items-center group-hover:scale-105 transition-transform">
+                  <span className="w-full text-center text-[9px] font-bold tracking-wider py-0.5 rounded-sm bg-[#D96B85] text-white shadow-2xs">HEALTH</span>
+                  <span className="w-full text-center text-[9px] font-bold tracking-wider py-0.5 rounded-sm bg-[#D9A84E] text-white shadow-2xs">WELLNESS</span>
+                  <span className="w-full text-center text-[9px] font-bold tracking-wider py-0.5 rounded-sm bg-[#6A3D55] text-white shadow-2xs">CONFIDENCE</span>
+                  <span className="w-full text-center text-[9px] font-bold tracking-wider py-0.5 rounded-sm bg-[#405A43] text-white shadow-2xs">YOU</span>
+                </div>
+              </button>
+            </div>
+          </div>
         </div>
       </section>
 
