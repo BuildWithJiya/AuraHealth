@@ -51,6 +51,7 @@ import ExplainableRiskModal from './ExplainableRiskModal'
 import PrivacyModal from './PrivacyModal'
 import LifeStageModal from './LifeStageModal'
 import heroBgImg from '../assets/hero-bg.png'
+import bottomBannerCleanImg from '../assets/bottom-banner-clean.png'
 
 function RevealBlock({ children, className = '', delayMs = 0 }) {
   const [ref, visible] = useReveal()
@@ -1003,6 +1004,85 @@ export default function LandingPage({
             </div>
           </div>
         </section>
+
+      {/* ------------------------------------------------------------------ */}
+      {/* SECTION 5: Cartoon Companion Banner ("Small steps lead to big changes") */}
+      {/* ------------------------------------------------------------------ */}
+      <section className="relative pt-2 pb-6 sm:pb-8 max-w-7xl mx-auto px-4 sm:px-6">
+        <div className="relative w-full rounded-2xl sm:rounded-3xl overflow-hidden shadow-[0_8px_30px_-6px_rgba(106,61,85,0.08)] border border-white/80 bg-[#FAF7F2]">
+          <img
+            src={bottomBannerCleanImg}
+            alt="Small steps lead to big changes — Aura Health"
+            className="w-full h-auto block select-none pointer-events-none"
+            draggable="false"
+          />
+
+          {/* Crisp, Non-Blur Vector HTML Overlay for Card Content & Interactive Buttons */}
+          <div
+            className="absolute z-10 flex items-stretch pointer-events-auto"
+            style={{
+              left: '53.6%',
+              top: '13.5%',
+              width: '40.2%',
+              height: '63.0%',
+            }}
+          >
+            <div className="w-full h-full flex items-center justify-between px-2 sm:px-3 md:px-4 lg:px-5 py-1">
+              {/* Left Column: Heading, Subtitle, Learn More Button */}
+              <div className="flex-1 flex flex-col justify-center pr-1.5 sm:pr-3 min-w-0">
+                <div className="flex items-center gap-1 sm:gap-1.5 mb-0.5">
+                  <span className="h-4 w-4 sm:h-5 sm:w-5 rounded-lg bg-[#FDE8EB] border border-[#F8D2D6] text-[#D2647E] flex items-center justify-center text-[9px] sm:text-xs shrink-0 font-bold shadow-2xs">
+                    ♥
+                  </span>
+                  <h3 className="font-serif text-[clamp(11px,1.35vw,17px)] font-bold text-[#2B3B34] tracking-tight truncate">
+                    You&apos;re not alone
+                  </h3>
+                </div>
+                <p className="block text-[clamp(7.5px,0.8vw,10.5px)] text-[#5E5259] leading-snug my-0.5 sm:my-1 line-clamp-2">
+                  Whether it&apos;s your period, your mood, your hormones or just a bad day &mdash; Aura Health is here for you.
+                </p>
+                <div className="pt-0.5">
+                  <button
+                    type="button"
+                    onClick={() => setAboutModalOpen(true)}
+                    className="inline-flex items-center gap-1 bg-[#FDE8EB] hover:bg-[#F8D2D6] active:scale-95 text-[#D2647E] text-[clamp(8px,0.9vw,11px)] font-semibold rounded-full px-2.5 sm:px-3 py-0.5 sm:py-1 transition-all cursor-pointer shadow-2xs group"
+                  >
+                    <span>Learn More</span>
+                    <ArrowRight className="w-2.5 h-2.5 sm:w-3 sm:h-3 group-hover:translate-x-0.5 transition-transform" />
+                  </button>
+                </div>
+              </div>
+
+              {/* Vertical Divider */}
+              <div className="w-px h-4/5 bg-[#E8DFD8] mx-1 sm:mx-2 shrink-0" />
+
+              {/* Right Column: 4 Trust Pillars with Clickable Modals */}
+              <div className="flex-1 flex flex-col justify-center gap-0.5 sm:gap-1 pl-1.5 sm:pl-2.5 min-w-0">
+                {TRUST_PILLARS.map((item) => {
+                  const IconComponent = item.icon
+                  return (
+                    <button
+                      key={item.id}
+                      type="button"
+                      onClick={() => setSelectedPillar(item)}
+                      className="flex items-center gap-1.5 text-[clamp(7.5px,0.85vw,11px)] font-medium text-[#405A43] hover:text-[#D96B85] transition-colors text-left py-0.5 rounded-sm hover:bg-white/60 cursor-pointer group truncate"
+                      title={item.subtitle}
+                    >
+                      <span className="w-3.5 h-3.5 sm:w-4 sm:h-4 rounded-full bg-[#FAF7F2] border border-[#E8DFD8] flex items-center justify-center shrink-0 group-hover:scale-105 group-hover:border-[#D96B85] transition-all">
+                        <IconComponent
+                          className="shrink-0 w-2 h-2 sm:w-2.5 sm:h-2.5"
+                          style={{ color: item.color }}
+                        />
+                      </span>
+                      <span className="truncate group-hover:underline">{item.title}</span>
+                    </button>
+                  )
+                })}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* ------------------------------------------------------------------ */}
       {/* FOOTER                                                             */}
