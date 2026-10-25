@@ -117,12 +117,11 @@ export default function Header({
           {onOpenDailyTracker && (
             <button
               onClick={onOpenDailyTracker}
-              className="flex items-center gap-1.5 text-xs font-bold bg-[#161618] hover:bg-[#222228] text-white border border-white/20 rounded-full px-3.5 py-2 transition-all shadow-xs cursor-pointer group"
-              title="Track Today's Biomarkers (Clue Calendar Style)"
+              className="flex items-center gap-1.5 text-xs font-semibold bg-white/80 backdrop-blur-md hover:bg-[#FCE7E8] text-[#6A3D55] hover:text-[#D96B85] border border-[#E8DFD8] hover:border-[#D96B85]/40 rounded-full px-3.5 py-2 transition-all shadow-xs cursor-pointer group"
+              title="Daily Symptom & Habit Calendar Tracker"
             >
-              <Calendar size={13} className="text-[#4DEEEA] group-hover:scale-110 transition-transform" />
-              <span>Track Day</span>
-              <span className="hidden xl:inline text-[9px] font-bold text-[#E02E49] uppercase tracking-wide">Clue</span>
+              <Calendar size={13} className="text-[#D96B85] group-hover:scale-110 transition-transform" />
+              <span>Daily Log</span>
             </button>
           )}
 
