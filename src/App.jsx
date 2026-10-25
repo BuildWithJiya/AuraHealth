@@ -45,7 +45,18 @@ export default function App() {
   const [onboardingProfile, setOnboardingProfile] = useState(() => loadOnboardingProfile())
   if (onboardingProfile) registerCustomPatient(onboardingProfile)
 
-  const [view, setView] = useState(() => (onboardingProfile ? 'dashboard' : 'landing'))
+  // Resolve initial view from URL hash if present (e.g. #landing, #login, #dashboard)
+  const resolveInitialView = () => {
+    if (typeof window !== 'undefined') {
+      const hash = window.location.hash.replace('#', '').toLowerCase()
+      if (hash === 'landing' || hash === 'home') return 'landing'
+      if (hash === 'login' || hash === 'onboarding') return 'onboarding'
+      if (hash === 'dashboard' || hash === 'demo') return 'dashboard'
+    }
+    return onboardingProfile ? 'dashboard' : 'landing'
+  }
+
+  const [view, setView] = useState(resolveInitialView)
 
   const [activePatientId, setActivePatientId] = useState(() =>
     onboardingProfile ? onboardingProfile.id : getStoredActivePatientId()
@@ -201,14 +212,77 @@ export default function App() {
     setIsCustomized(false)
   }
 
-  const handleGetStarted = () => setView('onboarding')
-  const handleViewDemo = () => setView('dashboard')
+  // Centralized navigation that keeps React state and browser history in perfect sync
+  const navigateTo = (nextView, replace = false) => {
+    setView(nextView)
+    if (typeof window !== 'undefined') {
+      const hash = '#' + (nextView === 'onboarding' ? 'login' : nextView)
+      if (replace) {
+        window.history.replaceState({ view: nextView }, '', hash)
+      } else {
+        window.history.pushState({ view: nextView }, '', hash)
+      }
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    }
+  }
+
+  // Handle browser back and forward buttons seamlessly
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+
+    const validViews = {
+      landing: 'landing',
+      home: 'landing',
+      login: 'onboarding',
+      onboarding: 'onboarding',
+      dashboard: 'dashboard',
+      demo: 'dashboard',
+    }
+
+    const currentHash = window.location.hash.replace('#', '').toLowerCase()
+    const activeV = validViews[currentHash] || view
+    window.history.replaceState({ view: activeV }, '', '#' + (activeV === 'onboarding' ? 'login' : activeV))
+
+    const handlePopState = (event) => {
+      if (event.state && event.state.view) {
+        setView(event.state.view)
+      } else {
+        const hash = window.location.hash.replace('#', '').toLowerCase()
+        const target = validViews[hash] || 'landing'
+        setView(target)
+      }
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    }
+
+    window.addEventListener('popstate', handlePopState)
+    return () => window.removeEventListener('popstate', handlePopState)
+  }, [])
+
+  // Smart Back function for in-app back arrow buttons and browser fallbacks
+  const handleBack = () => {
+    if (typeof window !== 'undefined' && window.history.state && window.history.length > 1) {
+      window.history.back()
+    } else {
+      if (view === 'dashboard') {
+        navigateTo('onboarding')
+      } else if (view === 'onboarding') {
+        navigateTo('landing')
+      } else {
+        navigateTo('landing')
+      }
+    }
+  }
+
+  const handleGetStarted = () => navigateTo('onboarding')
+  const handleViewDemo = () => navigateTo('dashboard')
+  const handleGoHome = () => navigateTo('landing')
+  const handleGoOnboarding = () => navigateTo('onboarding')
   const handleOnboardingComplete = (newPatient) => {
     registerCustomPatient(newPatient)
     saveOnboardingProfile(newPatient)
     setOnboardingProfile(newPatient)
     setActivePatientId(newPatient.id)
-    setView('dashboard')
+    navigateTo('dashboard')
   }
 
   return (
@@ -255,7 +329,11 @@ export default function App() {
         <div className="relative min-h-screen flex flex-col">
           <AuraBackground />
           <div className="relative z-10">
-            <OnboardingForm onComplete={handleOnboardingComplete} onSkip={handleViewDemo} />
+            <OnboardingForm
+              onComplete={handleOnboardingComplete}
+              onSkip={handleViewDemo}
+              onBack={() => navigateTo('landing')}
+            />
           </div>
         </div>
       )}
@@ -274,7 +352,9 @@ export default function App() {
               onOpenEducation={() => setEducationOpen(true)}
               isCustomized={isCustomized}
               onResetData={handleResetData}
-              onGoHome={() => setView('landing')}
+              onGoHome={handleGoHome}
+              onGoOnboarding={handleGoOnboarding}
+              onBack={handleBack}
               activeLifeStageId={activeLifeStageId}
               onOpenLifeStage={() => setLifeStageModalOpen(true)}
               onOpenPrivacy={() => setPrivacyModalOpen(true)}

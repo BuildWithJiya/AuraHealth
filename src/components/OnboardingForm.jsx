@@ -4,7 +4,7 @@ import { CONCERN_OPTIONS, createPatientFromOnboarding } from '../utils/onboardin
 
 const TOTAL_STEPS = 2
 
-export default function OnboardingForm({ onComplete, onSkip }) {
+export default function OnboardingForm({ onComplete, onSkip, onBack }) {
   const [step, setStep] = useState(1)
   const [submitting, setSubmitting] = useState(false)
   const [touched, setTouched] = useState(false)
@@ -77,10 +77,23 @@ export default function OnboardingForm({ onComplete, onSkip }) {
             </div>
           ) : step === 1 ? (
             <div key="step1" className="animate-landing-fade-up">
-              <div className="flex items-center gap-2 mb-1.5">
-                <Sparkles size={15} className="text-[#D96B85]" />
-                <span className="text-xs font-semibold text-[#D96B85] uppercase tracking-wide">Step 1 of 2</span>
+              {/* Back to Home & Step indicator header */}
+              <div className="flex items-center justify-between mb-4 pb-2 border-b border-[#E8EFE3]">
+                <button
+                  type="button"
+                  onClick={onBack || onSkip}
+                  className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#5E5259] hover:text-[#D96B85] transition-colors cursor-pointer group"
+                  title="Return to Landing Page"
+                >
+                  <ArrowLeft size={14} className="group-hover:-translate-x-0.5 transition-transform text-[#D96B85]" />
+                  <span>Back to Landing Page</span>
+                </button>
+                <div className="flex items-center gap-1.5 text-xs font-semibold text-[#D96B85] uppercase tracking-wide">
+                  <Sparkles size={14} />
+                  <span>Step 1 of 2</span>
+                </div>
               </div>
+
               <h2 className="font-serif text-2xl font-bold text-[#6A3D55] mb-1">Let&apos;s personalize this for you</h2>
               <p className="text-sm text-[#5E5259] mb-6">Just the essentials &mdash; this stays completely private to your browser.</p>
 
@@ -127,16 +140,26 @@ export default function OnboardingForm({ onComplete, onSkip }) {
                 </Field>
               </div>
 
-              <div className="flex items-center justify-between mt-7">
-                <button onClick={onSkip} className="text-xs text-[#5E5259] hover:text-[#31232B] transition-colors font-medium">
-                  Skip &mdash; view a demo case instead
-                </button>
+              <div className="flex items-center justify-between mt-7 gap-2">
                 <button
-                  onClick={handleNext}
-                  className="flex items-center gap-1.5 text-sm font-semibold bg-[#D96B85] hover:bg-[#B8526B] text-white rounded-full px-5 py-2.5 shadow-sm transition-all hover:shadow"
+                  type="button"
+                  onClick={onBack || onSkip}
+                  className="flex items-center gap-1.5 text-xs text-[#5E5259] hover:text-[#D96B85] transition-colors font-medium cursor-pointer"
                 >
-                  Continue <ArrowRight size={14} />
+                  <ArrowLeft size={13} />
+                  <span>Back to Home</span>
                 </button>
+                <div className="flex items-center gap-3">
+                  <button onClick={onSkip} className="text-xs text-[#5E5259] hover:text-[#31232B] transition-colors font-medium cursor-pointer">
+                    Skip &mdash; view demo
+                  </button>
+                  <button
+                    onClick={handleNext}
+                    className="flex items-center gap-1.5 text-sm font-semibold bg-[#D96B85] hover:bg-[#B8526B] text-white rounded-full px-5 py-2.5 shadow-sm transition-all hover:shadow cursor-pointer"
+                  >
+                    Continue <ArrowRight size={14} />
+                  </button>
+                </div>
               </div>
             </div>
           ) : (

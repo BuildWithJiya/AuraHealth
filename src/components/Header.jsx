@@ -1,4 +1,4 @@
-import { Activity, ChevronDown, ShieldCheck, BookOpen, RotateCcw, Shield, EyeOff, Sparkles } from 'lucide-react'
+import { Activity, ChevronDown, ShieldCheck, BookOpen, RotateCcw, Shield, EyeOff, Sparkles, ArrowLeft, UserPlus } from 'lucide-react'
 import { useState } from 'react'
 import { PHASE_META, getCyclePhase } from '../utils/cycleEngine'
 import { LIFE_STAGES } from '../data/lifeStageData'
@@ -14,6 +14,8 @@ export default function Header({
   isCustomized,
   onResetData,
   onGoHome,
+  onGoOnboarding,
+  onBack,
   activeLifeStageId = 'reproductive',
   onOpenLifeStage,
   onOpenPrivacy,
@@ -30,12 +32,24 @@ export default function Header({
   return (
     <header className="sticky top-0 z-40 border-b border-[#E8EFE3] bg-[#F8F0E8]/90 backdrop-blur-xl no-print shadow-[0_2px_12px_-2px_rgba(106,61,85,0.06)]">
       <div className="mx-auto max-w-[1600px] px-4 py-3 flex items-center justify-between gap-4">
-        {/* Brand Logo & Tagline (Clickable to return Home) */}
-        <button
-          onClick={onGoHome}
-          className="flex items-center gap-2.5 text-left group cursor-pointer"
-          title="Return to Home Overview"
-        >
+        {/* Left Side: Back Arrow Button + Brand Logo & Tagline */}
+        <div className="flex items-center gap-2.5 sm:gap-3.5">
+          <button
+            onClick={onBack || onGoHome}
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold text-[#6A3D55] hover:text-[#D96B85] bg-white/80 hover:bg-white border border-[#E8DFD8] hover:border-[#D96B85]/40 shadow-xs transition-all hover:-translate-x-0.5 cursor-pointer shrink-0"
+            title="Go Back (←) to Landing Page / Intake"
+            aria-label="Go Back"
+          >
+            <ArrowLeft size={14} className="text-[#D96B85]" />
+            <span className="hidden sm:inline">Back</span>
+          </button>
+
+          {/* Brand Logo & Tagline (Clickable to return Home) */}
+          <button
+            onClick={onGoHome}
+            className="flex items-center gap-2.5 text-left group cursor-pointer"
+            title="Return to Home Overview"
+          >
           <div className="h-9 w-9 rounded-xl bg-[#FCE7E8] border border-[#D96B85]/30 flex items-center justify-center shadow-xs transition-transform group-hover:scale-105">
             <svg viewBox="0 0 44 44" className="w-6 h-6">
               <path
@@ -67,6 +81,7 @@ export default function Header({
             </p>
           </div>
         </button>
+      </div>
 
         {/* Center Indicators: Phase Pill + Life-Stage Pill */}
         <div className="hidden lg:flex items-center gap-2.5">
@@ -104,6 +119,17 @@ export default function Header({
               className="hidden sm:flex items-center gap-1.5 text-xs font-semibold bg-white/75 backdrop-blur-md hover:bg-[#FCE7E8] text-[#5E5259] hover:text-[#D96B85] border border-white/80 rounded-full px-3.5 py-2 transition-all shadow-xs cursor-pointer"
             >
               Overview
+            </button>
+          )}
+
+          {onGoOnboarding && (
+            <button
+              onClick={onGoOnboarding}
+              className="hidden md:flex items-center gap-1.5 text-xs font-semibold bg-white/75 backdrop-blur-md hover:bg-[#FCE7E8] text-[#6A3D55] hover:text-[#D96B85] border border-white/80 rounded-full px-3.5 py-2 transition-all shadow-xs cursor-pointer"
+              title="Open Intake / Login Profile"
+            >
+              <UserPlus size={13} className="text-[#D96B85]" />
+              <span>Login / Intake</span>
             </button>
           )}
 
@@ -189,7 +215,7 @@ export default function Header({
                 ))}
 
                 {/* Stage switcher link inside dropdown */}
-                <div className="p-2 border-t border-[#E8EFE3] bg-[#FAF7F2]">
+                <div className="p-2 border-t border-[#E8EFE3] bg-[#FAF7F2] space-y-1">
                   <button
                     onClick={() => {
                       onOpenLifeStage()
@@ -200,6 +226,19 @@ export default function Header({
                     <Sparkles size={12} className="text-[#6A3D55]" />
                     Life Stage: {currentStage.shortName}
                   </button>
+
+                  {onGoOnboarding && (
+                    <button
+                      onClick={() => {
+                        onGoOnboarding()
+                        setMenuOpen(false)
+                      }}
+                      className="w-full text-left px-2.5 py-1.5 text-xs text-[#D96B85] hover:bg-[#FCE7E8] rounded-lg flex items-center gap-2 transition-colors font-medium cursor-pointer"
+                    >
+                      <UserPlus size={12} className="text-[#D96B85]" />
+                      Personal Intake / Login Form
+                    </button>
+                  )}
                 </div>
 
                 {onResetData && (
