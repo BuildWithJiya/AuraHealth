@@ -50,6 +50,7 @@ import UnderstandYourBodyModal from './UnderstandYourBodyModal'
 import ExplainableRiskModal from './ExplainableRiskModal'
 import PrivacyModal from './PrivacyModal'
 import LifeStageModal from './LifeStageModal'
+import heroBannerImg from '../assets/hero-banner.png'
 
 function RevealBlock({ children, className = '', delayMs = 0 }) {
   const [ref, visible] = useReveal()
@@ -460,177 +461,130 @@ export default function LandingPage({
       {/* ------------------------------------------------------------------ */}
       {/* 2. HERO SECTION                                                    */}
       {/* ------------------------------------------------------------------ */}
-      <section className="relative pt-10 pb-12 lg:pt-14 lg:pb-16 max-w-6xl mx-auto px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-          {/* Left Column: Copy & CTAs */}
-          <div className="lg:col-span-6 space-y-6">
-            <div className="animate-landing-fade-up">
-              <span className="font-script text-2xl sm:text-3xl text-[#D96B85] block mb-1">
-                Because your health matters &mdash; &#9825;
-              </span>
-              <h1 className="font-serif text-4xl sm:text-6xl text-[#6A3D55] font-normal leading-[1.1] tracking-tight">
-                Your health,<br />
-                your journey,<br />
-                our support.
-              </h1>
-            </div>
+      {/* ------------------------------------------------------------------ */}
+      {/* 2. HERO SECTION (Exact User Provided Banner with Workable Hotspots) */}
+      {/* ------------------------------------------------------------------ */}
+      <section className="relative pt-4 sm:pt-6 pb-8 sm:pb-12 max-w-6xl mx-auto px-4 sm:px-6">
+        <div className="relative w-full rounded-2xl sm:rounded-3xl overflow-hidden shadow-[0_12px_40px_-8px_rgba(106,61,85,0.08)] border border-white/80 bg-[#FAF5EF] group">
+          {/* Exact Banner Image provided by user — completely unaltered */}
+          <img
+            src={heroBannerImg}
+            alt="Aura Health — Your health, your journey, our support"
+            className="w-full h-auto block select-none"
+            draggable="false"
+          />
 
-            <p
-              className="animate-landing-fade-up text-[#5E5259] text-base sm:text-lg leading-relaxed max-w-lg font-normal"
-              style={{ animationDelay: '120ms' }}
-            >
-              Aura Health is your safe space for menstrual care, wellness tracking, and trusted guidance &mdash; designed for every stage of your journey.
-            </p>
+          {/* Workable Hotspots positioned precisely over clickable elements */}
+          {/* 1. Start Tracking Button Hotspot */}
+          <button
+            type="button"
+            onClick={() => scrollTo('interactive-graph')}
+            className="absolute rounded-full transition-all cursor-pointer hover:ring-2 hover:ring-[#D96B85] hover:bg-[#D96B85]/15 active:scale-95"
+            style={{
+              left: '6.6%',
+              top: '80.0%',
+              width: '12.8%',
+              height: '13.0%',
+            }}
+            title="Start Tracking — Jump to Live Interactive Cycle Graph"
+            aria-label="Start Tracking"
+          />
 
-            <div
-              className="animate-landing-fade-up pt-2 flex flex-wrap items-center gap-3.5"
-              style={{ animationDelay: '200ms' }}
-            >
-              <button
-                onClick={() => scrollTo('interactive-graph')}
-                className="group flex items-center gap-2 bg-[#D96B85] hover:bg-[#B8526B] text-white font-medium rounded-full px-7 py-3 text-sm sm:text-base shadow-sm transition-all hover:shadow-md hover:-translate-y-0.5"
-              >
-                Start Tracking
-                <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
-              </button>
+          {/* 2. Explore Our Features Button Hotspot */}
+          <button
+            type="button"
+            onClick={() => scrollTo('feature-cards')}
+            className="absolute rounded-full transition-all cursor-pointer hover:ring-2 hover:ring-[#6A3D55] hover:bg-[#6A3D55]/15 active:scale-95"
+            style={{
+              left: '19.9%',
+              top: '80.0%',
+              width: '13.6%',
+              height: '13.0%',
+            }}
+            title="Explore Our Features — Jump to Feature Cards"
+            aria-label="Explore Our Features"
+          />
 
-              <button
-                onClick={() => scrollTo('feature-cards')}
-                className="flex items-center gap-2 rounded-full border border-[#D96B85]/40 hover:border-[#D96B85] bg-white/70 hover:bg-[#FCE7E8]/50 text-[#6A3D55] font-medium px-6 py-3 text-sm transition-all shadow-xs"
-              >
-                Explore Our Features
-              </button>
-            </div>
-          </div>
+          {/* 3. Floating Badge: Track */}
+          <button
+            type="button"
+            onClick={() => scrollTo('interactive-graph')}
+            className="absolute rounded-full transition-all cursor-pointer hover:ring-2 hover:ring-[#D96B85] hover:bg-white/50 active:scale-95"
+            style={{
+              left: '89.2%',
+              top: '14.0%',
+              width: '9.4%',
+              height: '14.5%',
+            }}
+            title="Track Your Cycle & Symptoms"
+            aria-label="Track Your Cycle"
+          />
 
-          {/* Right Column: Hero Visual Graphic + Floating Badges */}
-          <div className="lg:col-span-6 relative">
-            <div className="relative mx-auto max-w-lg lg:max-w-none">
-              {/* Soft glow background */}
-              <div className="absolute -inset-4 bg-gradient-to-tr from-[#FCE7E8] via-[#F8F0E8] to-[#E8EFE3] rounded-3xl -z-10 blur-xl opacity-90" />
+          {/* 4. Floating Badge: Learn */}
+          <button
+            type="button"
+            onClick={() => {
+              if (onOpenEducation) onOpenEducation()
+              else setEducationModalOpen(true)
+            }}
+            className="absolute rounded-full transition-all cursor-pointer hover:ring-2 hover:ring-[#405A43] hover:bg-white/50 active:scale-95"
+            style={{
+              left: '89.2%',
+              top: '32.5%',
+              width: '9.4%',
+              height: '14.5%',
+            }}
+            title="Learn & Explore Health Insights"
+            aria-label="Learn & Explore"
+          />
 
-              {/* Consultation Illustration Card with Light Frost Blur */}
-              <div className="relative rounded-3xl overflow-hidden border border-white/70 shadow-xl shadow-[#D96B85]/8 bg-white/70 backdrop-blur-xl p-3">
-                <svg viewBox="0 0 520 380" className="w-full h-auto rounded-2xl block bg-[#FFFDF9]">
-                  <defs>
-                    <linearGradient id="warmWallAura" x1="0" y1="0" x2="1" y2="1">
-                      <stop offset="0%" stopColor="#FFFDF9" />
-                      <stop offset="100%" stopColor="#FAF5EF" />
-                    </linearGradient>
-                    <linearGradient id="sweaterPink" x1="0" y1="0" x2="1" y2="1">
-                      <stop offset="0%" stopColor="#FCE7E8" />
-                      <stop offset="100%" stopColor="#D96B85" />
-                    </linearGradient>
-                    <linearGradient id="scrubSage" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="0%" stopColor="#E8EFE3" />
-                      <stop offset="100%" stopColor="#405A43" />
-                    </linearGradient>
-                  </defs>
+          {/* 5. Floating Badge: Feel Better */}
+          <button
+            type="button"
+            onClick={() => setWellnessModalOpen(true)}
+            className="absolute rounded-full transition-all cursor-pointer hover:ring-2 hover:ring-[#D96B85] hover:bg-white/50 active:scale-95"
+            style={{
+              left: '87.4%',
+              top: '51.0%',
+              width: '11.2%',
+              height: '14.5%',
+            }}
+            title="Feel Better — Interactive Wellness Tools"
+            aria-label="Feel Better — Wellness Tools"
+          />
 
-                  <rect width="520" height="380" fill="url(#warmWallAura)" />
-                  <rect x="180" y="20" width="160" height="150" rx="4" fill="#FFFFFF" stroke="#E8EFE3" strokeWidth="2" />
-                  <line x1="260" y1="20" x2="260" y2="170" stroke="#E8EFE3" strokeWidth="1.5" />
-                  <line x1="180" y1="95" x2="340" y2="95" stroke="#E8EFE3" strokeWidth="1.5" />
+          {/* 6. Floating Badge: Grow */}
+          <button
+            type="button"
+            onClick={() => setAboutModalOpen(true)}
+            className="absolute rounded-full transition-all cursor-pointer hover:ring-2 hover:ring-[#D9A84E] hover:bg-white/50 active:scale-95"
+            style={{
+              left: '89.2%',
+              top: '69.5%',
+              width: '9.4%',
+              height: '14.5%',
+            }}
+            title="Grow with Aura Health — Learn About Our Mission"
+            aria-label="Grow — About Aura Health"
+          />
 
-                  {/* Framed Quote on wall */}
-                  <g transform="translate(390, 40)">
-                    <text x="35" y="15" textAnchor="middle" fill="#D96B85" fontFamily="'Caveat', cursive" fontSize="16" fontWeight="600">
-                      Real care.
-                    </text>
-                    <text x="35" y="32" textAnchor="middle" fill="#6A3D55" fontFamily="'Caveat', cursive" fontSize="16" fontWeight="600">
-                      Real women.
-                    </text>
-                    <text x="35" y="50" textAnchor="middle" fill="#405A43" fontFamily="'Caveat', cursive" fontSize="16" fontWeight="600">
-                      Always. &#9825;
-                    </text>
-                  </g>
-
-                  {/* Stacked books on side shelf */}
-                  <g transform="translate(435, 175)">
-                    <rect x="0" y="0" width="48" height="11" rx="2" fill="#D96B85" opacity="0.8" />
-                    <text x="24" y="8" textAnchor="middle" fill="#FFFFFF" fontSize="6" fontWeight="bold">HEALTH</text>
-                    <rect x="3" y="12" width="45" height="11" rx="2" fill="#E8EFE3" stroke="#405A43" strokeWidth="0.5" />
-                    <text x="25" y="20" textAnchor="middle" fill="#405A43" fontSize="6" fontWeight="bold">WELLNESS</text>
-                    <rect x="1" y="24" width="47" height="11" rx="2" fill="#D9A84E" opacity="0.85" />
-                    <text x="24" y="32" textAnchor="middle" fill="#FFFFFF" fontSize="6" fontWeight="bold">CONFIDENCE</text>
-                    <rect x="2" y="36" width="46" height="11" rx="2" fill="#6A3D55" opacity="0.9" />
-                    <text x="25" y="44" textAnchor="middle" fill="#FFFFFF" fontSize="6" fontWeight="bold">YOU</text>
-                  </g>
-
-                  {/* Indoor eucalyptus & vase flowers */}
-                  <g transform="translate(370, 110)">
-                    <path d="M40 90 Q60 50 55 10 Q35 45 40 90 Z" fill="#D96B85" opacity="0.75" />
-                    <path d="M50 90 Q30 50 35 15 Q55 45 50 90 Z" fill="#D9A84E" opacity="0.8" />
-                    <ellipse cx="45" cy="88" rx="14" ry="24" fill="#FCE7E8" stroke="#D96B85" strokeWidth="1" />
-                  </g>
-                  <g transform="translate(140, 70)">
-                    <path d="M20 120 Q5 70 25 20 Q45 65 20 120 Z" fill="#405A43" opacity="0.7" />
-                    <path d="M30 120 Q55 80 45 35 Q25 75 30 120 Z" fill="#E8EFE3" stroke="#405A43" strokeWidth="1" />
-                  </g>
-
-                  {/* Female Patient in cozy blush sweater */}
-                  <g transform="translate(180, 85)">
-                    <path d="M30 65 C15 35, 75 25, 80 60 C85 95, 80 140, 85 165 C68 150, 20 135, 30 65 Z" fill="#36221D" />
-                    <circle cx="55" cy="35" r="15" fill="#36221D" />
-                    <ellipse cx="62" cy="80" rx="19" ry="23" fill="#FCE7E8" />
-                    <path d="M68 88 Q74 93 80 88" stroke="#D96B85" strokeWidth="1.8" fill="none" strokeLinecap="round" />
-                    <ellipse cx="73" cy="76" rx="2" ry="2" fill="#31232B" />
-                    <ellipse cx="72" cy="100" rx="6" ry="6" fill="#FCE7E8" />
-                    <path d="M30 120 C10 160, 5 210, 0 280 L115 280 C115 210, 110 160, 85 120 Z" fill="url(#sweaterPink)" />
-                    <path d="M68 135 Q75 190 72 230" stroke="url(#sweaterPink)" strokeWidth="18" strokeLinecap="round" fill="none" />
-                  </g>
-
-                  {/* Female Doctor in white coat */}
-                  <g transform="translate(295, 70)">
-                    <path d="M35 55 C20 25, 80 20, 88 50 C95 85, 90 125, 85 140 C75 110, 25 105, 35 55 Z" fill="#2E1F1A" />
-                    <ellipse cx="65" cy="72" rx="20" ry="24" fill="#FDE2D7" />
-                    <path d="M68 82 Q75 88 82 82" stroke="#405A43" strokeWidth="1.8" fill="none" strokeLinecap="round" />
-                    <ellipse cx="76" cy="68" rx="2" ry="2" fill="#31232B" />
-                    <path d="M45 105 L85 105 L80 155 L50 155 Z" fill="url(#scrubSage)" />
-                    <path d="M52 110 Q42 155 64 175 Q74 185 80 165 Q90 140 82 110" stroke="#31232B" strokeWidth="2.2" fill="none" strokeLinecap="round" />
-                    <circle cx="64" cy="176" r="5" fill="#D9A84E" />
-                    <path d="M28 110 C18 160, 18 215, 15 295 L118 295 C118 215, 118 160, 105 110 L88 110 L68 145 L46 110 Z" fill="#FFFFFF" stroke="#E8EFE3" strokeWidth="1.5" />
-                    <path d="M46 110 L68 148 L68 210" stroke="#E8EFE3" strokeWidth="1.2" fill="none" />
-                    <rect x="55" y="195" width="48" height="34" rx="3" fill="#31232B" transform="rotate(-8 55 195)" />
-                    <rect x="58" y="198" width="42" height="28" rx="2" fill="#E8DDF0" transform="rotate(-8 58 198)" />
-                    <line x1="62" y1="206" x2="88" y2="202" stroke="#D96B85" strokeWidth="2" strokeLinecap="round" />
-                    <line x1="62" y1="212" x2="94" y2="208" stroke="#405A43" strokeWidth="1.5" strokeLinecap="round" />
-                  </g>
-                </svg>
-
-                {/* 4 Interactive Floating Badges with Light Frost Blur */}
-                <div className="absolute top-6 right-6 flex flex-col gap-2">
-                  <button
-                    onClick={() => scrollTo('interactive-graph')}
-                    className="flex items-center gap-1.5 bg-[#FCE7E8]/80 hover:bg-[#FCE7E8] backdrop-blur-md text-[#D96B85] border border-white/70 text-[11px] font-bold rounded-full px-3 py-1 shadow-xs transition-all hover:scale-105"
-                  >
-                    <Heart size={12} fill="#D96B85" /> Track
-                  </button>
-                  <button
-                    onClick={() => {
-                      if (onOpenEducation) onOpenEducation()
-                      else setEducationModalOpen(true)
-                    }}
-                    className="flex items-center gap-1.5 bg-[#E8EFE3]/80 hover:bg-[#E8EFE3] backdrop-blur-md text-[#405A43] border border-white/70 text-[11px] font-bold rounded-full px-3 py-1 shadow-xs transition-all hover:scale-105"
-                  >
-                    <Compass size={12} /> Learn
-                  </button>
-                  <button
-                    onClick={() => setWellnessModalOpen(true)}
-                    className="flex items-center gap-1.5 bg-[#E8DDF0]/80 hover:bg-[#E8DDF0] backdrop-blur-md text-[#6A3D55] border border-white/70 text-[11px] font-bold rounded-full px-3 py-1 shadow-xs transition-all hover:scale-105"
-                  >
-                    <Sparkles size={12} /> Feel Better
-                  </button>
-                  <button
-                    onClick={() => setAboutModalOpen(true)}
-                    className="flex items-center gap-1.5 bg-[#F8F0E8]/85 hover:bg-[#F8F0E8] backdrop-blur-md text-[#D9A84E] border border-white/80 text-[11px] font-bold rounded-full px-3 py-1 shadow-xs transition-all hover:scale-105"
-                  >
-                    <Sun size={12} /> Grow
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
+          {/* 7. Stack of Books: HEALTH, WELLNESS, CONIDENCE, YOU */}
+          <button
+            type="button"
+            onClick={() => {
+              if (onOpenSoap) onOpenSoap()
+              else setAboutModalOpen(true)
+            }}
+            className="absolute rounded-lg transition-all cursor-pointer hover:ring-2 hover:ring-[#D9A84E]/60 hover:bg-white/30 active:scale-95"
+            style={{
+              left: '83.5%',
+              top: '60.0%',
+              width: '12.5%',
+              height: '29.0%',
+            }}
+            title="Clinical Reference Books — Open Consultation Dossier & Evidence"
+            aria-label="Health & Wellness Books"
+          />
         </div>
       </section>
 
