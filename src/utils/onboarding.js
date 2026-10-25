@@ -1,4 +1,4 @@
-import { getCyclePhase } from './cycleEngine'
+import { getCyclePhase } from './cycleEngine.js'
 
 export const GOAL_OPTIONS = [
   {

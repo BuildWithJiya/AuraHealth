@@ -39,7 +39,14 @@ function frequencyTable(log, pickKey) {
   return Object.entries(counts).sort((a, b) => b[1] - a[1])
 }
 
-export function buildSoapDossier({ patient, symptomLog, labFlags, correlation, phase, day }) {
+export function buildSoapDossier({
+  patient,
+  symptomLog = [],
+  labFlags = [],
+  correlation = null,
+  phase = 'Follicular',
+  day = 1,
+}) {
   const locationFreq = frequencyTable(symptomLog, (e) => e.location)
   const modifierFreq = frequencyTable(symptomLog, (e) => e.modifiers)
   const phaseFreq = frequencyTable(symptomLog, (e) => e.phase)

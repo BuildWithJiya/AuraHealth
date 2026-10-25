@@ -1,0 +1,630 @@
+[
+  {
+    "id": "real_user_1",
+    "name": "Ananya Sharma",
+    "age": 27,
+    "cycleLength": 30,
+    "lutealLength": 14,
+    "lifeStage": "reproductive",
+    "trackingPriorities": [
+      "period_flow",
+      "cramps_pain",
+      "mood"
+    ],
+    "suspected": [],
+    "isCustomUser": true,
+    "updatedAt": "2026-10-25T11:26:29.882Z",
+    "createdAt": "2026-10-25T11:26:29.882Z"
+  },
+  {
+    "id": "maya",
+    "name": "Maya Chen",
+    "age": 27,
+    "avatarColor": "#6366F1",
+    "suspected": [
+      "Suspected PCOS",
+      "Luteal PMDD"
+    ],
+    "cycleLength": 34,
+    "currentDay": 24,
+    "anovulatory": true,
+    "defaultPreset": "pcos",
+    "severitySeries": [
+      {
+        "day": 1,
+        "severity": 3.9
+      },
+      {
+        "day": 2,
+        "severity": 3.2
+      },
+      {
+        "day": 3,
+        "severity": 3.6
+      },
+      {
+        "day": 4,
+        "severity": 3.5
+      },
+      {
+        "day": 5,
+        "severity": 3.6
+      },
+      {
+        "day": 6,
+        "severity": 2.7
+      },
+      {
+        "day": 7,
+        "severity": 2.3
+      },
+      {
+        "day": 8,
+        "severity": 2.7
+      },
+      {
+        "day": 9,
+        "severity": 2.6
+      },
+      {
+        "day": 10,
+        "severity": 2.2
+      },
+      {
+        "day": 11,
+        "severity": 2.3
+      },
+      {
+        "day": 12,
+        "severity": 2.9
+      },
+      {
+        "day": 13,
+        "severity": 2.2
+      },
+      {
+        "day": 14,
+        "severity": 2.3
+      },
+      {
+        "day": 15,
+        "severity": 2.6
+      },
+      {
+        "day": 16,
+        "severity": 2.5
+      },
+      {
+        "day": 17,
+        "severity": 2.1
+      },
+      {
+        "day": 18,
+        "severity": 2.3
+      },
+      {
+        "day": 19,
+        "severity": 4.8
+      },
+      {
+        "day": 20,
+        "severity": 6
+      },
+      {
+        "day": 21,
+        "severity": 6.7
+      },
+      {
+        "day": 22,
+        "severity": 7.6
+      },
+      {
+        "day": 23,
+        "severity": 8.2
+      },
+      {
+        "day": 24,
+        "severity": 8.8
+      },
+      {
+        "day": 25,
+        "severity": 9
+      },
+      {
+        "day": 26,
+        "severity": 8.9
+      },
+      {
+        "day": 27,
+        "severity": 9.2
+      },
+      {
+        "day": 28,
+        "severity": 8.7
+      },
+      {
+        "day": 29,
+        "severity": 7.9
+      },
+      {
+        "day": 30,
+        "severity": 7.6
+      },
+      {
+        "day": 31,
+        "severity": 6.6
+      },
+      {
+        "day": 32,
+        "severity": 5.3
+      },
+      {
+        "day": 33,
+        "severity": 4.8
+      },
+      {
+        "day": 34,
+        "severity": 4.7
+      }
+    ],
+    "symptomLog": [
+      {
+        "id": "seed-Pelvic — General-3-54",
+        "rawText": "Heavy, clotted bleeding on day 3, soaking through a pad in under 2 hours, cramping around a 6 out of 10.",
+        "location": "Pelvic — General",
+        "severity": 6,
+        "modifiers": [
+          "Heavy Menstrual Flow",
+          "Cramping"
+        ],
+        "phase": "Menstrual",
+        "day": 3,
+        "timestamp": "2026-09-01T11:25:54.125Z"
+      },
+      {
+        "id": "seed-Dermatological-9-48",
+        "rawText": "New cystic acne along the jawline this week, plus some oily skin, nothing painful.",
+        "location": "Dermatological",
+        "severity": 3,
+        "modifiers": [
+          "Acne Flare"
+        ],
+        "phase": "Follicular",
+        "day": 9,
+        "timestamp": "2026-09-07T11:25:54.127Z"
+      },
+      {
+        "id": "seed-Pelvic — General-16-41",
+        "rawText": "Expected to feel an ovulation twinge around now but nothing, cycle feels like it is dragging on longer than usual.",
+        "location": "Pelvic — General",
+        "severity": 2,
+        "modifiers": [
+          "Gradual Onset"
+        ],
+        "phase": "Ovulatory",
+        "day": 16,
+        "timestamp": "2026-09-14T11:25:54.127Z"
+      },
+      {
+        "id": "seed-Abdominal — General-20-37",
+        "rawText": "Started feeling bloated and irritable out of nowhere, snapped at my coworker for no reason, 5 out of 10 mood crash.",
+        "location": "Abdominal — General",
+        "severity": 5,
+        "modifiers": [
+          "Bloating",
+          "Irritability",
+          "Mood Swings"
+        ],
+        "phase": "Luteal",
+        "day": 20,
+        "timestamp": "2026-09-18T11:25:54.128Z"
+      },
+      {
+        "id": "seed-Cranial / Head-22-35",
+        "rawText": "Woke up with intense brain fog, could not focus on anything at work, severe fatigue, 7 out of 10.",
+        "location": "Cranial / Head",
+        "severity": 7,
+        "modifiers": [
+          "Brain Fog",
+          "Fatigue",
+          "Morning Onset"
+        ],
+        "phase": "Luteal",
+        "day": 22,
+        "timestamp": "2026-09-20T11:25:54.128Z"
+      },
+      {
+        "id": "seed-Abdominal — General-23-34",
+        "rawText": "Intense sugar and carb cravings all day, binged on snacks, felt out of control, bloating 6 out of 10.",
+        "location": "Abdominal — General",
+        "severity": 6,
+        "modifiers": [
+          "Food Cravings",
+          "Bloating"
+        ],
+        "phase": "Luteal",
+        "day": 23,
+        "timestamp": "2026-09-21T11:25:54.128Z"
+      },
+      {
+        "id": "seed-Breast / Chest-24-33",
+        "rawText": "Sudden crying spell for no clear reason, hopeless mood, breast tenderness, this feels like an 8 out of 10 emotionally.",
+        "location": "Breast / Chest",
+        "severity": 8,
+        "modifiers": [
+          "Mood Swings",
+          "Tenderness",
+          "Sudden Onset"
+        ],
+        "phase": "Luteal",
+        "day": 24,
+        "timestamp": "2026-09-22T11:25:54.128Z"
+      },
+      {
+        "id": "seed-Unspecified / Systemic-25-32",
+        "rawText": "Rage and irritability spiked again today, anxious for no reason, could not sleep, insomnia, 7 out of 10.",
+        "location": "Unspecified / Systemic",
+        "severity": 7,
+        "modifiers": [
+          "Irritability",
+          "Anxiety",
+          "Insomnia"
+        ],
+        "phase": "Luteal",
+        "day": 25,
+        "timestamp": "2026-09-23T11:25:54.128Z"
+      },
+      {
+        "id": "seed-Dermatological-27-30",
+        "rawText": "Noticed more hair in the shower drain than usual over the past week, also some new hair growth on my chin.",
+        "location": "Dermatological",
+        "severity": 4,
+        "modifiers": [
+          "Hair Thinning"
+        ],
+        "phase": "Luteal",
+        "day": 27,
+        "timestamp": "2026-09-25T11:25:54.128Z"
+      },
+      {
+        "id": "seed-Abdominal — General-29-28",
+        "rawText": "Weight feels stuck no matter what I eat, constant low energy, bloated every evening, 6 out of 10.",
+        "location": "Abdominal — General",
+        "severity": 6,
+        "modifiers": [
+          "Weight Gain",
+          "Low Energy",
+          "Bloating"
+        ],
+        "phase": "Luteal",
+        "day": 29,
+        "timestamp": "2026-09-27T11:25:54.128Z"
+      },
+      {
+        "id": "seed-Cranial / Head-31-26",
+        "rawText": "Severe mood crash again, irritable with everyone, brain fog so bad I missed a meeting, 8 out of 10.",
+        "location": "Cranial / Head",
+        "severity": 8,
+        "modifiers": [
+          "Mood Swings",
+          "Brain Fog",
+          "Irritability"
+        ],
+        "phase": "Luteal",
+        "day": 31,
+        "timestamp": "2026-09-29T11:25:54.128Z"
+      },
+      {
+        "id": "seed-Pelvic — General-33-24",
+        "rawText": "Period still has not started, cramping building up, bloating, breast tenderness worse at night.",
+        "location": "Pelvic — General",
+        "severity": 6,
+        "modifiers": [
+          "Cramping",
+          "Bloating",
+          "Tenderness",
+          "Night Onset"
+        ],
+        "phase": "Luteal",
+        "day": 33,
+        "timestamp": "2026-10-01T11:25:54.128Z"
+      }
+    ],
+    "chiefComplaintHint": "Severe mood instability and brain fog concentrated in the luteal phase, alongside signs of hyperandrogenism (acne, hair thinning) and irregular, lengthened cycles."
+  },
+  {
+    "id": "elena",
+    "name": "Elena Rodriguez",
+    "age": 32,
+    "avatarColor": "#F43F5E",
+    "suspected": [
+      "Suspected Endometriosis",
+      "Latent Iron Deficiency"
+    ],
+    "cycleLength": 28,
+    "currentDay": 3,
+    "anovulatory": false,
+    "defaultPreset": "thyroid",
+    "severitySeries": [
+      {
+        "day": 1,
+        "severity": 3.3
+      },
+      {
+        "day": 2,
+        "severity": 7.2
+      },
+      {
+        "day": 3,
+        "severity": 9.5
+      },
+      {
+        "day": 4,
+        "severity": 7.5
+      },
+      {
+        "day": 5,
+        "severity": 3
+      },
+      {
+        "day": 6,
+        "severity": 3.6
+      },
+      {
+        "day": 7,
+        "severity": 3.2
+      },
+      {
+        "day": 8,
+        "severity": 3.6
+      },
+      {
+        "day": 9,
+        "severity": 3.5
+      },
+      {
+        "day": 10,
+        "severity": 3.1
+      },
+      {
+        "day": 11,
+        "severity": 3.2
+      },
+      {
+        "day": 12,
+        "severity": 3.8
+      },
+      {
+        "day": 13,
+        "severity": 3.1
+      },
+      {
+        "day": 14,
+        "severity": 3.9
+      },
+      {
+        "day": 15,
+        "severity": 4.2
+      },
+      {
+        "day": 16,
+        "severity": 4.5
+      },
+      {
+        "day": 17,
+        "severity": 3.4
+      },
+      {
+        "day": 18,
+        "severity": 3.6
+      },
+      {
+        "day": 19,
+        "severity": 3.4
+      },
+      {
+        "day": 20,
+        "severity": 3.7
+      },
+      {
+        "day": 21,
+        "severity": 3.5
+      },
+      {
+        "day": 22,
+        "severity": 3.6
+      },
+      {
+        "day": 23,
+        "severity": 3.6
+      },
+      {
+        "day": 24,
+        "severity": 3.3
+      },
+      {
+        "day": 25,
+        "severity": 4
+      },
+      {
+        "day": 26,
+        "severity": 4.8
+      },
+      {
+        "day": 27,
+        "severity": 6
+      },
+      {
+        "day": 28,
+        "severity": 6.8
+      }
+    ],
+    "symptomLog": [
+      {
+        "id": "seed-Pelvic — Lower Left-1-57",
+        "rawText": "Woke up with sharp lower left pelvic pain, 9 out of 10, had to call in sick, severe nausea after coffee.",
+        "location": "Pelvic — Lower Left",
+        "severity": 9,
+        "modifiers": [
+          "Sharp",
+          "Nausea",
+          "Postprandial (Coffee)",
+          "Morning Onset"
+        ],
+        "phase": "Menstrual",
+        "day": 1,
+        "timestamp": "2026-08-29T11:25:54.128Z"
+      },
+      {
+        "id": "seed-Bowel / GI-2-56",
+        "rawText": "Pain during bowel movements again this cycle, stabbing lower pelvic pain, 8 out of 10, also very fatigued.",
+        "location": "Bowel / GI",
+        "severity": 8,
+        "modifiers": [
+          "Stabbing",
+          "Cyclical Bowel Pain",
+          "Fatigue"
+        ],
+        "phase": "Menstrual",
+        "day": 2,
+        "timestamp": "2026-08-30T11:25:54.128Z"
+      },
+      {
+        "id": "seed-Pelvic — Lower Left-3-55",
+        "rawText": "Sharp lower-left pelvic pain, 8 out of 10, accompanied by intense brain fog and severe nausea after coffee.",
+        "location": "Pelvic — Lower Left",
+        "severity": 8,
+        "modifiers": [
+          "Sharp",
+          "Brain Fog",
+          "Nausea",
+          "Postprandial (Coffee)"
+        ],
+        "phase": "Menstrual",
+        "day": 3,
+        "timestamp": "2026-08-31T11:25:54.128Z"
+      },
+      {
+        "id": "seed-Abdominal — Lower-5-53",
+        "rawText": "Pain finally easing but still dull and aching lower abdomen, exhausted, low energy all week.",
+        "location": "Abdominal — Lower",
+        "severity": 4,
+        "modifiers": [
+          "Dull",
+          "Fatigue",
+          "Low Energy"
+        ],
+        "phase": "Menstrual",
+        "day": 5,
+        "timestamp": "2026-09-02T11:25:54.128Z"
+      },
+      {
+        "id": "seed-Unspecified / Systemic-10-48",
+        "rawText": "Constant tiredness again today even after a full night of sleep, dizzy when standing up quickly.",
+        "location": "Unspecified / Systemic",
+        "severity": 5,
+        "modifiers": [
+          "Fatigue",
+          "Dizziness"
+        ],
+        "phase": "Follicular",
+        "day": 10,
+        "timestamp": "2026-09-07T11:25:54.128Z"
+      },
+      {
+        "id": "seed-Pelvic — Lower Right-14-44",
+        "rawText": "Mild twinge on the right side around ovulation, nothing severe, maybe a 3 out of 10.",
+        "location": "Pelvic — Lower Right",
+        "severity": 3,
+        "modifiers": [
+          "Sudden Onset"
+        ],
+        "phase": "Ovulatory",
+        "day": 14,
+        "timestamp": "2026-09-11T11:25:54.128Z"
+      },
+      {
+        "id": "seed-Unspecified / Systemic-18-40",
+        "rawText": "Low energy and brain fog in the afternoon, craving red meat a lot this week, pale looking in the mirror.",
+        "location": "Unspecified / Systemic",
+        "severity": 4,
+        "modifiers": [
+          "Fatigue",
+          "Brain Fog",
+          "Food Cravings"
+        ],
+        "phase": "Luteal",
+        "day": 18,
+        "timestamp": "2026-09-15T11:25:54.128Z"
+      },
+      {
+        "id": "seed-Unspecified / Systemic-22-36",
+        "rawText": "Fatigue is relentless, climbing one flight of stairs leaves me breathless, hair seems to be thinning too.",
+        "location": "Unspecified / Systemic",
+        "severity": 6,
+        "modifiers": [
+          "Fatigue",
+          "Hair Thinning"
+        ],
+        "phase": "Luteal",
+        "day": 22,
+        "timestamp": "2026-09-19T11:25:54.128Z"
+      },
+      {
+        "id": "seed-Pelvic — Lower Left-25-33",
+        "rawText": "Deep aching lower-left pelvic pain starting again before my period, pain during sex this week too, 6 out of 10.",
+        "location": "Pelvic — Lower Left",
+        "severity": 6,
+        "modifiers": [
+          "Dull",
+          "Dyspareunia"
+        ],
+        "phase": "Luteal",
+        "day": 25,
+        "timestamp": "2026-09-22T11:25:54.128Z"
+      },
+      {
+        "id": "seed-Pelvic — Lower Left-26-32",
+        "rawText": "Pain building up sharply, radiating to my lower back, 7 out of 10, bowel pain again too.",
+        "location": "Pelvic — Lower Left",
+        "severity": 7,
+        "modifiers": [
+          "Sharp",
+          "Radiating",
+          "Cyclical Bowel Pain"
+        ],
+        "phase": "Luteal",
+        "day": 26,
+        "timestamp": "2026-09-23T11:25:54.128Z"
+      },
+      {
+        "id": "seed-Pelvic — General-27-31",
+        "rawText": "Nauseous and exhausted, pelvic pain 8 out of 10, dreading my period starting tomorrow.",
+        "location": "Pelvic — General",
+        "severity": 8,
+        "modifiers": [
+          "Nausea",
+          "Fatigue"
+        ],
+        "phase": "Luteal",
+        "day": 27,
+        "timestamp": "2026-09-24T11:25:54.128Z"
+      },
+      {
+        "id": "seed-Pelvic — Lower Left-28-30",
+        "rawText": "Pain is nearly unbearable now, 9 out of 10, sharp and stabbing, could barely get out of bed this morning.",
+        "location": "Pelvic — Lower Left",
+        "severity": 9,
+        "modifiers": [
+          "Sharp",
+          "Stabbing",
+          "Morning Onset"
+        ],
+        "phase": "Luteal",
+        "day": 28,
+        "timestamp": "2026-09-25T11:25:54.128Z"
+      }
+    ],
+    "chiefComplaintHint": "Debilitating, sharp lower-left pelvic pain that escalates premenstrually and peaks at menses, with bowel and intercourse pain, layered on relentless non-cyclical fatigue."
+  }
+]

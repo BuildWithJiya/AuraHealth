@@ -49,12 +49,48 @@ npm install
 npm run dev
 ```
 
+### Development (Frontend + Backend Server)
+
+```bash
+# Starts both the React Vite frontend (port 5173) and the Express Clinical API (port 5001) concurrently
+npm run dev
+```
+
+- **Frontend Application**: `http://localhost:5173`
+- **Clinical API Server**: `http://localhost:5001`
+
+### Running Server Independently
+
+```bash
+npm run server
+```
+
 ### Production Build
 
 ```bash
 npm run build
 npm run preview
 ```
+
+---
+
+## 📡 Backend API Endpoints & Architecture
+
+AuraHealth features an integrated Node/Express REST API with persistent storage in `server/data/`:
+
+| Method | Endpoint | Description |
+|---|---|---|
+| `GET` | `/api/health` | Service health status and supported clinical diagnostic engines |
+| `GET` | `/api/patients` | Retrieve all registered real users and clinical benchmark cases |
+| `GET` | `/api/patients/:id` | Retrieve complete patient history, symptoms, and lab values |
+| `POST` | `/api/patients` | Register or update a real user profile with custom cycle lengths |
+| `GET` | `/api/symptoms/:patientId` | Retrieve logged symptoms for a specific patient |
+| `POST` | `/api/symptoms` | Log symptom via Natural Language voice transcription or manual form |
+| `DELETE` | `/api/symptoms/:patientId/:symptomId` | Remove a logged symptom entry |
+| `GET` | `/api/biomarkers/:patientId` | Retrieve biomarker panel and lab presets |
+| `POST` | `/api/biomarkers` | Save and evaluate blood lab values against phase-adjusted intervals |
+| `POST` | `/api/analyze/:patientId` | Complete clinical analysis: cycle phase, Pearson correlation, explainable screening (Rotterdam, ESHRE, DSM-5), and SOAP dossier |
+| `POST` | `/api/parse-symptom` | Live multilingual regional NLP parser for speech/text |
 
 ---
 

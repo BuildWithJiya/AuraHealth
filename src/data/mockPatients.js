@@ -1,4 +1,4 @@
-import { getCyclePhase } from '../utils/cycleEngine'
+import { getCyclePhase } from '../utils/cycleEngine.js'
 
 function seededNoise(day, salt = 1) {
   return (Math.sin(day * 12.9898 * salt) * 43758.5453) % 1

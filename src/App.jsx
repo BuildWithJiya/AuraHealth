@@ -38,6 +38,7 @@ import {
   loadOnboardingProfile,
   saveOnboardingProfile,
 } from './utils/storage'
+import api from './services/api'
 
 export default function App() {
   // A self-onboarded user profile (if one exists in this browser) — kept
@@ -103,6 +104,21 @@ export default function App() {
     setLabValues(stored.labValues)
     setIsCustomized(checkHasCustomStorage())
   }, [activePatientId])
+
+  // Fetch and register custom profiles from backend on initial mount
+  useEffect(() => {
+    api.getPatients()
+      .then((serverPatients) => {
+        if (serverPatients && serverPatients.length) {
+          serverPatients.forEach((p) => {
+            if (p.isCustomUser) {
+              registerCustomPatient(p)
+            }
+          })
+        }
+      })
+      .catch((err) => console.log('[API Offline Fallback] Using local vault:', err.message))
+  }, [])
 
   // Save changes to localStorage whenever patient state changes
   useEffect(() => {
@@ -182,10 +198,24 @@ export default function App() {
     [patient, symptomLog, labResult, correlation, phase, day]
   )
 
-  const handleAddSymptom = (symptom) => setSymptomLog((prev) => [symptom, ...prev])
+  const handleAddSymptom = (symptom) => {
+    setSymptomLog((prev) => [symptom, ...prev])
+    api.addSymptom({
+      patientId: activePatientId,
+      ...symptom,
+    }).catch((err) => console.log('[API Offline Fallback] Stored locally:', err.message))
+  }
+
   const handleApplyPreset = (key) => {
     setLabPresetKey(key)
-    setLabValues(LAB_PRESETS[key].values)
+    const vals = LAB_PRESETS[key].values
+    setLabValues(vals)
+    api.saveBiomarkers({
+      patientId: activePatientId,
+      day,
+      presetKey: key,
+      values: vals,
+    }).catch((err) => console.log('[API Offline Fallback] Stored locally:', err.message))
   }
 
   const handleResetData = () => {
@@ -262,13 +292,18 @@ export default function App() {
   const handleViewDemo = () => navigateTo('dashboard') // Used by login page skip to reach dashboard
   const handleGoHome = () => navigateTo('landing')
   const handleGoOnboarding = () => navigateTo('onboarding')
-  const handleOnboardingComplete = (newPatient) => {
+  const handleOnboardingComplete = async (newPatient) => {
     registerCustomPatient(newPatient)
     saveOnboardingProfile(newPatient)
     setOnboardingProfile(newPatient)
     setActivePatientId(newPatient.id)
     if (newPatient.lifeStage) {
       handleSelectLifeStage(newPatient.lifeStage)
+    }
+    try {
+      await api.savePatient(newPatient)
+    } catch (err) {
+      console.log('[API Offline Fallback] Profile stored locally:', err.message)
     }
     navigateTo('dashboard')
   }

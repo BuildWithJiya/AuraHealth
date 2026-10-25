@@ -1,4 +1,4 @@
-import { getCyclePhase } from './cycleEngine'
+import { getCyclePhase } from './cycleEngine.js'
 
 // Multi-lingual anatomical location dictionary (English, Hinglish, Hindi, Bengali, Tamil, Telugu, Marathi).
 // Sorted longest-match-first to prevent partial collisions.
