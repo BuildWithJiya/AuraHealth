@@ -1,4 +1,4 @@
-# AuraHealth (AuraDx)
+# AuraHealth 
 
 A clinical diagnostic co-pilot for women's reproductive health. AuraHealth tracks symptoms, normalizes lab values based on menstrual cycle phases, and generates structured medical summaries to speed up diagnosis for conditions like PCOS, Endometriosis, and PMDD.
 
