@@ -1,5 +1,99 @@
 import { getCyclePhase } from './cycleEngine'
 
+export const GOAL_OPTIONS = [
+  {
+    id: 'period',
+    label: 'Know when my period is coming',
+    desc: 'Predict upcoming cycle days, fertile window, and PMS timing.',
+    icon: 'Droplet',
+    color: '#D96B85',
+    bg: '#FCE7E8',
+  },
+  {
+    id: 'body',
+    label: 'Understand my body more',
+    desc: 'Decode natural estrogen, progesterone & LH hormone curves.',
+    icon: 'Compass',
+    color: '#405A43',
+    bg: '#E8EFE3',
+  },
+  {
+    id: 'symptoms',
+    label: 'Track symptoms and discover',
+    desc: 'Correlate mood swings, pelvic pain, skin, and daily energy.',
+    icon: 'Activity',
+    color: '#6A3D55',
+    bg: '#E8DDF0',
+  },
+  {
+    id: 'doctor',
+    label: 'Gather symptoms for doctors',
+    desc: 'Generate physician-ready clinical SOAP notes with evidence.',
+    icon: 'Stethoscope',
+    color: '#D9A84E',
+    bg: '#FDF8EE',
+  },
+  {
+    id: 'fertility',
+    label: 'Get pregnant',
+    desc: 'Pinpoint peak ovulatory window and fertile cervical mucus cues.',
+    icon: 'Heart',
+    color: '#D96B85',
+    bg: '#FCE7E8',
+  },
+  {
+    id: 'pregnancy',
+    label: 'Follow my pregnancy',
+    desc: 'Track gestational milestones, due date countdown & trimesters.',
+    icon: 'Baby',
+    color: '#6A3D55',
+    bg: '#E8DDF0',
+  },
+  {
+    id: 'perimenopause',
+    label: 'Manage perimenopause',
+    desc: 'Navigate vasomotor hot flashes, cycle spacing & sleep changes.',
+    icon: 'Sun',
+    color: '#D9A84E',
+    bg: '#F8F0E8',
+  },
+  {
+    id: 'general',
+    label: 'None of the above',
+    desc: 'Private, baseline wellness tracking and personal cycle health.',
+    icon: 'Shield',
+    color: '#5E5259',
+    bg: '#FAF7F2',
+  },
+]
+
+export const PERIOD_FREQUENCY_OPTIONS = [
+  {
+    id: 'regular',
+    label: "They're regular",
+    desc: 'Usually predictable every 21–35 days',
+    icon: 'CheckCircle2',
+  },
+  {
+    id: 'irregular',
+    label: "They're irregular or unpredictable",
+    desc: 'Cycle lengths vary by >7 days or skip months (helps screen for PCOS)',
+    icon: 'Activity',
+  },
+  {
+    id: 'none',
+    label: "I don't have periods",
+    desc: 'Amenorrhea, hormonal IUD / pill, post-menopause, or surgical',
+    icon: 'Moon',
+  },
+  {
+    id: 'unknown',
+    label: "I don't know",
+    desc: "Just starting to track — Aura will calculate your rhythm over time",
+    icon: 'Sparkles',
+  },
+]
+
 export const CONCERN_OPTIONS = [
   {
     id: 'pcos',
@@ -64,10 +158,18 @@ function daysBetween(dateStr) {
 }
 
 /**
- * Builds a patient object (same shape consumed across the app: App.jsx,
- * biomarkerEngine, soapGenerator, cycleEngine) from onboarding form answers.
+ * Builds a patient object from enhanced onboarding answers.
  */
-export function createPatientFromOnboarding({ name, age, cycleLength, lastPeriodStart, concernId }) {
+export function createPatientFromOnboarding({
+  name,
+  age,
+  cycleLength,
+  lastPeriodStart,
+  concernId,
+  goals = [],
+  periodFrequency = 'regular',
+  pregnancyInfo = null,
+}) {
   const concern = CONCERN_OPTIONS.find((c) => c.id === concernId) || CONCERN_OPTIONS[CONCERN_OPTIONS.length - 1]
   const safeCycleLength = Math.min(Math.max(Number(cycleLength) || 28, 18), 60)
 
@@ -78,24 +180,55 @@ export function createPatientFromOnboarding({ name, age, cycleLength, lastPeriod
   }
 
   const trimmedName = (name || 'You').trim() || 'You'
+  const isIrregular = periodFrequency === 'irregular' || periodFrequency === 'none'
+
+  // Determine adaptive life stage and clinical focus
+  let lifeStage = 'reproductive'
+  const suspectedList = [...concern.suspected]
+
+  if (pregnancyInfo?.isPregnant || goals.includes('pregnancy')) {
+    lifeStage = 'pregnancy_postpartum'
+    suspectedList.unshift('Prenatal Gestational Progression')
+  } else if (goals.includes('perimenopause')) {
+    lifeStage = 'perimenopause'
+    suspectedList.unshift('Perimenopausal Transition')
+  } else if (isIrregular) {
+    suspectedList.unshift('Irregular Cycle Rhythm')
+  }
+
+  if (goals.includes('doctor') && !suspectedList.includes('Clinical Referral Preparation')) {
+    suspectedList.push('Clinical Referral Preparation')
+  }
+
+  let chiefComplaint = concern.chiefComplaintHint
+  if (pregnancyInfo?.isPregnant) {
+    chiefComplaint = `Active pregnancy tracking. Gestational age: ${pregnancyInfo.weeks}w ${pregnancyInfo.days}d. Estimated Due Date: ${pregnancyInfo.dueDate}.`
+  } else if (goals.includes('doctor')) {
+    chiefComplaint = `Patient is logging cycle symptoms to prepare a structured clinical summary for physician consultation.`
+  }
 
   return {
     id: 'you',
     name: trimmedName,
     age: Number(age) || undefined,
     avatarColor: AVATAR_COLORS[trimmedName.length % AVATAR_COLORS.length],
-    suspected: concern.suspected,
+    suspected: suspectedList,
     cycleLength: safeCycleLength,
     currentDay,
-    anovulatory: false,
+    anovulatory: isIrregular,
     defaultPreset: concern.defaultPreset,
     severitySeries: buildFlatSeveritySeries(safeCycleLength),
     symptomLog: [],
-    chiefComplaintHint: concern.chiefComplaintHint,
+    chiefComplaintHint: chiefComplaint,
     isSelfProfile: true,
+    goals,
+    periodFrequency,
+    pregnancyInfo,
+    lifeStage,
   }
 }
 
 export function describeCurrentPhase(patient) {
   return getCyclePhase(patient.currentDay, patient.cycleLength)
 }
+

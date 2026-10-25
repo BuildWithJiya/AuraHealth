@@ -48,7 +48,7 @@ export default function App() {
   // Resolve initial view from URL hash if present (e.g. #landing, #login, #dashboard)
   const resolveInitialView = () => {
     if (typeof window !== 'undefined') {
-      const hash = window.location.hash.replace('#', '').toLowerCase()
+      const hash = window.location.hash.replace('#', '').split('?')[0].toLowerCase()
       if (hash === 'landing' || hash === 'home') return 'landing'
       if (hash === 'login' || hash === 'onboarding') return 'onboarding'
       if (hash === 'dashboard' || hash === 'demo') return 'dashboard'
@@ -239,15 +239,17 @@ export default function App() {
       demo: 'dashboard',
     }
 
-    const currentHash = window.location.hash.replace('#', '').toLowerCase()
-    const activeV = validViews[currentHash] || view
-    window.history.replaceState({ view: activeV }, '', '#' + (activeV === 'onboarding' ? 'login' : activeV))
+    const rawHash = window.location.hash.replace('#', '')
+    const baseHash = rawHash.split('?')[0].toLowerCase()
+    const activeV = validViews[baseHash] || view
+    const queryPart = rawHash.includes('?') ? '?' + rawHash.split('?')[1] : ''
+    window.history.replaceState({ view: activeV }, '', '#' + (activeV === 'onboarding' ? 'login' : activeV) + queryPart)
 
     const handlePopState = (event) => {
       if (event.state && event.state.view) {
         setView(event.state.view)
       } else {
-        const hash = window.location.hash.replace('#', '').toLowerCase()
+        const hash = window.location.hash.replace('#', '').split('?')[0].toLowerCase()
         const target = validViews[hash] || 'landing'
         setView(target)
       }
@@ -282,6 +284,9 @@ export default function App() {
     saveOnboardingProfile(newPatient)
     setOnboardingProfile(newPatient)
     setActivePatientId(newPatient.id)
+    if (newPatient.lifeStage) {
+      handleSelectLifeStage(newPatient.lifeStage)
+    }
     navigateTo('dashboard')
   }
 

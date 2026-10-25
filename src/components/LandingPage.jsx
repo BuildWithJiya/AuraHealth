@@ -451,6 +451,13 @@ export default function LandingPage({
 
             <button
               onClick={onGetStarted}
+              className="text-xs sm:text-sm font-semibold text-[#5E5259] hover:text-[#D96B85] px-2 sm:px-3 py-1.5 transition-colors cursor-pointer"
+            >
+              Log In
+            </button>
+
+            <button
+              onClick={onGetStarted}
               className="flex items-center gap-2 bg-[#D96B85] hover:bg-[#B8526B] text-white text-xs sm:text-sm font-semibold rounded-full px-4 sm:px-5 py-2.5 shadow-sm transition-all hover:shadow-md hover:-translate-y-0.5 cursor-pointer"
             >
               Get Started <ArrowRight size={14} />
