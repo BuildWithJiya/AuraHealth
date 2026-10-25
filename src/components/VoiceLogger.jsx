@@ -67,14 +67,6 @@ export const REGIONAL_LANGUAGES = [
     sample: 'ఈ రోజు కడుపులో చాలా నొప్పిగా ఉంది',
   },
   {
-    code: 'mr-IN',
-    label: 'Marathi',
-    native: 'मराठी',
-    flag: '🇮🇳',
-    placeholder: 'बोला: "आज पोटात खूप दुखत आहे, कालपेक्षा जास्त..."',
-    sample: 'आज पोटात खूप दुखत आहे, कालपेक्षा जास्त',
-  },
-  {
     code: 'en-US',
     label: 'English',
     native: 'Global',

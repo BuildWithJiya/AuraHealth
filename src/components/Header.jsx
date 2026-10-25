@@ -1,4 +1,4 @@
-import { Activity, ChevronDown, ShieldCheck, BookOpen, RotateCcw, Shield, EyeOff, Sparkles, ArrowLeft, UserPlus, Calendar } from 'lucide-react'
+import { Activity, ChevronDown, ShieldCheck, BookOpen, RotateCcw, Shield, Sparkles, ArrowLeft, UserPlus, Calendar } from 'lucide-react'
 import { useState } from 'react'
 import { PHASE_META, getCyclePhase } from '../utils/cycleEngine'
 import { LIFE_STAGES } from '../data/lifeStageData'
@@ -20,7 +20,6 @@ export default function Header({
   activeLifeStageId = 'reproductive',
   onOpenLifeStage,
   onOpenPrivacy,
-  onTriggerPanic,
   isAnonymous = false,
 }) {
   const [menuOpen, setMenuOpen] = useState(false)
@@ -156,16 +155,6 @@ export default function Header({
             {isAnonymous && (
               <span className="h-2 w-2 rounded-full bg-[#D96B85]" title="Anonymous Ghost Mode Active" />
             )}
-          </button>
-
-          {/* Quick Screen Camouflage / Panic Button */}
-          <button
-            onClick={onTriggerPanic}
-            className="flex items-center gap-1 text-xs font-semibold bg-white/75 backdrop-blur-md hover:bg-[#FAF7F2] text-[#6A3D55] border border-white/80 rounded-full px-2.5 py-2 transition-all shadow-xs cursor-pointer"
-            title="Quick Screen Camouflage / Panic Curtain (Press Esc)"
-          >
-            <EyeOff size={13} />
-            <span className="hidden xl:inline text-[11px]">Discreet</span>
           </button>
 
           {/* Understand Your Body Button */}

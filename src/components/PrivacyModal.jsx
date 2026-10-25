@@ -20,7 +20,6 @@ export default function PrivacyModal({
   onClose,
   privacySettings,
   onUpdatePrivacy,
-  onTriggerPanic,
   onResetAllData,
 }) {
   const [copiedStatus, setCopiedStatus] = useState(false)
@@ -32,13 +31,6 @@ export default function PrivacyModal({
     onUpdatePrivacy({
       ...privacySettings,
       anonymousMode: !privacySettings.anonymousMode,
-    })
-  }
-
-  const handleToggleCamouflage = () => {
-    onUpdatePrivacy({
-      ...privacySettings,
-      camouflageMode: !privacySettings.camouflageMode,
     })
   }
 
@@ -73,14 +65,14 @@ export default function PrivacyModal({
             <div>
               <div className="flex items-center gap-2">
                 <h2 id="privacy-modal-title" className="font-serif font-bold text-xl text-[#31232B]">
-                  Privacy-First &amp; Discretion Hub
+                  Privacy Data Vault
                 </h2>
                 <span className="text-[10px] font-bold uppercase tracking-wider bg-[#E8EFE3] text-[#405A43] border border-[#405A43]/20 rounded-full px-2 py-0.5">
                   100% On-Device
                 </span>
               </div>
               <p className="text-xs text-[#7A726D]">
-                Zero cloud transmission &middot; Anonymous Ghost Mode &middot; Stigma Protection Camouflage
+                Zero cloud transmission &middot; Anonymous Ghost Mode &middot; Client-Side Storage
               </p>
             </div>
           </div>
@@ -200,73 +192,6 @@ export default function PrivacyModal({
               </button>
             </div>
           </div>
-
-          {/* Section 3: Discreet App Camouflage & Panic Curtain */}
-          <div className="rounded-2xl p-4.5 bg-[#F8F0E8]/70 border border-[#D9A84E]/30 space-y-3 shadow-xs">
-            <div className="flex items-start justify-between gap-4">
-              <div className="flex items-start gap-3">
-                <div className="h-8 w-8 rounded-xl bg-[#F8F0E8] text-[#D9A84E] border border-[#D9A84E]/30 flex items-center justify-center shrink-0 mt-0.5 shadow-2xs">
-                  <Sparkles size={16} />
-                </div>
-                <div>
-                  <h3 className="font-semibold text-sm text-[#31232B] flex items-center gap-2">
-                    Discreet Camouflage &amp; Stigma Protection
-                    {privacySettings.camouflageMode && (
-                      <span className="text-[10px] bg-[#E8EFE3] text-[#405A43] font-bold px-2 py-0.2 rounded-full border border-[#405A43]/20">
-                        Camouflage Armed
-                      </span>
-                    )}
-                  </h3>
-                  <p className="text-xs text-[#5E5259] mt-0.5 leading-relaxed">
-                    Designed specifically for shared devices, conservative families, or shared living contexts where menstrual/reproductive apps carry stigma.
-                  </p>
-                </div>
-              </div>
-
-              {/* Toggle switch */}
-              <button
-                onClick={handleToggleCamouflage}
-                role="switch"
-                aria-checked={privacySettings.camouflageMode}
-                className={`relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-hidden ${
-                  privacySettings.camouflageMode ? 'bg-[#405A43]' : 'bg-[#D1D5DB]'
-                }`}
-              >
-                <span
-                  aria-hidden="true"
-                  className={`pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow-lg ring-0 transition duration-200 ease-in-out ${
-                    privacySettings.camouflageMode ? 'translate-x-5' : 'translate-x-0'
-                  }`}
-                />
-              </button>
-            </div>
-
-            <div className="bg-white/80 rounded-xl p-3 border border-[#E8DFD8] text-xs text-[#5E5259] space-y-1.5">
-              <div className="flex items-center gap-2 text-[#31232B] font-semibold">
-                <CheckCircle2 size={13} className="text-[#405A43]" /> What Camouflage Mode does:
-              </div>
-              <ul className="list-disc list-inside space-y-1 pl-1 text-[11px] text-[#5E5259]">
-                <li>Changes browser tab title to &ldquo;Daily Calculator &amp; Study Notes&rdquo;.</li>
-                <li>Replaces browser tab icon with a neutral calculator/memo icon.</li>
-                <li>Enables the one-click Emergency Panic Shield if someone walks in.</li>
-              </ul>
-            </div>
-
-            {/* Emergency Panic Shield Trigger */}
-            <div className="pt-1 flex items-center justify-between">
-              <button
-                onClick={() => {
-                  onTriggerPanic()
-                  onClose()
-                }}
-                className="text-xs font-bold bg-[#6A3D55] hover:bg-[#522e42] text-white rounded-xl px-4 py-2 flex items-center gap-1.5 transition-colors shadow-xs cursor-pointer"
-              >
-                <EyeOff size={13} />
-                Activate Screen Camouflage Now (Press Esc to restore)
-              </button>
-              <span className="text-[11px] text-[#7A726D] font-mono">Shortcut: Esc</span>
-            </div>
-          </div>
         </div>
 
         {/* Footer */}
@@ -274,7 +199,7 @@ export default function PrivacyModal({
           <span>Protected under Client-Side Cryptographic Isolation</span>
           <button
             onClick={onClose}
-            className="font-semibold bg-[#405A43] hover:bg-[#324734] text-white rounded-full px-5 py-1.5 transition-colors shadow-xs cursor-pointer"
+            className="font-semibold bg-[#6A3D55] hover:bg-[#522e42] text-white rounded-full px-5 py-1.5 transition-colors shadow-xs cursor-pointer"
           >
             Done
           </button>

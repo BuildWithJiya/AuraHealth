@@ -11,7 +11,6 @@ import {
   Moon,
   ShieldCheck,
   Shield,
-  EyeOff,
   Lock,
   HeartHandshake,
   ArrowRight,
@@ -129,7 +128,6 @@ export default function LandingPage({
   onSelectLifeStage,
   onOpenLifeStage,
   onOpenPrivacy,
-  onTriggerPanic,
   isAnonymous = false,
   privacySettings,
   onUpdatePrivacy,
@@ -407,7 +405,7 @@ export default function LandingPage({
             ))}
           </nav>
 
-          {/* Right Actions: Life Stage Pill, Privacy Shield, Panic Button, Search, Get Started */}
+          {/* Right Actions: Life Stage Pill, Privacy Shield, Search, Get Started */}
           <div className="flex items-center gap-2 sm:gap-2.5">
             {/* Life Stage Pill */}
             <button
@@ -423,23 +421,11 @@ export default function LandingPage({
             <button
               onClick={handleOpenPrivacy}
               className="h-8 w-8 rounded-full flex items-center justify-center text-[#405A43] hover:text-[#D96B85] bg-[#E8EFE3]/80 hover:bg-[#E8EFE3] border border-[#405A43]/20 transition-colors shadow-2xs cursor-pointer"
-              aria-label="Privacy & Discretion Hub"
+              aria-label="Privacy Hub"
               title="Privacy-First: 100% On-Device & Anonymous Mode"
             >
               <Shield size={15} />
             </button>
-
-            {/* Discreet Camouflage Button */}
-            {onTriggerPanic && (
-              <button
-                onClick={onTriggerPanic}
-                className="h-8 w-8 rounded-full flex items-center justify-center text-[#6A3D55] hover:text-[#31232B] bg-[#E8DDF0]/80 hover:bg-[#E8DDF0] border border-[#6A3D55]/20 transition-colors shadow-2xs cursor-pointer"
-                aria-label="Quick Screen Camouflage"
-                title="Discreet Screen Camouflage (Press Esc to restore)"
-              >
-                <EyeOff size={14} />
-              </button>
-            )}
 
             <button
               onClick={() => setSearchModalOpen(true)}
@@ -1521,9 +1507,6 @@ export default function LandingPage({
         privacySettings={privacySettings || { anonymousMode: isAnonymous, camouflageMode: false }}
         onUpdatePrivacy={(newSettings) => {
           if (onUpdatePrivacy) onUpdatePrivacy(newSettings)
-        }}
-        onTriggerPanic={() => {
-          if (onTriggerPanic) onTriggerPanic()
         }}
         onResetAllData={() => {
           if (onResetAllData) onResetAllData()
