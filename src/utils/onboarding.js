@@ -67,6 +67,65 @@ export const GOAL_OPTIONS = [
   },
 ]
 
+export const TRACKING_CATEGORY_OPTIONS = [
+  {
+    id: 'flow',
+    label: 'Period flow',
+    desc: 'Light, medium, heavy flow, spotting & clots',
+    icon: 'Droplet',
+    color: '#D96B85',
+    bg: '#FCE7E8',
+  },
+  {
+    id: 'pms',
+    label: 'PMS',
+    desc: 'Bloating, breast tenderness, mood swings & cravings',
+    icon: 'Cloud',
+    color: '#D9A84E',
+    bg: '#FDF8EE',
+  },
+  {
+    id: 'feelings',
+    label: 'My feelings',
+    desc: 'Calm, radiant, anxious, sensitive or brain fog',
+    icon: 'Smile',
+    color: '#D96B85',
+    bg: '#FCE7E8',
+  },
+  {
+    id: 'energy',
+    label: 'Energy levels',
+    desc: 'Peak stamina, afternoon slumps & chronic fatigue',
+    icon: 'Zap',
+    color: '#405A43',
+    bg: '#E8EFE3',
+  },
+  {
+    id: 'sex',
+    label: 'Sex life',
+    desc: 'Libido surges, intimacy timing & discomfort',
+    icon: 'Flame',
+    color: '#6A3D55',
+    bg: '#E8DDF0',
+  },
+  {
+    id: 'skin',
+    label: 'Skin',
+    desc: 'Hormonal jawline breakouts, oiliness & glow',
+    icon: 'Sparkles',
+    color: '#405A43',
+    bg: '#E8EFE3',
+  },
+  {
+    id: 'pain',
+    label: 'Cramps and pain',
+    desc: 'Pelvic cramping, lower back ache & headaches',
+    icon: 'Activity',
+    color: '#6A3D55',
+    bg: '#E8DDF0',
+  },
+]
+
 export const PERIOD_FREQUENCY_OPTIONS = [
   {
     id: 'regular',
@@ -169,6 +228,7 @@ export function createPatientFromOnboarding({
   goals = [],
   periodFrequency = 'regular',
   pregnancyInfo = null,
+  categories = [],
 }) {
   const concern = CONCERN_OPTIONS.find((c) => c.id === concernId) || CONCERN_OPTIONS[CONCERN_OPTIONS.length - 1]
   const safeCycleLength = Math.min(Math.max(Number(cycleLength) || 28, 18), 60)
@@ -225,6 +285,7 @@ export function createPatientFromOnboarding({
     periodFrequency,
     pregnancyInfo,
     lifeStage,
+    trackingCategories: categories,
   }
 }
 

@@ -19,9 +19,14 @@ import {
   CheckCircle2,
   Moon,
   Info,
+  Cloud,
+  Smile,
+  Zap,
+  Flame,
 } from 'lucide-react'
 import {
   GOAL_OPTIONS,
+  TRACKING_CATEGORY_OPTIONS,
   PERIOD_FREQUENCY_OPTIONS,
   CONCERN_OPTIONS,
   createPatientFromOnboarding,
@@ -40,6 +45,10 @@ const ICON_MAP = {
   CheckCircle2,
   Moon,
   Sparkles,
+  Cloud,
+  Smile,
+  Zap,
+  Flame,
 }
 
 export default function OnboardingForm({ onComplete, onSkip, onBack }) {
@@ -47,6 +56,7 @@ export default function OnboardingForm({ onComplete, onSkip, onBack }) {
     if (typeof window !== 'undefined') {
       const hash = window.location.hash
       if (hash.includes('step=goals')) return 'goals'
+      if (hash.includes('step=categories')) return 'categories'
       if (hash.includes('step=pregnancy')) return 'pregnancy'
       if (hash.includes('step=frequency')) return 'frequency'
       if (hash.includes('step=cycle')) return 'cycle_details'
@@ -54,7 +64,7 @@ export default function OnboardingForm({ onComplete, onSkip, onBack }) {
     return 'login'
   }
 
-  // Step state: 'login' -> 'goals' -> ('pregnancy' or 'frequency') -> ('cycle_details')
+  // Step state: 'login' -> 'goals' -> 'categories' -> ('pregnancy' or 'frequency') -> ('cycle_details')
   const [currentStep, setCurrentStep] = useState(resolveInitialStep)
   const [submitting, setSubmitting] = useState(false)
   const [touched, setTouched] = useState(false)
@@ -67,6 +77,9 @@ export default function OnboardingForm({ onComplete, onSkip, onBack }) {
 
   // Goals (Multiple Selection)
   const [selectedGoals, setSelectedGoals] = useState(['period', 'body'])
+
+  // Categories to track (Multiple Selection)
+  const [selectedCategories, setSelectedCategories] = useState(['flow', 'pms', 'pain'])
 
   // Period Frequency
   const [frequency, setFrequency] = useState('regular')
@@ -120,6 +133,12 @@ export default function OnboardingForm({ onComplete, onSkip, onBack }) {
     })
   }
 
+  const toggleCategory = (id) => {
+    setSelectedCategories((prev) =>
+      prev.includes(id) ? prev.filter((c) => c !== id) : [...prev, id]
+    )
+  }
+
   // Navigation handlers
   const handleLoginContinue = () => {
     if (authMode !== 'guest' && !name.trim()) {
@@ -136,6 +155,23 @@ export default function OnboardingForm({ onComplete, onSkip, onBack }) {
       return
     }
     setTouched(false)
+    setCurrentStep('categories')
+  }
+
+  const handleCategoriesContinue = () => {
+    setTouched(false)
+    if (isPregnancySelected) {
+      setCurrentStep('pregnancy')
+    } else {
+      setCurrentStep('frequency')
+    }
+  }
+
+  const handleCategoriesSkip = () => {
+    setTouched(false)
+    if (selectedCategories.length === 0) {
+      setSelectedCategories(['flow', 'pms', 'pain'])
+    }
     if (isPregnancySelected) {
       setCurrentStep('pregnancy')
     } else {
@@ -157,6 +193,7 @@ export default function OnboardingForm({ onComplete, onSkip, onBack }) {
         lastPeriodStart: dontRememberPeriod ? '' : (isPregnancySelected ? pregnancyInfo.lmp : lastPeriodStart),
         concernId,
         goals: selectedGoals,
+        categories: selectedCategories,
         periodFrequency: frequency,
         pregnancyInfo: isPregnancySelected
           ? {
@@ -182,6 +219,8 @@ export default function OnboardingForm({ onComplete, onSkip, onBack }) {
     if (currentStep === 'cycle_details') {
       setCurrentStep('frequency')
     } else if (currentStep === 'frequency' || currentStep === 'pregnancy') {
+      setCurrentStep('categories')
+    } else if (currentStep === 'categories') {
       setCurrentStep('goals')
     } else if (currentStep === 'goals') {
       setCurrentStep('login')
@@ -197,12 +236,14 @@ export default function OnboardingForm({ onComplete, onSkip, onBack }) {
       ? 1
       : currentStep === 'goals'
       ? 2
+      : currentStep === 'categories'
+      ? 3
       : currentStep === 'pregnancy'
-      ? 3
+      ? 4
       : currentStep === 'frequency'
-      ? 3
-      : 4
-  const totalSteps = isPregnancySelected ? 3 : 4
+      ? 4
+      : 5
+  const totalSteps = isPregnancySelected ? 4 : 5
 
   return (
     <div className="relative min-h-screen flex items-center justify-center px-4 py-8 sm:py-12">
@@ -473,9 +514,102 @@ export default function OnboardingForm({ onComplete, onSkip, onBack }) {
                 </button>
               </div>
             </div>
+          ) : currentStep === 'categories' ? (
+            /* ------------------------------------------------------------- */
+            /* STEP 3: "WHAT'S MOST IMPORTANT FOR YOU TO TRACK?"             */
+            /* ------------------------------------------------------------- */
+            <div key="step-categories">
+              <div className="flex items-center justify-between mb-3 pb-2 border-b border-[#E8DFD8]">
+                <button
+                  type="button"
+                  onClick={handleStepBack}
+                  className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#5E5259] hover:text-[#D96B85] transition-colors cursor-pointer group"
+                >
+                  <ArrowLeft size={14} className="group-hover:-translate-x-0.5 transition-transform text-[#D96B85]" />
+                  <span>Back to Goals</span>
+                </button>
+                <div className="flex items-center gap-1 text-[11px] font-semibold text-[#D96B85] uppercase tracking-wide">
+                  <Sparkles size={12} />
+                  <span>Biomarker Focus</span>
+                </div>
+              </div>
+
+              <div className="mb-4">
+                <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#3A1F2D] leading-tight">
+                  What&apos;s most important for you to track?
+                </h2>
+                <p className="text-xs sm:text-sm font-medium text-[#4A3E45] mt-1">
+                  You can select multiple categories
+                </p>
+              </div>
+
+              {/* Category options list */}
+              <div className="space-y-2 max-h-[54vh] overflow-y-auto pr-1 mb-3">
+                {TRACKING_CATEGORY_OPTIONS.map((cat) => {
+                  const IconComp = ICON_MAP[cat.icon] || Droplet
+                  const isSelected = selectedCategories.includes(cat.id)
+                  return (
+                    <button
+                      key={cat.id}
+                      type="button"
+                      onClick={() => toggleCategory(cat.id)}
+                      className={`w-full text-left px-3.5 py-2.5 rounded-2xl border transition-all cursor-pointer flex items-center justify-between gap-3 ${
+                        isSelected
+                          ? 'border-2 border-[#D96B85] bg-[#FCE7E8]/90 shadow-xs'
+                          : 'border-[#E8DFD8] bg-[#FAF7F2]/90 hover:bg-white hover:border-[#D96B85]/50'
+                      }`}
+                    >
+                      <div className="flex items-center gap-3 min-w-0">
+                        <div
+                          className="h-9 w-9 rounded-full flex items-center justify-center shrink-0 shadow-2xs"
+                          style={{ backgroundColor: cat.bg, color: cat.color }}
+                        >
+                          <IconComp size={17} />
+                        </div>
+                        <div className="min-w-0">
+                          <h4 className="text-xs sm:text-sm font-bold text-[#2B2327]">{cat.label}</h4>
+                          <p className="text-[11px] text-[#52464D] truncate">{cat.desc}</p>
+                        </div>
+                      </div>
+                      {isSelected ? (
+                        <span className="h-5 w-5 rounded-full bg-[#D96B85] text-white flex items-center justify-center text-xs shrink-0 shadow-xs">
+                          <Check size={12} />
+                        </span>
+                      ) : (
+                        <span className="h-5 w-5 rounded-full border-2 border-[#D6CCC2] bg-white shrink-0" />
+                      )}
+                    </button>
+                  )
+                })}
+              </div>
+
+              {/* Informative reassurance */}
+              <p className="text-xs text-[#7A726D] text-center mb-4">
+                Aura has <strong className="text-[#6A3D55]">200+ tracking options</strong> to help you discover patterns
+              </p>
+
+              {/* Footer navigation: Not sure & Next */}
+              <div className="flex items-center justify-between pt-3 border-t border-[#E8DFD8]">
+                <button
+                  type="button"
+                  onClick={handleCategoriesSkip}
+                  className="px-6 py-2.5 rounded-full text-xs sm:text-sm font-semibold text-[#5E5259] hover:bg-[#FAF7F2] border border-[#E8DFD8] transition-colors cursor-pointer"
+                >
+                  Not sure
+                </button>
+                <button
+                  type="button"
+                  onClick={handleCategoriesContinue}
+                  className="inline-flex items-center gap-1.5 bg-[#D96B85] hover:bg-[#B8526B] active:scale-95 text-white text-xs sm:text-sm font-semibold rounded-full px-7 py-2.5 shadow-sm transition-all cursor-pointer"
+                >
+                  <span>Next</span>
+                  <ArrowRight size={14} />
+                </button>
+              </div>
+            </div>
           ) : currentStep === 'pregnancy' ? (
             /* ------------------------------------------------------------- */
-            /* STEP 3A: "YOU'RE PREGNANT" (Due Date Setup, Screenshot 5)     */
+            /* STEP 4A: "YOU'RE PREGNANT" (Due Date Setup)                   */
             /* ------------------------------------------------------------- */
             <div key="step-pregnancy">
               <div className="flex items-center justify-between mb-3 pb-2 border-b border-[#E8DFD8]">
@@ -485,7 +619,7 @@ export default function OnboardingForm({ onComplete, onSkip, onBack }) {
                   className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#5E5259] hover:text-[#D96B85] transition-colors cursor-pointer group"
                 >
                   <ArrowLeft size={14} className="group-hover:-translate-x-0.5 transition-transform text-[#D96B85]" />
-                  <span>Back to Goals</span>
+                  <span>Back to Categories</span>
                 </button>
                 <div className="flex items-center gap-1 text-[11px] font-semibold text-[#6A3D55] bg-[#E8DDF0] px-2.5 py-0.5 rounded-full">
                   <Baby size={12} />
@@ -641,7 +775,7 @@ export default function OnboardingForm({ onComplete, onSkip, onBack }) {
             </div>
           ) : currentStep === 'frequency' ? (
             /* ------------------------------------------------------------- */
-            /* STEP 3B: "HOW FREQUENT ARE YOUR PERIODS?" (Screenshots 2 & 4) */
+            /* STEP 4B: "HOW FREQUENT ARE YOUR PERIODS?"                     */
             /* ------------------------------------------------------------- */
             <div key="step-frequency">
               <div className="flex items-center justify-between mb-3 pb-2 border-b border-[#E8DFD8]">
@@ -651,7 +785,7 @@ export default function OnboardingForm({ onComplete, onSkip, onBack }) {
                   className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#5E5259] hover:text-[#D96B85] transition-colors cursor-pointer group"
                 >
                   <ArrowLeft size={14} className="group-hover:-translate-x-0.5 transition-transform text-[#D96B85]" />
-                  <span>Back to Goals</span>
+                  <span>Back to Categories</span>
                 </button>
                 <div className="flex items-center gap-1 text-[11px] font-semibold text-[#D96B85] uppercase tracking-wide">
                   <Sparkles size={12} />
