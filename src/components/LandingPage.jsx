@@ -566,19 +566,11 @@ export default function LandingPage({
                 className="group cursor-pointer text-left flex flex-col items-center active:scale-95 transition-transform"
                 title="Clinical Reference Books — Open Consultation Dossier & Evidence"
               >
-                <div className="w-[102px] md:w-[118px] flex flex-col gap-[3px] items-center group-hover:scale-105 transition-all">
-                  <span className="w-full text-center text-[9.5px] md:text-[10px] font-bold tracking-widest py-0.5 rounded-xs bg-gradient-to-r from-[#D96B85] to-[#c7536d] text-white shadow-2xs border-l-2 border-white/40">
-                    HEALTH
-                  </span>
-                  <span className="w-full text-center text-[9.5px] md:text-[10px] font-bold tracking-widest py-0.5 rounded-xs bg-gradient-to-r from-[#D9A84E] to-[#c2913b] text-white shadow-2xs border-l-2 border-white/40">
-                    WELLNESS
-                  </span>
-                  <span className="w-full text-center text-[9.5px] md:text-[10px] font-bold tracking-widest py-0.5 rounded-xs bg-gradient-to-r from-[#6A3D55] to-[#552e42] text-white shadow-2xs border-l-2 border-white/40">
-                    CONFIDENCE
-                  </span>
-                  <span className="w-full text-center text-[9.5px] md:text-[10px] font-bold tracking-widest py-0.5 rounded-xs bg-gradient-to-r from-[#405A43] to-[#304533] text-white shadow-2xs border-l-2 border-white/40">
-                    YOU
-                  </span>
+                <div className="w-[95px] md:w-[110px] flex flex-col gap-[2px] items-center group-hover:scale-105 transition-transform">
+                  <span className="w-full text-center text-[9px] font-bold tracking-wider py-0.5 rounded-sm bg-[#D96B85] text-white shadow-2xs">HEALTH</span>
+                  <span className="w-full text-center text-[9px] font-bold tracking-wider py-0.5 rounded-sm bg-[#D9A84E] text-white shadow-2xs">WELLNESS</span>
+                  <span className="w-full text-center text-[9px] font-bold tracking-wider py-0.5 rounded-sm bg-[#6A3D55] text-white shadow-2xs">CONFIDENCE</span>
+                  <span className="w-full text-center text-[9px] font-bold tracking-wider py-0.5 rounded-sm bg-[#405A43] text-white shadow-2xs">YOU</span>
                 </div>
               </button>
             </div>
@@ -1018,22 +1010,6 @@ export default function LandingPage({
             draggable="false"
           />
 
-          {/* Crisp, Non-Blur Vector Left Calligraphy */}
-          <div
-            className="absolute z-10 flex flex-col items-center justify-center text-center select-none pointer-events-none"
-            style={{
-              left: '9.8%',
-              top: '12%',
-              width: '13.5%',
-              height: '68%',
-            }}
-          >
-            <p className="font-serif italic font-bold text-[#405A43] text-[clamp(11px,1.3vw,17px)] leading-[1.25] tracking-tight">
-              Small steps<br />lead to big<br />changes
-            </p>
-            <span className="text-[#D96B85] text-xs sm:text-base mt-1">♡</span>
-          </div>
-
           {/* Crisp, Non-Blur Vector HTML Overlay for Card Content & Interactive Buttons */}
           <div
             className="absolute z-10 flex items-stretch pointer-events-auto"
@@ -1097,24 +1073,6 @@ export default function LandingPage({
                 })}
               </div>
             </div>
-          </div>
-
-          {/* Crisp, Non-Blur Vector Bottom Bar ("Health ♡ Confidence ♡ You") */}
-          <div
-            className="absolute z-10 inset-x-0 bottom-0 flex items-center justify-center gap-2 sm:gap-4 pointer-events-none select-none px-4"
-            style={{
-              height: '16.6%',
-            }}
-          >
-            <div className="h-px bg-[#D6CBC4] flex-1 max-w-[80px] sm:max-w-[160px] md:max-w-[240px]" />
-            <div className="flex items-center gap-2 sm:gap-3 text-[clamp(9.5px,1.05vw,14px)] font-serif italic text-[#405A43] tracking-widest font-semibold">
-              <span>Health</span>
-              <span className="text-[#D96B85] text-[10px] sm:text-xs not-italic font-sans">♡</span>
-              <span>Confidence</span>
-              <span className="text-[#D96B85] text-[10px] sm:text-xs not-italic font-sans">♡</span>
-              <span>You</span>
-            </div>
-            <div className="h-px bg-[#D6CBC4] flex-1 max-w-[80px] sm:max-w-[160px] md:max-w-[240px]" />
           </div>
         </div>
       </section>
