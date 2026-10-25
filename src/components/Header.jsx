@@ -1,4 +1,4 @@
-import { Activity, ChevronDown, ShieldCheck, BookOpen, RotateCcw, Shield, EyeOff, Sparkles, ArrowLeft, UserPlus } from 'lucide-react'
+import { Activity, ChevronDown, ShieldCheck, BookOpen, RotateCcw, Shield, EyeOff, Sparkles, ArrowLeft, UserPlus, Calendar } from 'lucide-react'
 import { useState } from 'react'
 import { PHASE_META, getCyclePhase } from '../utils/cycleEngine'
 import { LIFE_STAGES } from '../data/lifeStageData'
@@ -11,6 +11,7 @@ export default function Header({
   cycleLength,
   onOpenSoap,
   onOpenEducation,
+  onOpenDailyTracker,
   isCustomized,
   onResetData,
   onGoHome,
@@ -113,6 +114,18 @@ export default function Header({
 
         {/* Action Controls */}
         <div className="flex items-center gap-2">
+          {onOpenDailyTracker && (
+            <button
+              onClick={onOpenDailyTracker}
+              className="flex items-center gap-1.5 text-xs font-bold bg-[#161618] hover:bg-[#222228] text-white border border-white/20 rounded-full px-3.5 py-2 transition-all shadow-xs cursor-pointer group"
+              title="Track Today's Biomarkers (Clue Calendar Style)"
+            >
+              <Calendar size={13} className="text-[#4DEEEA] group-hover:scale-110 transition-transform" />
+              <span>Track Day</span>
+              <span className="hidden xl:inline text-[9px] font-bold text-[#E02E49] uppercase tracking-wide">Clue</span>
+            </button>
+          )}
+
           {onGoHome && (
             <button
               onClick={onGoHome}

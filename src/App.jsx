@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState, useRef } from 'react'
+import { Calendar, Mic, Maximize2 } from 'lucide-react'
 import AuraBackground from './components/AuraBackground'
 import Header from './components/Header'
 import Footer from './components/Footer'
@@ -6,6 +7,7 @@ import LandingPage from './components/LandingPage'
 import OnboardingForm from './components/OnboardingForm'
 import CycleTimeline from './components/CycleTimeline'
 import VoiceLogger from './components/VoiceLogger'
+import ClueDailyTracker from './components/ClueDailyTracker'
 import SymptomTimeline from './components/SymptomTimeline'
 import BiomarkerPanel from './components/BiomarkerPanel'
 import CorrelationDashboard from './components/CorrelationDashboard'
@@ -93,6 +95,13 @@ export default function App() {
 
   const [soapOpen, setSoapOpen] = useState(false)
   const [educationOpen, setEducationOpen] = useState(false)
+  const [dailyTrackerModalOpen, setDailyTrackerModalOpen] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return window.location.hash.includes('tracker=open')
+    }
+    return false
+  })
+  const [trackingTab, setTrackingTab] = useState('clue') // 'clue' | 'voice'
 
   // Track if initial load is done so we don't prematurely trigger save
   const isFirstRender = useRef(true)
@@ -355,6 +364,7 @@ export default function App() {
               cycleLength={patient.cycleLength}
               onOpenSoap={() => setSoapOpen(true)}
               onOpenEducation={() => setEducationOpen(true)}
+              onOpenDailyTracker={() => setDailyTrackerModalOpen(true)}
               isCustomized={isCustomized}
               onResetData={handleResetData}
               onGoHome={handleGoHome}
@@ -371,12 +381,69 @@ export default function App() {
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
                 <div className="lg:col-span-3 space-y-4">
                   <CycleTimeline day={day} cycleLength={patient.cycleLength} onDayChange={setDay} />
-                  <VoiceLogger
-                    day={day}
-                    cycleLength={patient.cycleLength}
-                    onAddSymptom={handleAddSymptom}
-                    activeLifeStageId={activeLifeStageId}
-                  />
+
+                  {/* Dual Mode Tracker Switcher (Clue Calendar Tracker vs Voice Logger) */}
+                  <div className="space-y-3">
+                    <div className="flex p-1 bg-white/70 backdrop-blur-md rounded-2xl border border-[#E8DFD8] shadow-xs">
+                      <button
+                        onClick={() => setTrackingTab('clue')}
+                        className={`flex-1 py-1.5 px-3 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
+                          trackingTab === 'clue'
+                            ? 'bg-[#161618] text-white shadow-xs'
+                            : 'text-[#6A3D55] hover:text-[#D96B85]'
+                        }`}
+                      >
+                        <Calendar size={13} className={trackingTab === 'clue' ? 'text-[#4DEEEA]' : 'text-[#D96B85]'} />
+                        <span>Clue Calendar</span>
+                      </button>
+                      <button
+                        onClick={() => setTrackingTab('voice')}
+                        className={`flex-1 py-1.5 px-3 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
+                          trackingTab === 'voice'
+                            ? 'bg-[#161618] text-white shadow-xs'
+                            : 'text-[#6A3D55] hover:text-[#D96B85]'
+                        }`}
+                      >
+                        <Mic size={13} className={trackingTab === 'voice' ? 'text-[#4DEEEA]' : 'text-[#D96B85]'} />
+                        <span>Voice / NLP</span>
+                      </button>
+                    </div>
+
+                    {trackingTab === 'clue' ? (
+                      <div className="space-y-1.5">
+                        <div className="flex items-center justify-between px-1">
+                          <span className="text-[11px] font-bold text-[#6A3D55] uppercase tracking-wide">
+                            Daily Clue Tracker
+                          </span>
+                          <button
+                            type="button"
+                            onClick={() => setDailyTrackerModalOpen(true)}
+                            className="text-[11px] font-bold text-[#007A87] hover:text-[#005e68] flex items-center gap-1 cursor-pointer transition-colors"
+                            title="Expand Full Modal View"
+                          >
+                            <span>Full View</span>
+                            <Maximize2 size={11} />
+                          </button>
+                        </div>
+                        <ClueDailyTracker
+                          isModal={false}
+                          day={day}
+                          cycleLength={patient.cycleLength}
+                          onDayChange={setDay}
+                          onAddSymptom={handleAddSymptom}
+                          activeLifeStageId={activeLifeStageId}
+                        />
+                      </div>
+                    ) : (
+                      <VoiceLogger
+                        day={day}
+                        cycleLength={patient.cycleLength}
+                        onAddSymptom={handleAddSymptom}
+                        activeLifeStageId={activeLifeStageId}
+                      />
+                    )}
+                  </div>
+
                   <SymptomTimeline symptomLog={symptomLog} />
                 </div>
 
@@ -437,6 +504,16 @@ export default function App() {
         onClose={() => setLifeStageModalOpen(false)}
         activeLifeStageId={activeLifeStageId}
         onSelectLifeStage={handleSelectLifeStage}
+      />
+      <ClueDailyTracker
+        open={dailyTrackerModalOpen}
+        onClose={() => setDailyTrackerModalOpen(false)}
+        isModal={true}
+        day={day}
+        cycleLength={patient.cycleLength}
+        onDayChange={setDay}
+        onAddSymptom={handleAddSymptom}
+        activeLifeStageId={activeLifeStageId}
       />
     </>
   )
