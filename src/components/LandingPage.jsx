@@ -51,6 +51,7 @@ import ExplainableRiskModal from './ExplainableRiskModal'
 import PrivacyModal from './PrivacyModal'
 import LifeStageModal from './LifeStageModal'
 import heroBannerImg from '../assets/hero-banner.png'
+import girlDeskImg from '../assets/girl-desk.jpg'
 
 function RevealBlock({ children, className = '', delayMs = 0 }) {
   const [ref, visible] = useReveal()
@@ -312,7 +313,7 @@ export default function LandingPage({
       {/* 1. TOP NAVIGATION BAR (matching user reference image)              */}
       {/* ------------------------------------------------------------------ */}
       <header className="sticky top-0 z-40 bg-[#F8F0E8]/90 backdrop-blur-md border-b border-[#E8EFE3] shadow-[0_2px_12px_-2px_rgba(106,61,85,0.06)]">
-        <div className="max-w-6xl mx-auto px-6 py-3.5 flex items-center justify-between gap-4">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-2.5 sm:py-3 flex items-center justify-between gap-4">
           {/* Brand Logo & Slogan */}
           <div
             className="flex items-center gap-3 cursor-pointer group"
@@ -461,11 +462,10 @@ export default function LandingPage({
       {/* ------------------------------------------------------------------ */}
       {/* 2. HERO SECTION                                                    */}
       {/* ------------------------------------------------------------------ */}
-      {/* ------------------------------------------------------------------ */}
       {/* 2. HERO SECTION (Exact User Provided Banner with Workable Hotspots) */}
       {/* ------------------------------------------------------------------ */}
-      <section className="relative pt-4 sm:pt-6 pb-8 sm:pb-12 max-w-6xl mx-auto px-4 sm:px-6">
-        <div className="relative w-full rounded-2xl sm:rounded-3xl overflow-hidden shadow-[0_12px_40px_-8px_rgba(106,61,85,0.08)] border border-white/80 bg-[#FAF5EF] group">
+      <section className="relative pt-2 sm:pt-3 pb-3 sm:pb-4 max-w-7xl mx-auto px-4 sm:px-6">
+        <div className="relative w-full rounded-2xl sm:rounded-3xl overflow-hidden shadow-[0_8px_30px_-6px_rgba(106,61,85,0.08)] border border-white/80 bg-[#FAF5EF] group">
           {/* Exact Banner Image provided by user — completely unaltered */}
           <img
             src={heroBannerImg}
@@ -589,11 +589,122 @@ export default function LandingPage({
       </section>
 
       {/* ------------------------------------------------------------------ */}
-      {/* 3. "AFTER THAT ADD THAT GRAPH" (Live Interactive Graph Section)     */}
+      {/* 3. FOUR FEATURE CARDS (Directly under Hero banner as in user mockup) */}
       {/* ------------------------------------------------------------------ */}
-      <section id="interactive-graph" className="py-12 max-w-6xl mx-auto px-6 scroll-mt-20">
-        <RevealBlock>
-          <div className="ios-glass-card rounded-3xl p-6 sm:p-8 space-y-6">
+      <section id="feature-cards" className="pt-1 pb-4 sm:pb-5 max-w-7xl mx-auto px-4 sm:px-6 scroll-mt-20">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+          {/* Card 1: Track Your Cycle (Blush Frost) */}
+          <div
+            onClick={() => scrollTo('interactive-graph')}
+            className="frost-card-blush group cursor-pointer rounded-2xl sm:rounded-3xl p-4 sm:p-5 shadow-xs hover:shadow-lg transition-all duration-300 relative overflow-hidden flex flex-col justify-between min-h-[140px] sm:min-h-[155px]"
+          >
+            <div>
+              <div className="h-10 w-10 rounded-xl bg-white/80 backdrop-blur-md border border-white/90 flex items-center justify-center text-[#D96B85] mb-2.5 shadow-2xs group-hover:scale-105 transition-transform">
+                <div className="relative">
+                  <Calendar size={18} />
+                  <Droplet size={9} className="absolute -bottom-1 -right-1 text-[#D96B85] fill-[#D96B85]" />
+                </div>
+              </div>
+              <h3 className="font-serif text-base sm:text-lg font-bold text-[#6A3D55] mb-1">Track Your Cycle</h3>
+              <p className="text-xs text-[#5E5259] leading-relaxed">
+                Log your periods, predict your next cycle, and stay in sync with your body.
+              </p>
+            </div>
+
+            <div className="mt-3 flex justify-end">
+              <span className="h-7 w-7 rounded-full bg-[#D96B85]/20 group-hover:bg-[#D96B85] text-[#D96B85] group-hover:text-white flex items-center justify-center transition-colors">
+                <ArrowRight size={13} />
+              </span>
+            </div>
+
+            <Flower2 size={56} className="absolute -bottom-3 -right-3 text-[#D96B85]/10 pointer-events-none" />
+          </div>
+
+          {/* Card 2: Understand Your Body (Sage Light Frost) */}
+          <div
+            onClick={() => {
+              if (onOpenEducation) onOpenEducation()
+              else setEducationModalOpen(true)
+            }}
+            className="frost-card-sage group cursor-pointer rounded-2xl sm:rounded-3xl p-4 sm:p-5 shadow-xs hover:shadow-lg transition-all duration-300 relative overflow-hidden flex flex-col justify-between min-h-[140px] sm:min-h-[155px]"
+          >
+            <div>
+              <div className="h-10 w-10 rounded-xl bg-white/80 backdrop-blur-md border border-white/90 flex items-center justify-center text-[#405A43] mb-2.5 shadow-2xs group-hover:scale-105 transition-transform">
+                <UserCheck size={18} />
+              </div>
+              <h3 className="font-serif text-base sm:text-lg font-bold text-[#405A43] mb-1">Understand Your Body</h3>
+              <p className="text-xs text-[#5E5259] leading-relaxed">
+                Get personalized insights about your health, hormones, and symptoms.
+              </p>
+            </div>
+
+            <div className="mt-3 flex justify-end">
+              <span className="h-7 w-7 rounded-full bg-[#405A43]/20 group-hover:bg-[#405A43] text-[#405A43] group-hover:text-white flex items-center justify-center transition-colors">
+                <ArrowRight size={13} />
+              </span>
+            </div>
+
+            <Activity size={56} className="absolute -bottom-3 -right-3 text-[#405A43]/10 pointer-events-none" />
+          </div>
+
+          {/* Card 3: Learn & Explore (Lavender Frost) */}
+          <div
+            onClick={() => {
+              if (onOpenEducation) onOpenEducation()
+              else setEducationModalOpen(true)
+            }}
+            className="frost-card-lavender group cursor-pointer rounded-2xl sm:rounded-3xl p-4 sm:p-5 shadow-xs hover:shadow-lg transition-all duration-300 relative overflow-hidden flex flex-col justify-between min-h-[140px] sm:min-h-[155px]"
+          >
+            <div>
+              <div className="h-10 w-10 rounded-xl bg-white/80 backdrop-blur-md border border-white/90 flex items-center justify-center text-[#6A3D55] mb-2.5 shadow-2xs group-hover:scale-105 transition-transform">
+                <BookOpen size={18} />
+              </div>
+              <h3 className="font-serif text-base sm:text-lg font-bold text-[#6A3D55] mb-1">Learn &amp; Explore</h3>
+              <p className="text-xs text-[#5E5259] leading-relaxed">
+                Access trusted articles, expert guides, and practical tips from healthcare professionals.
+              </p>
+            </div>
+
+            <div className="mt-3 flex justify-end">
+              <span className="h-7 w-7 rounded-full bg-[#6A3D55]/20 group-hover:bg-[#6A3D55] text-[#6A3D55] group-hover:text-white flex items-center justify-center transition-colors">
+                <ArrowRight size={13} />
+              </span>
+            </div>
+
+            <Sparkles size={56} className="absolute -bottom-3 -right-3 text-[#6A3D55]/10 pointer-events-none" />
+          </div>
+
+          {/* Card 4: Wellness Tools (Cream / Gold Frost) */}
+          <div
+            onClick={() => setWellnessModalOpen(true)}
+            className="frost-card-gold group cursor-pointer rounded-2xl sm:rounded-3xl p-4 sm:p-5 shadow-xs hover:shadow-lg transition-all duration-300 relative overflow-hidden flex flex-col justify-between min-h-[140px] sm:min-h-[155px]"
+          >
+            <div>
+              <div className="h-10 w-10 rounded-xl bg-white/80 backdrop-blur-md border border-white/90 flex items-center justify-center text-[#D9A84E] mb-2.5 shadow-2xs group-hover:scale-105 transition-transform">
+                <Flower2 size={18} />
+              </div>
+              <h3 className="font-serif text-base sm:text-lg font-bold text-[#405A43] mb-1">Wellness Tools</h3>
+              <p className="text-xs text-[#5E5259] leading-relaxed">
+                Mood tracker, symptom check-ins, reminders and more &mdash; for a healthier, happier you.
+              </p>
+            </div>
+
+            <div className="mt-3 flex justify-end">
+              <span className="h-7 w-7 rounded-full bg-[#D9A84E]/25 group-hover:bg-[#D9A84E] text-[#D9A84E] group-hover:text-white flex items-center justify-center transition-colors">
+                <ArrowRight size={13} />
+              </span>
+            </div>
+
+            <Sun size={56} className="absolute -bottom-3 -right-3 text-[#D9A84E]/10 pointer-events-none" />
+          </div>
+        </div>
+      </section>
+
+      {/* ------------------------------------------------------------------ */}
+      {/* 4. LIVE INTERACTIVE CYCLE GRAPH (Track Your Rhythm in Real Time)   */}
+      {/* ------------------------------------------------------------------ */}
+      <section id="interactive-graph" className="py-4 sm:py-5 max-w-7xl mx-auto px-4 sm:px-6 scroll-mt-20">
+        <div className="ios-glass-card rounded-2xl sm:rounded-3xl p-4 sm:p-6 space-y-4">
             {/* Graph Section Header */}
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-[#E8EFE3] pb-5">
               <div>
@@ -742,7 +853,7 @@ export default function LandingPage({
             </div>
 
             {/* Recharts Composed Chart */}
-            <div className="h-[300px] sm:h-[340px] w-full pt-2">
+            <div className="h-[220px] sm:h-[260px] w-full pt-1">
               <ResponsiveContainer width="100%" height="100%">
                 <ComposedChart data={chartData} margin={{ top: 6, right: 10, left: -10, bottom: 0 }}>
                   <CartesianGrid strokeDasharray="3 3" stroke="#E8DFD8" />
@@ -895,144 +1006,89 @@ export default function LandingPage({
               </div>
             </div>
           </div>
-        </RevealBlock>
-      </section>
+        </section>
 
       {/* ------------------------------------------------------------------ */}
-      {/* 4. FOUR PASTEL FEATURE CARDS (with Light Frost Blur)               */}
+      {/* 5. INSPIRATION BANNER & TRUST PILLARS (Matching Mockup)            */}
       {/* ------------------------------------------------------------------ */}
-      <section id="feature-cards" className="py-12 max-w-6xl mx-auto px-6 scroll-mt-20">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-          {/* Card 1: Track Your Cycle (Blush Frost) */}
-          <RevealBlock delayMs={0}>
-            <div
-              onClick={() => scrollTo('interactive-graph')}
-              className="frost-card-blush group cursor-pointer h-full rounded-3xl p-6 shadow-sm hover:shadow-xl transition-all duration-300 relative overflow-hidden flex flex-col justify-between"
-            >
-              <div>
-                <div className="h-12 w-12 rounded-2xl bg-white/80 backdrop-blur-md border border-white/90 flex items-center justify-center text-[#D96B85] mb-4 shadow-2xs group-hover:scale-105 transition-transform">
-                  <div className="relative">
-                    <Calendar size={22} />
-                    <Droplet size={11} className="absolute -bottom-1 -right-1 text-[#D96B85] fill-[#D96B85]" />
-                  </div>
-                </div>
-                <h3 className="font-serif text-xl font-bold text-[#6A3D55] mb-2">Track Your Cycle</h3>
-                <p className="text-xs text-[#5E5259] leading-relaxed">
-                  Log your periods, predict your next cycle, and stay in sync with your body.
-                </p>
-              </div>
+      <section className="py-4 sm:py-5 max-w-7xl mx-auto px-4 sm:px-6">
+        <div className="rounded-2xl sm:rounded-3xl bg-gradient-to-r from-[#F4EFE6] via-[#FAF7F2] to-[#EBF2E8] border border-white/80 p-4 sm:p-5 shadow-[0_8px_30px_-6px_rgba(106,61,85,0.06)] flex flex-col lg:flex-row items-center gap-5 overflow-hidden">
+          {/* Left Botanical Slogan */}
+          <div className="w-full lg:w-1/4 flex flex-col justify-center items-start pl-2">
+            <span className="font-serif italic text-2xl sm:text-3xl text-[#405A43] leading-snug">
+              Small steps<br />lead to big<br />changes &hearts;
+            </span>
+          </div>
 
-              <div className="mt-6 flex justify-end">
-                <span className="h-8 w-8 rounded-full bg-[#D96B85]/20 group-hover:bg-[#D96B85] text-[#D96B85] group-hover:text-white flex items-center justify-center transition-colors">
-                  <ArrowRight size={14} />
-                </span>
-              </div>
-
-              <Flower2 size={68} className="absolute -bottom-4 -right-4 text-[#D96B85]/10 pointer-events-none" />
+          {/* Center Cozy Desk Image */}
+          <div className="w-full lg:w-1/3 flex justify-center">
+            <div className="relative rounded-2xl overflow-hidden shadow-md border-2 border-white/90 max-h-[180px]">
+              <img
+                src={girlDeskImg}
+                alt="Aura Health companion at study desk"
+                className="w-full h-full object-cover select-none"
+              />
             </div>
-          </RevealBlock>
+          </div>
 
-          {/* Card 2: Understand Your Body (Sage Light Frost) */}
-          <RevealBlock delayMs={80}>
-            <div
-              onClick={() => {
-                if (onOpenEducation) onOpenEducation()
-                else setEducationModalOpen(true)
-              }}
-              className="frost-card-sage group cursor-pointer h-full rounded-3xl p-6 shadow-sm hover:shadow-xl transition-all duration-300 relative overflow-hidden flex flex-col justify-between"
-            >
-              <div>
-                <div className="h-12 w-12 rounded-2xl bg-white/80 backdrop-blur-md border border-white/90 flex items-center justify-center text-[#405A43] mb-4 shadow-2xs group-hover:scale-105 transition-transform">
-                  <UserCheck size={22} />
-                </div>
-                <h3 className="font-serif text-xl font-bold text-[#405A43] mb-2">Understand Your Body</h3>
-                <p className="text-xs text-[#5E5259] leading-relaxed">
-                  Get personalized insights about your health, hormones, and symptoms.
-                </p>
+          {/* Right Trust & Compassion Card */}
+          <div className="w-full lg:w-5/12 bg-white/75 backdrop-blur-md rounded-2xl p-4 border border-white/80 shadow-2xs space-y-3">
+            <div>
+              <div className="flex items-center gap-2 mb-1">
+                <span className="text-[#D96B85] text-sm">&hearts;</span>
+                <h4 className="font-serif text-base sm:text-lg font-bold text-[#6A3D55]">You&apos;re not alone</h4>
               </div>
-
-              <div className="mt-6 flex justify-end">
-                <span className="h-8 w-8 rounded-full bg-[#405A43]/20 group-hover:bg-[#405A43] text-[#405A43] group-hover:text-white flex items-center justify-center transition-colors">
-                  <ArrowRight size={14} />
-                </span>
-              </div>
-
-              <Activity size={68} className="absolute -bottom-4 -right-4 text-[#405A43]/10 pointer-events-none" />
+              <p className="text-xs text-[#5E5259] leading-relaxed">
+                Whether it&apos;s your period, your mood, your hormones or just a bad day &mdash; Aura Health is here for you.
+              </p>
             </div>
-          </RevealBlock>
 
-          {/* Card 3: Learn & Explore (Lavender Frost) */}
-          <RevealBlock delayMs={160}>
-            <div
-              onClick={() => {
-                if (onOpenEducation) onOpenEducation()
-                else setEducationModalOpen(true)
-              }}
-              className="frost-card-lavender group cursor-pointer h-full rounded-3xl p-6 shadow-sm hover:shadow-xl transition-all duration-300 relative overflow-hidden flex flex-col justify-between"
-            >
-              <div>
-                <div className="h-12 w-12 rounded-2xl bg-white/80 backdrop-blur-md border border-white/90 flex items-center justify-center text-[#6A3D55] mb-4 shadow-2xs group-hover:scale-105 transition-transform">
-                  <BookOpen size={22} />
-                </div>
-                <h3 className="font-serif text-xl font-bold text-[#6A3D55] mb-2">Learn &amp; Explore</h3>
-                <p className="text-xs text-[#5E5259] leading-relaxed">
-                  Access trusted articles, expert guides, and practical tips from healthcare professionals.
-                </p>
-              </div>
-
-              <div className="mt-6 flex justify-end">
-                <span className="h-8 w-8 rounded-full bg-[#6A3D55]/20 group-hover:bg-[#6A3D55] text-[#6A3D55] group-hover:text-white flex items-center justify-center transition-colors">
-                  <ArrowRight size={14} />
-                </span>
-              </div>
-
-              <Sparkles size={68} className="absolute -bottom-4 -right-4 text-[#6A3D55]/10 pointer-events-none" />
+            <div className="grid grid-cols-2 gap-2 pt-1 border-t border-[#E8DFD8]">
+              {TRUST_PILLARS.map((item) => {
+                const IconComponent = item.icon
+                return (
+                  <button
+                    key={item.id}
+                    onClick={() => setSelectedPillar(item)}
+                    className="flex items-center gap-1.5 text-[11px] font-semibold text-[#405A43] hover:text-[#D96B85] transition-colors text-left p-1 rounded-lg hover:bg-white/80 cursor-pointer"
+                  >
+                    <IconComponent size={13} style={{ color: item.color }} className="shrink-0" />
+                    <span className="truncate">{item.title}</span>
+                  </button>
+                )
+              })}
             </div>
-          </RevealBlock>
 
-          {/* Card 4: Wellness Tools (Cream / Gold Frost) */}
-          <RevealBlock delayMs={240}>
-            <div
-              onClick={() => setWellnessModalOpen(true)}
-              className="frost-card-gold group cursor-pointer h-full rounded-3xl p-6 shadow-sm hover:shadow-xl transition-all duration-300 relative overflow-hidden flex flex-col justify-between"
-            >
-              <div>
-                <div className="h-12 w-12 rounded-2xl bg-white/80 backdrop-blur-md border border-white/90 flex items-center justify-center text-[#D9A84E] mb-4 shadow-2xs group-hover:scale-105 transition-transform">
-                  <Flower2 size={22} />
-                </div>
-                <h3 className="font-serif text-xl font-bold text-[#405A43] mb-2">Wellness Tools</h3>
-                <p className="text-xs text-[#5E5259] leading-relaxed">
-                  Mood tracker, symptom check-ins, reminders and more &mdash; for a healthier, happier you.
-                </p>
-              </div>
-
-              <div className="mt-6 flex justify-end">
-                <span className="h-8 w-8 rounded-full bg-[#D9A84E]/25 group-hover:bg-[#D9A84E] text-[#D9A84E] group-hover:text-white flex items-center justify-center transition-colors">
-                  <ArrowRight size={14} />
-                </span>
-              </div>
-
-              <Sun size={68} className="absolute -bottom-4 -right-4 text-[#D9A84E]/10 pointer-events-none" />
+            <div className="pt-1 flex items-center justify-between">
+              <button
+                onClick={() => setAboutModalOpen(true)}
+                className="inline-flex items-center gap-1.5 text-xs font-semibold bg-[#FCE7E8] hover:bg-[#f6d0d2] text-[#D96B85] rounded-full px-3.5 py-1.5 transition-colors cursor-pointer"
+              >
+                Learn More <ArrowRight size={12} />
+              </button>
+              <span className="font-serif italic text-xs text-[#6A3D55]/60">Real care &middot; Real women</span>
             </div>
-          </RevealBlock>
+          </div>
         </div>
       </section>
 
       {/* ------------------------------------------------------------------ */}
-      {/* FOOTER                                                             */}
+      {/* 6. FOOTER                                                          */}
       {/* ------------------------------------------------------------------ */}
-      <footer className="border-t border-[#E8DFD8] py-6 bg-[#F8F0E8]/85 text-center text-[11px] text-[#8C8087]">
-        <div className="max-w-4xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
+      <footer className="border-t border-[#E8DFD8] py-4 bg-[#F8F0E8]/85 text-center text-[11px] text-[#8C8087]">
+        <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2">
           <p>
             <span className="font-semibold text-[#405A43]">Aura Health Clinical Decision Support System.</span>{' '}
             Grounded in ACOG &amp; Rotterdam Consensus criteria.
           </p>
           <div className="flex items-center gap-4 text-[#5E5259]">
-            <button onClick={onViewDemo} className="hover:text-[#D96B85] transition-colors">Case Studies</button>
+            <span className="font-serif italic text-xs text-[#D96B85]">Health &hearts; Confidence &hearts; You</span>
             <span>&middot;</span>
-            <button onClick={onGetStarted} className="hover:text-[#D96B85] transition-colors">Get Started</button>
+            <button onClick={onViewDemo} className="hover:text-[#D96B85] transition-colors cursor-pointer">Case Studies</button>
             <span>&middot;</span>
-            <button onClick={() => setAboutModalOpen(true)} className="hover:text-[#D96B85] transition-colors">About Us</button>
+            <button onClick={onGetStarted} className="hover:text-[#D96B85] transition-colors cursor-pointer">Get Started</button>
+            <span>&middot;</span>
+            <button onClick={() => setAboutModalOpen(true)} className="hover:text-[#D96B85] transition-colors cursor-pointer">About Us</button>
           </div>
         </div>
       </footer>

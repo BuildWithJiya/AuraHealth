@@ -5,9 +5,9 @@ import { useEffect, useRef, useState } from 'react'
  * view, for a one-time gentle fade/slide-up reveal (see `.reveal` /
  * `.reveal-visible` in index.css).
  */
-export function useReveal(threshold = 0.15) {
+export function useReveal(threshold = 0.05) {
   const ref = useRef(null)
-  const [visible, setVisible] = useState(false)
+  const [visible, setVisible] = useState(true)
 
   useEffect(() => {
     const el = ref.current
