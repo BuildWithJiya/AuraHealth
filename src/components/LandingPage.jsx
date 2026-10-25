@@ -1074,6 +1074,22 @@ export default function LandingPage({
               </div>
             </div>
           </div>
+
+          {/* Crisp, Non-Blur Vector "Health ♡ Confidence ♡ You" between the two horizontal lines */}
+          <div
+            className="absolute z-10 inset-x-0 bottom-0 flex items-center justify-center pointer-events-none select-none"
+            style={{
+              height: '16.6%',
+            }}
+          >
+            <div className="flex items-center gap-1.5 sm:gap-2.5 text-[clamp(9px,1vw,13px)] font-serif italic text-[#405A43] tracking-widest font-semibold drop-shadow-2xs">
+              <span>Health</span>
+              <span className="text-[#D96B85] text-[10px] sm:text-xs not-italic font-sans">♡</span>
+              <span>Confidence</span>
+              <span className="text-[#D96B85] text-[10px] sm:text-xs not-italic font-sans">♡</span>
+              <span>You</span>
+            </div>
+          </div>
         </div>
       </section>
 
